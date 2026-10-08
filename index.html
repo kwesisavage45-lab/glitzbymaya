@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glitz by Maya | Luxury Lip Glaze, Pink Balms & Body Shimmer</title>
+    <meta name="description" content="Glitz by Maya (Maya's Collection): non-sticky lip glazes, pink lip balms, lip scrubs and body shimmer. Pay securely with Paystack. Delivery across Ghana.">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- PDF export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Paystack Inline Checkout -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
     <!-- Firebase Authentication + Firestore -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -493,6 +496,7 @@
                 </a>
                 <a href="#about" data-route="about" class="route-link hover:text-glitz-magenta transition-colors">About</a>
                 <a href="#contact" data-route="contact" class="route-link hover:text-glitz-magenta transition-colors">Contact</a>
+                <a href="#faq" data-route="faq" class="route-link hover:text-glitz-magenta transition-colors">FAQ</a>
                 <a href="#profile" data-route="profile" class="route-link hover:text-glitz-magenta transition-colors flex items-center gap-1.5">
                     <i data-lucide="user-round" class="w-3.5 h-3.5"></i> Profile
                 </a>
@@ -539,6 +543,10 @@
             <a href="#home" data-route="home" onclick="toggleMobileMenu(); setTimeout(() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' }), 120)" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Reviews</a>
             <a href="#about" data-route="about" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">About</a>
             <a href="#contact" data-route="contact" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Contact</a>
+            <a href="#faq" data-route="faq" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">FAQ</a>
+            <a href="#delivery" data-route="delivery" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Delivery &amp; Returns</a>
+            <a href="#terms" data-route="terms" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Terms of Service</a>
+            <a href="#privacy" data-route="privacy" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Privacy Policy</a>
             <a href="#profile" data-route="profile" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Profile</a>
             <a href="#admin" data-route="admin" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Admin Dashboard</a>
             <button id="mobileAccountBtn" type="button" onclick="openAuthModal('login'); toggleMobileMenu()" class="flex items-center gap-2 font-semibold text-gray-800 hover:text-glitz-magenta"><i data-lucide="user-round" class="w-4 h-4"></i><span>Sign in / Sign up</span></button>
@@ -576,9 +584,9 @@
         <!-- Full-bleed four-image disappearing hero background -->
         <div class="hero-reel hero-background" aria-label="Rotating Glitz by Maya beauty imagery">
             <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=1600&q=85" alt="Glossy pink lip glaze" loading="eager">
-            <img src="https://images.unsplash.com/photo-1625093742435-6fa192b6fb10?auto=format&fit=crop&w=1600&q=85" alt="Pink beauty balm" loading="lazy">
-            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1600&q=85" alt="Golden body shimmer" loading="lazy">
-            <img src="https://images.unsplash.com/photo-1608248597260-236f01831818?auto=format&fit=crop&w=1600&q=85" alt="Luxury beauty care product" loading="lazy">
+            <img src="https://img.freepik.com/premium-photo/woman-model-with-red-lipstick-infornt-her-lips_1142458-1426.jpg" alt="Pink beauty balm" loading="lazy">
+            <img src="https://www.schemecolor.com/images/image-palette/purple-lipstick.jpg" alt="Golden body shimmer" loading="lazy">
+            <img src="https://cdn.shortpixel.ai/spai/q_glossy+ret_img+to_auto/whattowearhub.com/wp-content/uploads/2025/02/10_Red-Lipstick-for-a-Bold-Statement2.jpg" alt="Luxury beauty care product" loading="lazy">
         </div>
         <!-- Floating Ambient Background Circles -->
         <div class="absolute top-12 left-10 w-72 h-72 bg-glitz-softblush rounded-full filter blur-3xl opacity-70 animate-pulse"></div>
@@ -729,25 +737,25 @@
                 <span class="text-xs uppercase tracking-widest text-gray-400 font-bold">Tag @GlitzByMaya To Be Featured</span>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
                     <div class="relative group rounded-2xl overflow-hidden aspect-square bg-gray-100 shadow-sm">
-                        <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://ashleybrooke.com/wp-content/uploads/2021/04/Pink-Lipstick-1440x2117.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         <div class="absolute inset-0 bg-glitz-magenta/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
                             <i data-lucide="instagram" class="w-8 h-8"></i>
                         </div>
                     </div>
                     <div class="relative group rounded-2xl overflow-hidden aspect-square bg-gray-100 shadow-sm">
-                        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://res.cloudinary.com/fashionasalifestyle/image/upload/f_auto/v1526584821/lipstick%20with%20a%20red%20dress.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         <div class="absolute inset-0 bg-glitz-magenta/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
                             <i data-lucide="instagram" class="w-8 h-8"></i>
                         </div>
                     </div>
                     <div class="relative group rounded-2xl overflow-hidden aspect-square bg-gray-100 shadow-sm">
-                        <img src="https://images.unsplash.com/photo-1625093742435-6fa192b6fb10?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://i.etsystatic.com/7172908/r/il/e30c7a/7379540777/il_1080xN.7379540777_plur.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         <div class="absolute inset-0 bg-glitz-magenta/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
                             <i data-lucide="instagram" class="w-8 h-8"></i>
                         </div>
                     </div>
                     <div class="relative group rounded-2xl overflow-hidden aspect-square bg-gray-100 shadow-sm">
-                        <img src="https://images.unsplash.com/photo-1608248597260-236f01831818?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://eadn-wc03-9258777.nxedge.io/wp-content/uploads/2023/02/Katrina-Kaif-Unveils-Kay-Beautys-First-Kiss-Proof-Matte-Liquid-Lipsticks.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         <div class="absolute inset-0 bg-glitz-magenta/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
                             <i data-lucide="instagram" class="w-8 h-8"></i>
                         </div>
@@ -919,7 +927,7 @@
             </div>
             <div class="grid lg:grid-cols-[.8fr_1.2fr] gap-8 items-start">
                 <div class="glass-magenta rounded-[2rem] p-8 space-y-6">
-                    <div><i data-lucide="mail" class="w-7 h-7 text-glitz-magenta"></i><h3 class="font-serif font-bold text-xl mt-4">Customer care</h3><p class="text-sm text-gray-600 mt-2">hello@glitzbymaya.com</p></div>
+                    <div><i data-lucide="mail" class="w-7 h-7 text-glitz-magenta"></i><h3 class="font-serif font-bold text-xl mt-4">Customer care</h3><p class="text-sm text-gray-600 mt-2"><a href="mailto:hello@glitzbymaya.com" class="hover:text-glitz-magenta">hello@glitzbymaya.com</a><br>Phone / WhatsApp: <a href="https://wa.me/233548857714" target="_blank" rel="noopener noreferrer" class="hover:text-glitz-magenta">+233 54 885 7714</a><br>Based in Ghana &middot; Delivering nationwide<br><span class="text-xs text-gray-400">Glitz by Maya &middot; trading as Maya's Collection</span></p></div>
                     <div><i data-lucide="clock-3" class="w-7 h-7 text-glitz-magenta"></i><h3 class="font-serif font-bold text-xl mt-4">Response time</h3><p class="text-sm text-gray-600 mt-2">Available 24/7<br>We are always here to help.</p></div>
                     <div><i data-lucide="message-circle-heart" class="w-7 h-7 text-glitz-magenta"></i><h3 class="font-serif font-bold text-xl mt-4">Shade help</h3><p class="text-sm text-gray-600 mt-2">Tell us what you love wearing and we’ll help you find your next favorite.</p></div>
                     <div class="pt-5 border-t border-glitz-pink/20">
@@ -943,11 +951,150 @@
                         <label class="text-xs font-bold text-gray-600">Name<input name="name" required class="mt-2 w-full px-4 py-3 rounded-xl bg-glitz-blush border border-glitz-softblush focus:outline-none focus:border-glitz-magenta" placeholder="Your name"></label>
                         <label class="text-xs font-bold text-gray-600">Email<input type="email" name="email" required class="mt-2 w-full px-4 py-3 rounded-xl bg-glitz-blush border border-glitz-softblush focus:outline-none focus:border-glitz-magenta" placeholder="you@example.com"></label>
                     </div>
-                    <label class="text-xs font-bold text-gray-600 block">How can we help?<select name="topic" class="mt-2 w-full px-4 py-3 rounded-xl bg-glitz-blush border border-glitz-softblush focus:outline-none focus:border-glitz-magenta"><option>Product recommendation</option><option>Order support</option><option>Wholesale & partnerships</option><option>Press & collaborations</option></select></label>
+                    <label class="text-xs font-bold text-gray-600 block">How can we help?<select name="topic" class="mt-2 w-full px-4 py-3 rounded-xl bg-glitz-blush border border-glitz-softblush focus:outline-none focus:border-glitz-magenta"><option>Product recommendation</option><option>Order support</option><option>Delivery &amp; returns</option><option>Wholesale & partnerships</option><option>Press & collaborations</option></select></label>
                     <label class="text-xs font-bold text-gray-600 block">Message<textarea name="message" required rows="5" class="mt-2 w-full px-4 py-3 rounded-xl bg-glitz-blush border border-glitz-softblush focus:outline-none focus:border-glitz-magenta" placeholder="Tell us what you need..."></textarea></label>
                     <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-glitz-magenta to-glitz-deepmagenta text-white font-bold hover:shadow-glow-pink transition-all flex items-center justify-center gap-2">Send message <i data-lucide="send" class="w-4 h-4"></i></button>
                 </form>
             </div>
+        </div>
+    </section>
+    </div>
+
+    <div id="page-faq" class="page-view">
+    <section class="py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto">
+            <span class="text-xs uppercase tracking-[0.25em] font-bold text-glitz-magenta">Help centre</span>
+            <h2 class="text-4xl sm:text-5xl font-serif font-bold text-glitz-dark mt-3">Frequently asked <span class="shimmer-text italic font-normal">questions</span></h2>
+            <p class="text-gray-600 mt-4 leading-relaxed">Quick answers about ordering, payment, delivery and returns.</p>
+            <div class="space-y-3 mt-10">
+                <details class="group rounded-2xl border border-glitz-softblush bg-white px-5 py-4">
+                    <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-bold text-sm text-glitz-dark">What is Glitz by Maya?<i data-lucide="chevron-down" class="w-4 h-4 text-glitz-magenta shrink-0 transition-transform group-open:rotate-180"></i></summary>
+                    <p class="text-sm text-gray-600 leading-relaxed mt-3">Glitz by Maya (trading as Maya's Collection) is a Ghana-based beauty brand selling lip glazes, lip balms, lip scrubs, lip liners and body shimmer.</p>
+                </details>
+                <details class="group rounded-2xl border border-glitz-softblush bg-white px-5 py-4">
+                    <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-bold text-sm text-glitz-dark">How do I place an order?<i data-lucide="chevron-down" class="w-4 h-4 text-glitz-magenta shrink-0 transition-transform group-open:rotate-180"></i></summary>
+                    <p class="text-sm text-gray-600 leading-relaxed mt-3">Browse the Collection page, add items to your Glitz Bag, choose Pickup or Delivery, enter your details and pay securely with Paystack. You need a free account to check out so you can track your order.</p>
+                </details>
+                <details class="group rounded-2xl border border-glitz-softblush bg-white px-5 py-4">
+                    <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-bold text-sm text-glitz-dark">Which payment methods do you accept?<i data-lucide="chevron-down" class="w-4 h-4 text-glitz-magenta shrink-0 transition-transform group-open:rotate-180"></i></summary>
+                    <p class="text-sm text-gray-600 leading-relaxed mt-3">Payments are processed by Paystack. You can pay with Mobile Money, debit/credit card or bank options available on Paystack in Ghana. All prices are in Ghana Cedis (GHS). We never see or store your card or Mobile Money PIN details.</p>
+                </details>
+                <details class="group rounded-2xl border border-glitz-softblush bg-white px-5 py-4">
+                    <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-bold text-sm text-glitz-dark">Is my payment information safe?<i data-lucide="chevron-down" class="w-4 h-4 text-glitz-magenta shrink-0 transition-transform group-open:rotate-180"></i></summary>
+                    <p class="text-sm text-gray-600 leading-relaxed mt-3">Yes. Checkout happens inside Paystack's secure, PCI-DSS compliant payment window. Glitz by Maya does not store your card details.</p>
+                </details>
+                <details class="group rounded-2xl border border-glitz-softblush bg-white px-5 py-4">
+                    <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-bold text-sm text-glitz-dark">How long does delivery take?<i data-lucide="chevron-down" class="w-4 h-4 text-glitz-magenta shrink-0 transition-transform group-open:rotate-180"></i></summary>
+                    <p class="text-sm text-gray-600 leading-relaxed mt-3">Orders within Accra are usually delivered within 1–3 working days. Orders to other regions typically take 3–7 working days. See our <a href="#delivery" data-route="delivery" class="text-glitz-magenta font-bold">Delivery &amp; Returns</a> page for full details.</p>
+                </details>
+                <details class="group rounded-2xl border border-glitz-softblush bg-white px-5 py-4">
+                    <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-bold text-sm text-glitz-dark">How much does delivery cost?<i data-lucide="chevron-down" class="w-4 h-4 text-glitz-magenta shrink-0 transition-transform group-open:rotate-180"></i></summary>
+                    <p class="text-sm text-gray-600 leading-relaxed mt-3">The delivery fee depends on your location and is arranged with the delivery rider/driver. We confirm it with you before dispatch. Pickup is free.</p>
+                </details>
+                <details class="group rounded-2xl border border-glitz-softblush bg-white px-5 py-4">
+                    <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-bold text-sm text-glitz-dark">Can I pick up my order?<i data-lucide="chevron-down" class="w-4 h-4 text-glitz-magenta shrink-0 transition-transform group-open:rotate-180"></i></summary>
+                    <p class="text-sm text-gray-600 leading-relaxed mt-3">Yes. Choose Pickup at checkout and our team will contact you on the phone number you provide to arrange a pickup time and place.</p>
+                </details>
+                <details class="group rounded-2xl border border-glitz-softblush bg-white px-5 py-4">
+                    <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-bold text-sm text-glitz-dark">How can I track my order?<i data-lucide="chevron-down" class="w-4 h-4 text-glitz-magenta shrink-0 transition-transform group-open:rotate-180"></i></summary>
+                    <p class="text-sm text-gray-600 leading-relaxed mt-3">Sign in and open your Profile page to see your orders and their status (Processing, Shipped, Delivered). You can also message us on WhatsApp with your order number.</p>
+                </details>
+                <details class="group rounded-2xl border border-glitz-softblush bg-white px-5 py-4">
+                    <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-bold text-sm text-glitz-dark">Can I return or exchange a product?<i data-lucide="chevron-down" class="w-4 h-4 text-glitz-magenta shrink-0 transition-transform group-open:rotate-180"></i></summary>
+                    <p class="text-sm text-gray-600 leading-relaxed mt-3">Because lip and body products are personal-care items, we can only accept returns of unopened, unused items, or items that arrive damaged or incorrect. Please contact us within 48 hours of delivery. Full policy on the <a href="#delivery" data-route="delivery" class="text-glitz-magenta font-bold">Delivery &amp; Returns</a> page.</p>
+                </details>
+                <details class="group rounded-2xl border border-glitz-softblush bg-white px-5 py-4">
+                    <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-bold text-sm text-glitz-dark">What if I receive a damaged or wrong item?<i data-lucide="chevron-down" class="w-4 h-4 text-glitz-magenta shrink-0 transition-transform group-open:rotate-180"></i></summary>
+                    <p class="text-sm text-gray-600 leading-relaxed mt-3">Send us a photo and your order number within 48 hours of delivery and we will replace the item or refund you.</p>
+                </details>
+                <details class="group rounded-2xl border border-glitz-softblush bg-white px-5 py-4">
+                    <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-bold text-sm text-glitz-dark">Are your products cruelty-free?<i data-lucide="chevron-down" class="w-4 h-4 text-glitz-magenta shrink-0 transition-transform group-open:rotate-180"></i></summary>
+                    <p class="text-sm text-gray-600 leading-relaxed mt-3">Yes. Glitz by Maya products are cruelty-free. If you have sensitive skin or allergies, please check the ingredient information and do a patch test before first use.</p>
+                </details>
+                <details class="group rounded-2xl border border-glitz-softblush bg-white px-5 py-4">
+                    <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-bold text-sm text-glitz-dark">How do I leave feedback or a review?<i data-lucide="chevron-down" class="w-4 h-4 text-glitz-magenta shrink-0 transition-transform group-open:rotate-180"></i></summary>
+                    <p class="text-sm text-gray-600 leading-relaxed mt-3">Go to the Reviews section on the <a href="#home" data-route="home" class="text-glitz-magenta font-bold">Home page</a> and use the Leave a Review form. We love hearing from you.</p>
+                </details>
+                <details class="group rounded-2xl border border-glitz-softblush bg-white px-5 py-4">
+                    <summary class="cursor-pointer list-none flex items-center justify-between gap-4 font-bold text-sm text-glitz-dark">How do I contact you?<i data-lucide="chevron-down" class="w-4 h-4 text-glitz-magenta shrink-0 transition-transform group-open:rotate-180"></i></summary>
+                    <p class="text-sm text-gray-600 leading-relaxed mt-3">Use the <a href="#contact" data-route="contact" class="text-glitz-magenta font-bold">Contact page</a>, email hello@glitzbymaya.com, or WhatsApp +233 54 885 7714.</p>
+                </details>
+            </div>
+            <div class="glass-magenta rounded-[2rem] p-6 mt-10 text-center">
+                <p class="font-serif font-bold text-lg text-glitz-dark">Still need help?</p>
+                <p class="text-sm text-gray-600 mt-1">Maya's team is happy to help.</p>
+                <a href="#contact" data-route="contact" class="inline-flex mt-4 px-6 py-3 rounded-full bg-glitz-magenta text-white text-xs font-bold hover:bg-glitz-deepmagenta transition-colors">Contact us</a>
+            </div>
+        </div>
+    </section>
+    </div>
+    <div id="page-terms" class="page-view">
+    <section class="py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto">
+            <span class="text-xs uppercase tracking-[0.25em] font-bold text-glitz-magenta">Legal</span>
+            <h2 class="text-4xl sm:text-5xl font-serif font-bold text-glitz-dark mt-3 leading-tight">Terms of <span class="shimmer-text italic font-normal">Service</span></h2>
+            <p class="text-gray-600 mt-4 leading-relaxed">Please read these terms carefully before using our website or placing an order.</p>
+            <div class="glass-card rounded-[2rem] p-6 sm:p-10 mt-10 space-y-8 legal-copy">
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">1. About these terms</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">These Terms of Service govern your use of the Glitz by Maya website (trading as Maya's Collection) and any purchase you make through it. By browsing the site, creating an account or placing an order you agree to these terms. Last updated: October 8, 2026.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">2. Who we are</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">Glitz by Maya is an online beauty business operating in Ghana. Contact: hello@glitzbymaya.com, WhatsApp +233 54 885 7714.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">3. Accounts</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">You must provide accurate information when creating an account and keep your password confidential. You are responsible for activity under your account. We may suspend accounts that are used fraudulently or abusively.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">4. Products and pricing</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">We make every effort to display products, colours and prices accurately. Colours may vary slightly depending on your screen. All prices are in Ghana Cedis (GHS). We may correct pricing errors and cancel affected orders, with a full refund of any amount paid. Products are offered while stocks last.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">5. Orders and payment</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">When you place an order you are making an offer to buy. An order is confirmed once payment is successfully received through Paystack. Payments are processed by Paystack Payments Ghana Limited; we do not store your card or Mobile Money details. If a payment fails, no order is created.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">6. Delivery and pickup</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">Delivery and pickup are described on our <a href="#delivery" data-route="delivery" class="text-glitz-magenta font-bold">Delivery &amp; Returns</a> page, which forms part of these terms. Delivery fees are confirmed with you before dispatch.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">7. Returns and refunds</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">Returns, exchanges and refunds are handled as set out on our <a href="#delivery" data-route="delivery" class="text-glitz-magenta font-bold">Delivery &amp; Returns</a> page.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">8. Product use and safety</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">Our products are cosmetics for external use. Check ingredients before use, patch test if you have sensitive skin, and stop using a product and seek advice if irritation occurs. Keep out of reach of young children.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">9. Reviews and user content</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">By submitting a review or message you confirm it is truthful and your own, and you grant us permission to display it on our website and social media. We may remove content that is offensive, misleading or unlawful.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">10. Intellectual property</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">All content on this site, including the Glitz by Maya name, logo, text, graphics and product images, belongs to us or our licensors and may not be copied or reused without written permission.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">11. Limitation of liability</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">To the extent allowed by law, we are not liable for indirect or consequential loss arising from use of the site or products. Nothing in these terms limits your statutory consumer rights.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">12. Changes to these terms</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">We may update these terms from time to time. The date above shows when they were last changed. Continued use of the site means you accept the updated terms.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">13. Governing law</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">These terms are governed by the laws of the Republic of Ghana.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">14. Contact</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">Questions about these terms? Email hello@glitzbymaya.com.</p></div>
+            </div>
+            <p class="text-xs text-gray-400 mt-6 text-center">Questions? Email <a href="mailto:hello@glitzbymaya.com" class="text-glitz-magenta font-bold">hello@glitzbymaya.com</a> or message us on <a href="https://wa.me/233548857714" target="_blank" rel="noopener noreferrer" class="text-glitz-magenta font-bold">WhatsApp</a>.</p>
+        </div>
+    </section>
+    </div>
+    <div id="page-privacy" class="page-view">
+    <section class="py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto">
+            <span class="text-xs uppercase tracking-[0.25em] font-bold text-glitz-magenta">Legal</span>
+            <h2 class="text-4xl sm:text-5xl font-serif font-bold text-glitz-dark mt-3 leading-tight">Privacy <span class="shimmer-text italic font-normal">Policy</span></h2>
+            <p class="text-gray-600 mt-4 leading-relaxed">How Glitz by Maya collects, uses and protects your personal information.</p>
+            <div class="glass-card rounded-[2rem] p-6 sm:p-10 mt-10 space-y-8 legal-copy">
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">1. Introduction</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">Glitz by Maya (trading as Maya's Collection) respects your privacy. This policy explains what personal information we collect, how we use it and your rights. Last updated: October 8, 2026.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">2. Information we collect</h3><ul class="list-disc pl-5 mt-2 space-y-1.5 text-sm text-gray-600 leading-relaxed"><li><strong>Account details:</strong> name and email address (and password, which is handled securely by Google Firebase Authentication).</li><li><strong>Order details:</strong> items purchased, delivery or pickup choice, your name, phone number and delivery location.</li><li><strong>Payment information:</strong> payments are processed by Paystack. We receive only a payment reference and status, never your full card or Mobile Money details.</li><li><strong>Messages and reviews:</strong> anything you send through our contact form, VIP list sign-up or review form.</li><li><strong>Technical data:</strong> basic device and browser information and preferences stored in your browser (such as theme and bag contents).</li></ul></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">3. How we use your information</h3><ul class="list-disc pl-5 mt-2 space-y-1.5 text-sm text-gray-600 leading-relaxed"><li>To process and deliver your orders and send order updates.</li><li>To manage your account and your saved favourites.</li><li>To respond to your enquiries and provide customer support.</li><li>To send marketing emails if you joined the VIP list (you can opt out at any time).</li><li>To prevent fraud and keep our website secure.</li></ul></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">4. Who we share information with</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">We do not sell your personal information. We share it only with service providers that help us run the business: Paystack (payment processing), Google Firebase (authentication and database hosting), and delivery riders/drivers (your name, phone number and delivery location, only to complete your delivery). We may also disclose information where required by law.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">5. Data retention</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">We keep order records for as long as needed for accounting and legal obligations, and account data until you ask us to delete it.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">6. Your rights</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">Under Ghana's Data Protection Act, 2012 (Act 843) you may ask to access, correct or delete your personal data, or withdraw your marketing consent. Email hello@glitzbymaya.com and we will respond promptly.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">7. Security</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">We use trusted providers and industry-standard safeguards such as encrypted connections (HTTPS). No online service is completely risk-free, so please use a strong, unique password.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">8. Cookies and local storage</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">We use your browser's local storage to remember things like your shopping bag, saved theme and sign-in session. Paystack may use cookies on its own payment window.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">9. Children</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">Our website is not directed at children under 13 and we do not knowingly collect their personal data.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">10. Changes to this policy</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">We may update this policy from time to time. The date above shows the latest version.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">11. Contact us</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">Email hello@glitzbymaya.com or WhatsApp +233 54 885 7714.</p></div>
+            </div>
+            <p class="text-xs text-gray-400 mt-6 text-center">Questions? Email <a href="mailto:hello@glitzbymaya.com" class="text-glitz-magenta font-bold">hello@glitzbymaya.com</a> or message us on <a href="https://wa.me/233548857714" target="_blank" rel="noopener noreferrer" class="text-glitz-magenta font-bold">WhatsApp</a>.</p>
+        </div>
+    </section>
+    </div>
+    <div id="page-delivery" class="page-view">
+    <section class="py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto">
+            <span class="text-xs uppercase tracking-[0.25em] font-bold text-glitz-magenta">Shipping &amp; returns</span>
+            <h2 class="text-4xl sm:text-5xl font-serif font-bold text-glitz-dark mt-3 leading-tight">Delivery &amp; <span class="shimmer-text italic font-normal">Returns</span></h2>
+            <p class="text-gray-600 mt-4 leading-relaxed">Everything you need to know about getting your order and what to do if something is not right.</p>
+            <div class="glass-card rounded-[2rem] p-6 sm:p-10 mt-10 space-y-8 legal-copy">
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">Delivery options</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">At checkout you can choose <strong>Pickup</strong> or <strong>Delivery</strong>.</p><ul class="list-disc pl-5 mt-2 space-y-1.5 text-sm text-gray-600 leading-relaxed"><li><strong>Pickup (free):</strong> we contact you on your phone number to arrange a pickup time and place once your order is paid.</li><li><strong>Delivery:</strong> we deliver across Ghana through trusted riders and couriers to the location you enter at checkout.</li></ul></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">Delivery times</h3><ul class="list-disc pl-5 mt-2 space-y-1.5 text-sm text-gray-600 leading-relaxed"><li>Orders are prepared within 1–2 working days after payment is confirmed.</li><li><strong>Greater Accra:</strong> usually 1–3 working days.</li><li><strong>Other regions:</strong> usually 3–7 working days.</li><li>Delays can happen during public holidays or peak periods. We will keep you informed.</li></ul></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">Delivery fees</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">Delivery fees depend on your location and are arranged with the delivery rider/driver. We confirm the fee with you by phone or WhatsApp before dispatch, so there are no surprises. Pickup is free.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">Order tracking</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">Sign in and open your Profile page to see your order status. For updates you can also message us on WhatsApp with your order number.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">Returns policy</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">Because lip and body products are personal-care items, we can only accept returns for hygiene and safety reasons in these cases:</p><ul class="list-disc pl-5 mt-2 space-y-1.5 text-sm text-gray-600 leading-relaxed"><li>The item is <strong>unopened, unused and in its original packaging</strong> and you contact us within <strong>48 hours</strong> of receiving it.</li><li>The item arrived <strong>damaged, defective or is not what you ordered</strong>. Send us a photo and your order number within <strong>48 hours</strong> of delivery.</li></ul></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">Items we cannot take back</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">Opened or used products, products damaged through misuse, and items returned without contacting us first cannot be accepted.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">Exchanges and refunds</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">For eligible returns we will offer a replacement or a refund. Approved refunds are returned to your original payment method (Mobile Money, card or bank) via Paystack and usually appear within 5–10 working days of approval, depending on your bank or network. Delivery fees are non-refundable unless the error was ours.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">Cancelling an order</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">You can cancel an order before it is dispatched by contacting us right away. A full refund will be issued for cancelled orders.</p></div>
+                <div><h3 class="font-serif font-bold text-xl text-glitz-dark">How to start a return</h3><p class="text-sm text-gray-600 leading-relaxed mt-2">Email hello@glitzbymaya.com or WhatsApp +233 54 885 7714 with your name, order number and a brief description (with photos if the item is damaged). We will reply within 24 hours.</p></div>
+            </div>
+            <p class="text-xs text-gray-400 mt-6 text-center">Questions? Email <a href="mailto:hello@glitzbymaya.com" class="text-glitz-magenta font-bold">hello@glitzbymaya.com</a> or message us on <a href="https://wa.me/233548857714" target="_blank" rel="noopener noreferrer" class="text-glitz-magenta font-bold">WhatsApp</a>.</p>
         </div>
     </section>
     </div>
@@ -989,6 +1136,7 @@
                                 </label>
                             </div>
                         </div>
+                        <label class="flex items-start gap-2 text-[11px] text-gray-500 leading-snug cursor-pointer"><input type="checkbox" name="agreeTerms" required class="mt-0.5 accent-pink-500"><span>I agree to the <a href="#terms" data-route="terms" onclick="closeCartDrawer()" class="text-glitz-magenta font-bold underline">Terms of Service</a>, <a href="#privacy" data-route="privacy" onclick="closeCartDrawer()" class="text-glitz-magenta font-bold underline">Privacy Policy</a> and <a href="#delivery" data-route="delivery" onclick="closeCartDrawer()" class="text-glitz-magenta font-bold underline">Delivery &amp; Returns</a> policy.</span></label>
                         <div id="checkoutCustomerFields" class="hidden space-y-2">
                             <label class="block text-xs font-bold text-gray-600">Full name<input name="customerName" type="text" autocomplete="name" class="mt-1.5 w-full px-3 py-2.5 rounded-xl bg-white border border-glitz-softblush focus:outline-none focus:border-glitz-magenta" placeholder="Your full name"></label>
                             <label class="block text-xs font-bold text-gray-600">Phone number<input name="customerPhone" type="tel" autocomplete="tel" class="mt-1.5 w-full px-3 py-2.5 rounded-xl bg-white border border-glitz-softblush focus:outline-none focus:border-glitz-magenta" placeholder="e.g. 024 000 0000"></label>
@@ -1010,10 +1158,11 @@
                         </div>
                     </div>
 
-                    <button type="button" onclick="simulateCheckout()" class="w-full py-4 bg-gradient-to-r from-glitz-magenta to-glitz-deepmagenta text-white font-bold rounded-2xl hover:shadow-glow-pink transition-all shadow-md flex items-center justify-center gap-2">
-                        <i data-lucide="sparkles" class="w-4 h-4"></i>
-                        <span>Complete Demo Checkout</span>
+                    <button type="button" id="checkoutBtn" onclick="startCheckout()" class="w-full py-4 bg-gradient-to-r from-glitz-magenta to-glitz-deepmagenta text-white font-bold rounded-2xl hover:shadow-glow-pink transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+                        <i data-lucide="lock" class="w-4 h-4"></i>
+                        <span id="checkoutBtnLabel">Pay Securely with Paystack</span>
                     </button>
+                    <p class="text-[10px] text-center text-gray-400">Payments secured by Paystack &middot; Card, Mobile Money &amp; Bank &middot; All prices in GHS</p>
                 </div>
 
             </div>
@@ -1118,7 +1267,7 @@
             <div class="w-16 h-16 mx-auto rounded-full bg-green-50 text-green-500 flex items-center justify-center"><i data-lucide="check" class="w-8 h-8"></i></div>
             <p class="text-xs uppercase tracking-[0.25em] text-glitz-magenta font-bold mt-5">Thank you for your order</p>
             <h2 id="orderSuccessTitle" class="font-serif font-bold text-3xl text-glitz-dark mt-2">Order confirmed!</h2>
-            <p class="text-sm text-gray-600 mt-3">Your order <strong id="successOrderId" class="text-glitz-magenta"></strong> has been received and is being prepared.</p>
+            <p class="text-sm text-gray-600 mt-3">Your order <strong id="successOrderId" class="text-glitz-magenta"></strong> has been received and is being prepared.<span id="successPaymentLine" class="block mt-1 text-xs text-gray-500"></span></p>
             <div class="mt-5 rounded-2xl bg-glitz-blush border border-glitz-softblush p-4 text-xs text-gray-600 leading-relaxed">
                 <p><i data-lucide="mail-check" class="w-4 h-4 inline-block align-[-3px] text-glitz-magenta mr-1"></i> Your order confirmation is automatically sent to <strong id="successOrderEmail" class="text-glitz-dark">your email inbox</strong>.</p>
                 <p class="mt-2 font-semibold text-glitz-magenta">If you do not see it, please check your spam folder.</p>
@@ -1159,10 +1308,13 @@
             <div class="footer-support-column border-t border-gray-700 pt-8 mt-2 md:border-t-0 md:pt-0 md:mt-0 md:pl-2">
                 <h4 class="font-serif font-bold text-sm tracking-wider uppercase mb-4 text-glitz-magenta">Help & Support</h4>
                 <ul class="space-y-2.5 text-xs text-gray-400 font-medium">
-                    <li><a href="#contact" data-route="contact" class="hover:text-white transition-colors">Track Order Status</a></li>
-                    <li><a href="#contact" data-route="contact" class="hover:text-white transition-colors">Terms of Service</a></li>
-                    <li><a href="#home" data-route="home" class="hover:text-white transition-colors">Reviews</a></li>
-                    <li><a href="#contact" data-route="contact" class="hover:text-white transition-colors">FAQs</a></li>
+                    <li><a href="#profile" data-route="profile" class="hover:text-white transition-colors">Track Order Status</a></li>
+                    <li><a href="#faq" data-route="faq" class="hover:text-white transition-colors">FAQs</a></li>
+                    <li><a href="#delivery" data-route="delivery" class="hover:text-white transition-colors">Delivery &amp; Returns</a></li>
+                    <li><a href="#terms" data-route="terms" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    <li><a href="#privacy" data-route="privacy" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    <li><a href="#about" data-route="about" class="hover:text-white transition-colors">About Us</a></li>
+                    <li><a href="#home" data-route="home" onclick="setTimeout(() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' }), 150)" class="hover:text-white transition-colors">Customer Reviews</a></li>
                     <li><a href="#contact" data-route="contact" class="hover:text-white transition-colors">Contact Maya's Team</a></li>
                 </ul>
             </div>
@@ -1181,7 +1333,11 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500">
-            <p>© 2026 Glitz by Maya Beauty Inc. All rights reserved.</p>
+            <div class="text-center sm:text-left space-y-1">
+                <p>© 2026 Glitz by Maya (Maya's Collection). All rights reserved.</p>
+                <p class="text-gray-600">hello@glitzbymaya.com &middot; +233 54 885 7714 &middot; Ghana</p>
+                <p class="space-x-3 pt-1"><a href="#terms" data-route="terms" class="hover:text-white underline underline-offset-2">Terms</a><a href="#privacy" data-route="privacy" class="hover:text-white underline underline-offset-2">Privacy</a><a href="#delivery" data-route="delivery" class="hover:text-white underline underline-offset-2">Delivery &amp; Returns</a><a href="#faq" data-route="faq" class="hover:text-white underline underline-offset-2">FAQ</a></p>
+            </div>
             <p class="mt-2 sm:mt-0">Designed by <a href="https://www.ryderog" target="_blank" rel="noopener noreferrer" class="font-bold text-white hover:text-glitz-pink underline underline-offset-2 transition-colors">OG</a></p>
         </div>
     </footer>
@@ -1220,6 +1376,8 @@
         // Runs once when the admin page is opened — confirms write access works
         async function runFirestoreSelfTest() {
             if (!isAdmin()) return;
+            // Wait a moment for Firebase Auth token to be fully ready
+            await new Promise(r => setTimeout(r, 1500));
             try {
                 const testRef = db.collection('_diagnostics').doc('adminWriteTest');
                 await testRef.set({ ts: Date.now(), by: activeAccount?.email || 'unknown' });
@@ -1228,7 +1386,11 @@
                 console.log('[Glitz] Firestore write self-test passed.');
             } catch (err) {
                 console.error('[Glitz] Firestore write self-test FAILED:', err);
-                showAdminBanner(`⚠️ Your admin account cannot write to the database (${err.code || err.message}). Go to Firebase Console → Firestore → Rules, and make sure your email is allowed to write. See the chat for the exact rules to paste.`);
+                if (err.code === 'permission-denied') {
+                    showAdminBanner(`⚠️ Permission denied — your Firestore rules may still be propagating (can take ~1 min). Try refreshing the page. If it persists, go to Firebase Console → Firestore → Rules and confirm the rules are published.`);
+                } else {
+                    showAdminBanner(`⚠️ Database write test failed (${err.code || err.message}). Try refreshing the page.`);
+                }
             }
         }
 
@@ -1248,6 +1410,17 @@
             }
         }
         let authMode = 'login';
+
+        // ============================================================
+        //  PAYSTACK CONFIG  -  paste your PUBLIC key below and you're done.
+        //  Test key:  pk_test_xxxxxxxxxxxxxxxxxxxxxxxx
+        //  Live key:  pk_live_xxxxxxxxxxxxxxxxxxxxxxxx
+        //  (Use the PUBLIC key only. Never put your sk_ secret key in this file.)
+        // ============================================================
+        const PAYSTACK_PUBLIC_KEY = 'pk_live_35994de956710b8767454f7ea81ba8fd7ecacae7';
+        const PAYSTACK_CURRENCY = 'GHS'; // Ghana Cedis. Must be enabled on your Paystack account.
+        let checkoutInProgress = false;
+
         const ADMIN_EMAILS = [
             'erastwaykid145@gmail.com',
             'sumicute200@gmail.com',
@@ -1370,6 +1543,7 @@
         }
 
         function updateAuthUI() {
+            if (typeof updateCheckoutButtonLabel === 'function') updateCheckoutButtonLabel();
             const label = document.getElementById('accountLabel');
             const mobileLabel = document.querySelector('#mobileAccountBtn span');
             const accountBtn = document.getElementById('accountBtn');
@@ -1453,7 +1627,6 @@
 
         // Render Catalog Products
         function renderProducts(filterCategory = currentProductCategory, page = currentProductPage) {
-            console.log('[Glitz] renderProducts called. Total products:', products.length, '| Filter:', filterCategory);
             const container = document.getElementById('productGrid');
             const pagination = document.getElementById('productPagination');
             container.innerHTML = '';
@@ -1976,7 +2149,7 @@
                 `;
                 subtotalEl.textContent = "GHC 0.00";
                 totalEl.textContent = "GHC 0.00";
-                shippingFeeEl.textContent = "Arranged with driver";
+                shippingFeeEl.textContent = "Arranged with driver"; updateCheckoutButtonLabel();
                 lucide.createIcons();
                 return;
             }
@@ -2007,7 +2180,7 @@
             });
 
             // Delivery fee is not charged here — it's communicated directly by the delivery driver
-            shippingFeeEl.textContent = "Arranged with driver";
+            shippingFeeEl.textContent = "Arranged with driver"; updateCheckoutButtonLabel();
             subtotalEl.textContent = `GHC ${subtotal.toFixed(2)}`;
             totalEl.textContent = `GHC ${subtotal.toFixed(2)}`;
             lucide.createIcons();
@@ -2131,6 +2304,8 @@
         function showOrderSuccessModal(order) {
             document.getElementById('successOrderId').textContent = `#${order.id}`;
             document.getElementById('successOrderEmail').textContent = activeAccount?.email || 'your email inbox';
+            const payLine = document.getElementById('successPaymentLine');
+            if (payLine) payLine.textContent = order.paymentReference ? `Payment confirmed \u00b7 Ref: ${order.paymentReference}` : '';
             const modal = document.getElementById('orderSuccessModal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
@@ -2345,7 +2520,61 @@
             toggleDeliveryFields();
         }
 
-        async function simulateCheckout() {
+        function showCheckoutAuthNotice() {
+            // Remove any existing notice first
+            const existing = document.getElementById('checkoutAuthNotice');
+            if (existing) existing.remove();
+
+            const notice = document.createElement('div');
+            notice.id = 'checkoutAuthNotice';
+            notice.className = 'fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm';
+            notice.innerHTML = `
+                <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full text-center relative animate-fade-in">
+                    <button onclick="document.getElementById('checkoutAuthNotice').remove()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                    <div class="w-16 h-16 rounded-full bg-glitz-blush flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="lock" class="w-7 h-7 text-glitz-magenta"></i>
+                    </div>
+                    <h3 class="font-playfair text-xl font-bold text-gray-900 mb-2">Sign in to place your order</h3>
+                    <p class="text-sm text-gray-500 mb-6">Create an account or sign in to complete your purchase and track your order.</p>
+                    <div class="flex flex-col gap-3">
+                        <button onclick="document.getElementById('checkoutAuthNotice').remove(); openAuthModal('register')"
+                            class="w-full py-3 bg-gradient-to-r from-glitz-magenta to-glitz-deepmagenta text-white font-bold rounded-2xl hover:shadow-glow-pink transition-all">
+                            Create Account
+                        </button>
+                        <button onclick="document.getElementById('checkoutAuthNotice').remove(); openAuthModal('login')"
+                            class="w-full py-3 border-2 border-glitz-magenta text-glitz-magenta font-bold rounded-2xl hover:bg-glitz-blush transition-all">
+                            Sign In
+                        </button>
+                    </div>
+                </div>`;
+            document.body.appendChild(notice);
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function updateCheckoutButtonLabel() {
+            const label = document.getElementById('checkoutBtnLabel');
+            if (label) label.textContent = isAdmin() ? 'Place Order (Admin - No Payment)' : 'Pay Securely with Paystack';
+        }
+
+        function setCheckoutBusy(busy) {
+            checkoutInProgress = busy;
+            const btn = document.getElementById('checkoutBtn');
+            if (btn) btn.disabled = busy;
+        }
+
+        function generatePaymentReference() {
+            return 'GBM_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8).toUpperCase();
+        }
+
+        // Step 1: validate, then either bypass (admin only) or open Paystack
+        async function startCheckout() {
+            if (checkoutInProgress) return;
+            if (!activeAccount) {
+                showCheckoutAuthNotice();
+                return;
+            }
             if (cart.length === 0) {
                 showToast('Your bag is empty. Add an item before checkout.');
                 return;
@@ -2353,26 +2582,93 @@
             const form = document.getElementById('checkoutDetails');
             toggleDeliveryFields();
             if (!form || !form.reportValidity()) return;
+
             const method = form.elements.deliveryMethod.value;
-            const customerName = form.elements.customerName.value.trim();
-            const customerPhone = form.elements.customerPhone.value.trim();
-            const customerLocation = method === 'delivery' ? form.elements.customerLocation.value.trim() : '';
-            const order = {
+            // Snapshot everything now so the order can't change while the popup is open
+            const draft = {
                 id: String(Date.now()).slice(-6),
-                date: new Date().toISOString(),
                 total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
                 items: cart.map(item => ({ id: item.id, name: item.name, price: item.price, quantity: item.quantity })),
                 accountUid: activeAccount?.uid || null,
                 accountEmail: activeAccount?.email || null,
                 accountName: activeAccount?.fullName || null,
                 deliveryMethod: method,
-                customerName,
-                customerPhone,
-                customerLocation,
+                customerName: form.elements.customerName.value.trim(),
+                customerPhone: form.elements.customerPhone.value.trim(),
+                customerLocation: method === 'delivery' ? form.elements.customerLocation.value.trim() : ''
+            };
+
+            // Only admins skip the payment gateway
+            if (isAdmin()) {
+                await finalizeOrder(draft, { paymentStatus: 'bypassed-admin', paymentReference: null, isTest: true });
+                return;
+            }
+
+            payWithPaystack(draft);
+        }
+
+        // Step 2 (customers): open Paystack popup
+        function payWithPaystack(draft) {
+            if (!PAYSTACK_PUBLIC_KEY || PAYSTACK_PUBLIC_KEY.includes('PASTE_YOUR_KEY_HERE')) {
+                showToast('Payments are not configured yet. Please contact the store.');
+                console.error('Paystack public key missing. Set PAYSTACK_PUBLIC_KEY in index.html.');
+                return;
+            }
+            if (typeof PaystackPop === 'undefined') {
+                showToast('Could not load Paystack. Check your connection and try again.');
+                return;
+            }
+            if (!draft.accountEmail) {
+                showToast('Your account needs an email address to pay.');
+                return;
+            }
+
+            const reference = generatePaymentReference();
+            setCheckoutBusy(true);
+            try {
+                const handler = PaystackPop.setup({
+                    key: PAYSTACK_PUBLIC_KEY,
+                    email: draft.accountEmail,
+                    amount: Math.round(draft.total * 100), // Paystack uses the smallest unit (pesewas)
+                    currency: PAYSTACK_CURRENCY,
+                    ref: reference,
+                    metadata: {
+                        custom_fields: [
+                            { display_name: 'Customer', variable_name: 'customer_name', value: draft.customerName },
+                            { display_name: 'Phone', variable_name: 'customer_phone', value: draft.customerPhone },
+                            { display_name: 'Delivery', variable_name: 'delivery_method', value: draft.deliveryMethod },
+                            { display_name: 'Items', variable_name: 'items', value: draft.items.map(i => `${i.name} x${i.quantity}`).join(', ').slice(0, 250) }
+                        ]
+                    },
+                    callback: function (response) {
+                        // Paystack requires a plain function here (not async)
+                        finalizeOrder(draft, { paymentStatus: 'paid', paymentReference: response.reference || reference, isTest: false });
+                    },
+                    onClose: function () {
+                        setCheckoutBusy(false);
+                        showToast('Payment cancelled. Your bag is still saved.');
+                    }
+                });
+                handler.openIframe();
+            } catch (err) {
+                console.error('Paystack setup failed.', err);
+                setCheckoutBusy(false);
+                showToast('Could not start payment. Please try again.');
+            }
+        }
+
+        // Step 3: save the order and show the thank-you message
+        async function finalizeOrder(draft, payment) {
+            const order = {
+                ...draft,
+                date: new Date().toISOString(),
                 status: 'Processing',
-                // Admin checkouts bypass the real payment gateway, so they're flagged
-                // as test orders and excluded from revenue/units-sold stats below.
-                isTest: isAdmin()
+                paymentStatus: payment.paymentStatus,
+                paymentReference: payment.paymentReference,
+                paymentProvider: payment.paymentReference ? 'paystack' : null,
+                // Admin orders bypass the gateway, so they're flagged as test orders
+                // and excluded from revenue/units-sold stats.
+                isTest: payment.isTest
             };
             try {
                 const docRef = await db.collection('orders').add(order);
@@ -2388,6 +2684,7 @@
             closeCartDrawer();
             renderAdminDashboard();
             renderProfile();
+            setCheckoutBusy(false);
         }
 
         // Canvas Sparkle/Glitter Animation System
@@ -2468,7 +2765,7 @@
         }
 
         // Client-side page routing: each nav item opens a dedicated view.
-        const validRoutes = ['home', 'collection', 'about', 'contact', 'profile', 'admin'];
+        const validRoutes = ['home', 'collection', 'about', 'contact', 'profile', 'admin', 'faq', 'terms', 'privacy', 'delivery'];
         function navigateTo(route, updateUrl = true) {
             let nextRoute = validRoutes.includes(route) ? route : 'home';
             if (nextRoute === 'profile' && !activeAccount) {
@@ -2574,9 +2871,32 @@
             }
             if (event.target.id === 'contactForm') {
                 event.preventDefault();
-                const name = event.target.elements.name.value.trim();
-                showToast(`Thanks, ${name || 'beauty lover'}! Maya's team will be in touch.`);
-                event.target.reset();
+                const form = event.target;
+                const btn = form.querySelector('button[type="submit"]');
+                const msg = {
+                    name: form.elements.name.value.trim(),
+                    email: form.elements.email.value.trim(),
+                    topic: form.elements.topic.value,
+                    message: form.elements.message.value.trim(),
+                    accountUid: activeAccount?.uid || null,
+                    date: new Date().toISOString(),
+                    status: 'new'
+                };
+                if (btn) btn.disabled = true;
+                try {
+                    await db.collection('messages').add(msg);
+                    showToast(`Thanks, ${msg.name || 'beauty lover'}! Maya's team will reply to ${msg.email} soon.`);
+                    form.reset();
+                } catch (err) {
+                    console.warn('Message save failed, falling back to email.', err);
+                    const subject = encodeURIComponent(`[${msg.topic}] Message from ${msg.name}`);
+                    const body = encodeURIComponent(`${msg.message}\n\nFrom: ${msg.name} <${msg.email}>`);
+                    window.location.href = `mailto:hello@glitzbymaya.com?subject=${subject}&body=${body}`;
+                    showToast('Opening your email app so you can send your message.');
+                } finally {
+                    if (btn) btn.disabled = false;
+                }
+                return;
             }
             if (event.target.id === 'reviewForm') {
                 event.preventDefault();
@@ -2602,8 +2922,17 @@
             }
             if (event.target.id === 'vipForm') {
                 event.preventDefault();
-                showToast('You are on the VIP list! Your 15% welcome offer is on its way.');
-                event.target.reset();
+                const form = event.target;
+                const email = form.elements.email.value.trim().toLowerCase();
+                try {
+                    await db.collection('subscribers').add({ email, date: new Date().toISOString() });
+                    showToast('You are on the VIP list! Thank you for joining Maya\'s VIP Club.');
+                } catch (err) {
+                    console.warn('Subscriber save failed.', err);
+                    showToast('Sorry, we could not save your email right now. Please try again or contact us.');
+                    return;
+                }
+                form.reset();
             }
         });
 
