@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glitz by Maya | Luxury Lip Glaze, Pink Balms & Body Shimmer</title>
+    <title>Glitz by Maya | Enhance Your Glow</title>
     <meta name="description" content="Glitz by Maya (Maya's Collection): non-sticky lip glazes, pink lip balms, lip scrubs and body shimmer. Pay securely with Paystack. Delivery across Ghana.">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -419,6 +419,23 @@
         @keyframes rainbowShine {
             to { background-position: 220% 0; }
         }
+        /* Admin dashboard: card layout on phones */
+        @media (max-width: 767px) {
+            #page-admin .admin-table { min-width: 0 !important; display: block; }
+            #page-admin .admin-table thead { display: none; }
+            #page-admin .admin-table tbody { display: block; }
+            #page-admin .admin-table tbody tr { display: block; padding: .5rem 1rem; border-bottom: 1px solid #fde8f1; }
+            #page-admin .admin-table tbody td { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding: .4rem 0 !important; text-align: right; min-width: 0; }
+            #page-admin .admin-table tbody td[colspan] { display: block; text-align: center; }
+            #page-admin .admin-table tbody td::before { content: attr(data-label); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #6b7280; text-align: left; flex-shrink: 0; }
+            #page-admin .admin-table tbody td:first-child { text-align: left; }
+            #page-admin .admin-table-products tbody td:first-child::before { display: none; }
+            #page-admin .admin-table-products tbody td:first-child { justify-content: flex-start; }
+            #page-admin .admin-table-products tbody td:last-child::before { display: none; }
+            #page-admin .admin-table-products tbody td:last-child { justify-content: flex-end; }
+            #page-admin .admin-table td p, #page-admin .admin-table td span { overflow-wrap: anywhere; }
+            #page-admin input[type="search"] { width: 100%; }
+        }
         @media (prefers-reduced-motion: reduce) {
             footer::before,
             footer::after { animation: none; }
@@ -543,10 +560,6 @@
             <a href="#home" data-route="home" onclick="toggleMobileMenu(); setTimeout(() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' }), 120)" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Reviews</a>
             <a href="#about" data-route="about" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">About</a>
             <a href="#contact" data-route="contact" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Contact</a>
-            <a href="#faq" data-route="faq" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">FAQ</a>
-            <a href="#delivery" data-route="delivery" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Delivery &amp; Returns</a>
-            <a href="#terms" data-route="terms" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Terms of Service</a>
-            <a href="#privacy" data-route="privacy" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Privacy Policy</a>
             <a href="#profile" data-route="profile" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Profile</a>
             <a href="#admin" data-route="admin" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Admin Dashboard</a>
             <button id="mobileAccountBtn" type="button" onclick="openAuthModal('login'); toggleMobileMenu()" class="flex items-center gap-2 font-semibold text-gray-800 hover:text-glitz-magenta"><i data-lucide="user-round" class="w-4 h-4"></i><span>Sign in / Sign up</span></button>
@@ -613,7 +626,7 @@
                 <!-- Hero Call to Action Buttons -->
                 <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
                     <a href="#collection" data-route="collection" class="w-full sm:w-auto px-4 py-2.5 text-xs bg-gradient-to-r from-glitz-magenta to-glitz-deepmagenta text-white font-semibold rounded-full hover:shadow-glow-pink transition-all duration-300 flex items-center justify-center group shadow-lg">
-                        <span>Shop Lip Glazes</span>
+                        <span>Shop Collection</span>
                     </a>
                 </div>
 
@@ -870,25 +883,43 @@
                     <h2 class="text-4xl sm:text-6xl font-serif font-bold text-glitz-dark mt-2">Admin dashboard</h2>
                     <p class="text-gray-600 mt-3 max-w-2xl">Manage your live collection, keep an eye on sales, and make quick product updates without leaving the Glitz experience.</p>
                 </div>
-                <div class="flex gap-3">
-                    <button type="button" onclick="clearAllProducts()" class="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-2xl border-2 border-red-200 text-red-500 font-bold text-xs hover:bg-red-50 transition-colors"><i data-lucide="trash-2" class="w-4 h-4"></i> Clear all products</button>
-                    <button type="button" onclick="openProductEditor()" class="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-glitz-magenta text-white font-bold hover:bg-glitz-deepmagenta transition-colors shadow-glow-pink"><i data-lucide="plus" class="w-4 h-4"></i> Add product</button>
-                </div>
             </div>
             <div id="adminDiagnosticBanner" class="hidden rounded-2xl border-2 border-red-300 bg-red-50 p-4 text-xs font-semibold text-red-700"></div>
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="adminStats"></div>
-            <div class="grid lg:grid-cols-[1.35fr_.65fr] gap-6 items-start">
+            <div class="flex justify-end">
+                <button type="button" onclick="openProductEditor()" class="flex w-full sm:w-auto items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-glitz-magenta text-white font-bold hover:bg-glitz-deepmagenta transition-colors shadow-glow-pink"><i data-lucide="plus" class="w-4 h-4"></i> Add product</button>
+            </div>
+            <div role="tablist" aria-label="Admin sections" class="grid grid-cols-4 gap-1 sm:gap-2 bg-white rounded-2xl border border-glitz-softblush shadow-card p-1.5 sm:p-2">
+                <button type="button" role="tab" id="adminTab-products" data-admin-tab="products" aria-selected="false" aria-controls="adminPanel-products" onclick="switchAdminTab('products')" class="admin-tab flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 sm:px-4 py-2.5 sm:py-3 rounded-xl text-[11px] sm:text-sm font-bold transition-colors min-w-0"><i data-lucide="package" class="w-4 h-4 shrink-0"></i><span class="truncate max-w-full">Products</span></button>
+                <button type="button" role="tab" id="adminTab-orders" data-admin-tab="orders" aria-selected="false" aria-controls="adminPanel-orders" onclick="switchAdminTab('orders')" class="admin-tab flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 sm:px-4 py-2.5 sm:py-3 rounded-xl text-[11px] sm:text-sm font-bold transition-colors min-w-0"><i data-lucide="receipt-text" class="w-4 h-4 shrink-0"></i><span class="truncate max-w-full">Orders</span></button>
+                <button type="button" role="tab" id="adminTab-analytics" data-admin-tab="analytics" aria-selected="false" aria-controls="adminPanel-analytics" onclick="switchAdminTab('analytics')" class="admin-tab flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 sm:px-4 py-2.5 sm:py-3 rounded-xl text-[11px] sm:text-sm font-bold transition-colors min-w-0"><i data-lucide="bar-chart-3" class="w-4 h-4 shrink-0"></i><span class="truncate max-w-full">Analytics</span></button>
+                <button type="button" role="tab" id="adminTab-reviews" data-admin-tab="reviews" aria-selected="false" aria-controls="adminPanel-reviews" onclick="switchAdminTab('reviews')" class="admin-tab flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 sm:px-4 py-2.5 sm:py-3 rounded-xl text-[11px] sm:text-sm font-bold transition-colors min-w-0"><i data-lucide="star" class="w-4 h-4 shrink-0"></i><span class="truncate max-w-full">Reviews</span></button>
+            </div>
+            <div id="adminPanel-products" role="tabpanel" aria-labelledby="adminTab-products" class="space-y-5 min-w-0">
                 <div class="bg-white rounded-[2rem] border border-glitz-softblush shadow-card overflow-hidden min-w-0">
                     <div class="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-glitz-softblush"><div><h3 class="font-serif font-bold text-2xl text-glitz-dark">Product catalog</h3><p class="text-xs text-gray-500 mt-1">Edit pricing, inventory details, or retire a product.</p></div><label class="relative"><span class="sr-only">Search catalog</span><input id="adminProductSearch" oninput="renderAdminProducts()" type="search" placeholder="Search products" class="w-full sm:w-56 px-4 py-2.5 pl-10 rounded-xl bg-glitz-blush border border-glitz-softblush text-xs focus:outline-none focus:border-glitz-magenta"><i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-gray-400"></i></label></div>
-                    <div class="overflow-x-auto"><table class="w-full text-left min-w-[680px]"><thead class="bg-glitz-blush/70 text-[10px] uppercase tracking-wider text-gray-500"><tr><th class="px-5 py-4">Product</th><th class="px-4 py-4">Category</th><th class="px-4 py-4">Price</th><th class="px-4 py-4">Units sold</th><th class="px-5 py-4 text-right">Actions</th></tr></thead><tbody id="adminProductTable" class="divide-y divide-glitz-softblush"></tbody></table></div>
+                    <div class="overflow-x-auto"><table class="admin-table admin-table-products w-full text-left min-w-[760px]"><thead class="bg-glitz-blush/70 text-[10px] uppercase tracking-wider text-gray-500"><tr><th class="px-5 py-4">Product</th><th class="px-4 py-4">Category</th><th class="px-4 py-4">Price</th><th class="px-4 py-4">Units sold</th><th class="px-4 py-4">Stock</th><th class="px-5 py-4 text-right">Actions</th></tr></thead><tbody id="adminProductTable" class="divide-y divide-glitz-softblush"></tbody></table></div>
                 </div>
-                <div class="bg-white rounded-[2rem] border border-glitz-softblush shadow-card overflow-hidden min-w-0"><div class="p-5 sm:p-6 border-b border-glitz-softblush"><h3 class="font-serif font-bold text-2xl text-glitz-dark">Sales pulse</h3><p class="text-xs text-gray-500 mt-1">Recent completed orders from this browser.</p></div><div id="adminSalesList" class="p-5 sm:p-6 space-y-4"></div></div>
+                <div class="flex flex-col items-end gap-2">
+                    <button type="button" onclick="clearAllProducts()" class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl border border-red-200 text-red-500 font-semibold text-[11px] hover:bg-red-50 transition-colors"><i data-lucide="trash-2" class="w-3 h-3"></i> Wanna clear all products?</button>
+                </div>
             </div>
+            <div id="adminPanel-orders" role="tabpanel" aria-labelledby="adminTab-orders" class="hidden space-y-5 min-w-0">
             <div class="bg-white rounded-[2rem] border border-glitz-softblush shadow-card overflow-hidden min-w-0">
                 <div class="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-glitz-softblush"><div><h3 class="font-serif font-bold text-2xl text-glitz-dark">Order history</h3><p class="text-xs text-gray-500 mt-1">Review orders and mark each one as processed when it is completed.</p></div><button type="button" onclick="downloadOrderHistoryPDF()" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-glitz-blush text-glitz-magenta font-bold text-xs hover:bg-glitz-softblush transition-colors"><i data-lucide="download" class="w-4 h-4"></i> Download PDF</button></div>
-                <div class="overflow-x-auto"><table class="w-full text-left min-w-[780px]"><thead class="bg-glitz-blush/70 text-[10px] uppercase tracking-wider text-gray-500"><tr><th class="px-5 py-4">Order</th><th class="px-4 py-4">Date</th><th class="px-4 py-4">Items</th><th class="px-4 py-4">Total</th><th class="px-5 py-4">Processed</th></tr></thead><tbody id="adminOrdersTable" class="divide-y divide-glitz-softblush"></tbody></table></div>
+                <div class="overflow-x-auto"><table class="admin-table admin-table-orders w-full text-left min-w-[780px]"><thead class="bg-glitz-blush/70 text-[10px] uppercase tracking-wider text-gray-500"><tr><th class="px-5 py-4">Order</th><th class="px-4 py-4">Date</th><th class="px-4 py-4">Items</th><th class="px-4 py-4">Total</th><th class="px-5 py-4">Processed</th></tr></thead><tbody id="adminOrdersTable" class="divide-y divide-glitz-softblush"></tbody></table></div>
             </div>
+            </div>
+            <div id="adminPanel-analytics" role="tabpanel" aria-labelledby="adminTab-analytics" class="hidden space-y-5 min-w-0">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4" id="adminStats"></div>
+                <div class="bg-white rounded-[2rem] border border-glitz-softblush shadow-card overflow-hidden min-w-0"><div class="p-5 sm:p-6 border-b border-glitz-softblush"><h3 class="font-serif font-bold text-2xl text-glitz-dark">Sales pulse</h3><p class="text-xs text-gray-500 mt-1">Recent completed orders from this browser.</p></div><div id="adminSalesList" class="p-5 sm:p-6 space-y-4"></div></div>
             <div class="bg-glitz-magenta rounded-[2rem] p-6 sm:p-8 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-5 shadow-glow-pink"><div><p class="text-xs uppercase tracking-[0.25em] font-bold text-white/70">Storefront health</p><h3 class="font-serif font-bold text-2xl mt-1">Your catalog is ready to shine.</h3><p class="text-sm text-white/80 mt-2">Changes are saved locally in this browser and appear instantly in the collection.</p></div><a href="#collection" data-route="collection" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white text-glitz-magenta font-bold hover:bg-glitz-blush transition-colors">View storefront <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a></div>
+            </div>
+            <div id="adminPanel-reviews" role="tabpanel" aria-labelledby="adminTab-reviews" class="hidden space-y-5 min-w-0">
+                <div class="bg-white rounded-[2rem] border border-glitz-softblush shadow-card overflow-hidden min-w-0">
+                    <div class="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-glitz-softblush"><div><h3 class="font-serif font-bold text-2xl text-glitz-dark">Customer reviews</h3><p class="text-xs text-gray-500 mt-1">Everything customers have said about Glitz.</p></div><div id="adminReviewsSummary" class="text-xs font-bold text-glitz-magenta"></div></div>
+                    <div id="adminReviewsList" class="p-4 sm:p-6 space-y-3"></div>
+                </div>
+            </div>
         </div>
     </section>
     </div>
@@ -1215,18 +1246,19 @@
                 <label class="text-xs font-bold text-gray-600">Price <span class="text-glitz-magenta">*</span><input id="pe_price" type="number" min="0" step="0.01" class="mt-2 w-full px-4 py-3 rounded-xl bg-glitz-blush border border-glitz-softblush focus:outline-none focus:border-glitz-magenta" placeholder="22.00"></label>
                 <label class="text-xs font-bold text-gray-600">Previous price <span class="text-gray-400 font-normal">(optional)</span><input id="pe_previousPrice" type="number" min="0" step="0.01" class="mt-2 w-full px-4 py-3 rounded-xl bg-glitz-blush border border-glitz-softblush focus:outline-none focus:border-glitz-magenta" placeholder="30.00"></label>
                 <div class="sm:col-span-2">
-                    <label class="text-xs font-bold text-gray-600">Product image
-                        <input id="pe_imageFile" type="file" accept="image/*" class="mt-2 block w-full text-xs text-gray-600 file:mr-3 file:rounded-xl file:border-0 file:bg-glitz-magenta file:px-4 file:py-2.5 file:font-bold file:text-white hover:file:bg-glitz-deepmagenta file:cursor-pointer">
+                    <span class="text-xs font-bold text-gray-600">Product images</span>
+                    <label for="pe_imageFile" class="mt-2 flex flex-col items-center justify-center gap-1.5 text-center px-4 py-8 rounded-2xl border-2 border-dashed border-glitz-softblush bg-glitz-blush hover:border-glitz-magenta cursor-pointer transition-colors">
+                        <i data-lucide="images" class="w-8 h-8 text-glitz-magenta"></i>
+                        <span class="text-sm font-bold text-glitz-magenta mt-1">Tap to choose images</span>
+                        <span class="text-[11px] text-gray-500">Multiple images supported (JPG, PNG, WEBP)</span>
                     </label>
-                    <div id="productImagePreviewContainer" class="hidden mt-3 grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-28 overflow-y-auto rounded-2xl border border-glitz-softblush bg-glitz-blush p-2">
-                        <div class="aspect-square rounded-xl overflow-hidden border border-glitz-softblush bg-white">
-                            <img id="productImagePreview" src="" alt="Selected product preview" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                    <p id="productImageHint" class="text-[11px] text-gray-400 mt-2">Choose an image from your device. It will be uploaded securely and added to the product grid automatically.</p>
+                    <input id="pe_imageFile" type="file" accept="image/*" multiple class="sr-only">
+                    <div id="productImagePreviewContainer" class="hidden mt-3 grid grid-cols-3 sm:grid-cols-4 gap-2 rounded-2xl border border-glitz-softblush bg-glitz-blush p-2"></div>
+                    <p id="productImageHint" class="text-[11px] text-gray-400 mt-2">Choose one or more images. The first image is the cover; customers can swipe through the rest on the collection page.</p>
                 </div>
                 <label class="text-xs font-bold text-gray-600 sm:col-span-2">Description <span class="text-gray-400 font-normal">(optional)</span><textarea id="pe_description" rows="3" class="mt-2 w-full px-4 py-3 rounded-xl bg-glitz-blush border border-glitz-softblush focus:outline-none focus:border-glitz-magenta" placeholder="Describe the product..."></textarea></label>
                 <label class="text-xs font-bold text-gray-600">Rating <span class="text-gray-400 font-normal">(optional)</span><select id="pe_rating" class="mt-2 w-full px-4 py-3 rounded-xl bg-glitz-blush border border-glitz-softblush focus:outline-none focus:border-glitz-magenta"><option value="">No rating</option><option value="5">★★★★★ 5 stars</option><option value="4">★★★★☆ 4 stars</option><option value="3">★★★☆☆ 3 stars</option><option value="2">★★☆☆☆ 2 stars</option><option value="1">★☆☆☆☆ 1 star</option></select></label>
+                <label class="sm:col-span-2 flex items-center justify-between gap-4 rounded-xl bg-glitz-blush border border-glitz-softblush px-4 py-3 text-xs font-bold text-gray-600 cursor-pointer"><span>Availability<span class="block text-[11px] font-normal text-gray-400 mt-0.5">Switch off to show this product as out of stock.</span></span><span class="inline-flex items-center gap-2"><input id="pe_inStock" type="checkbox" checked class="sr-only peer" onchange="document.getElementById('pe_inStockLabel').textContent = this.checked ? 'In stock' : 'Out of stock'"><span class="relative w-10 h-5 shrink-0 rounded-full bg-gray-300 peer-focus:ring-2 peer-focus:ring-glitz-pink/40 peer-checked:bg-green-500 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-4 after:h-4 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:after:translate-x-5"></span><span id="pe_inStockLabel" class="w-20 text-[11px]">In stock</span></span></label>
                 <label class="text-xs font-bold text-gray-600">Pieces left <span class="text-gray-400 font-normal">(optional)</span><input id="pe_piecesLeft" type="number" min="0" step="1" class="mt-2 w-full px-4 py-3 rounded-xl bg-glitz-blush border border-glitz-softblush focus:outline-none focus:border-glitz-magenta" placeholder="e.g. 12"></label>
                 <div class="sm:col-span-2 flex justify-end gap-3 pt-2"><button type="button" onclick="closeProductEditor()" class="px-5 py-3 rounded-xl border border-glitz-softblush text-gray-600 font-bold text-sm">Cancel</button><button type="button" id="pe_saveBtn" onclick="saveProductNow()" class="px-5 py-3 rounded-xl bg-glitz-magenta text-white font-bold text-sm hover:bg-glitz-deepmagenta">Save product</button></div>
             </div>
@@ -1614,6 +1646,7 @@
                 if (user) {
                     activeAccount = { fullName: user.displayName || user.email.split('@')[0], email: user.email, uid: user.uid };
                     sessionStorage.setItem('glitzSession', JSON.stringify(activeAccount));
+                    closeAuthModal();
                     await loadWishlistForAccount();
                 } else if (!activeAccount?.uid) {
                     activeAccount = null;
@@ -1660,15 +1693,16 @@
                 card.innerHTML = `
                     <div>
                         <div class="relative overflow-hidden bg-glitz-softblush aspect-square">
-                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            ${renderProductCarousel(p, { zoom: true, dotsBottom: isInStock(p) ? 'bottom-2' : 'bottom-10' })}
+                            ${isInStock(p) ? '' : `<span class="absolute inset-x-0 bottom-0 z-10 bg-glitz-dark/80 text-white text-center text-[11px] font-bold uppercase tracking-widest py-2">Out of stock</span>`}
                             
-                            ${p.piecesLeft !== undefined && p.piecesLeft !== null && p.piecesLeft !== '' ? `<span class="absolute top-3 left-3 bg-white px-3 py-1 rounded-full text-[10px] font-bold text-glitz-magenta shadow-sm">${p.piecesLeft} pcs left</span>` : ''}
+                            ${isInStock(p) && p.piecesLeft !== undefined && p.piecesLeft !== null && p.piecesLeft !== '' ? `<span class="absolute top-3 left-3 z-10 bg-white px-3 py-1 rounded-full text-[10px] font-bold text-glitz-magenta shadow-sm">${p.piecesLeft} pcs left</span>` : ''}
 
-                            <button onclick="toggleWishlist(${p.id})" aria-label="${isWishlisted ? 'Remove from favourites' : 'Add to favourites'}" aria-pressed="${isWishlisted}" class="absolute top-3 right-3 p-2 bg-white rounded-full text-gray-400 hover:text-glitz-magenta transition-colors shadow-sm">
+                            <button onclick="toggleWishlist(${p.id})" aria-label="${isWishlisted ? 'Remove from favourites' : 'Add to favourites'}" aria-pressed="${isWishlisted}" class="absolute top-3 right-3 z-10 p-2 bg-white rounded-full text-gray-400 hover:text-glitz-magenta transition-colors shadow-sm">
                                 <i data-lucide="heart" class="w-4 h-4 ${isWishlisted ? 'fill-glitz-magenta text-glitz-magenta' : ''}"></i>
                             </button>
 
-                            <button onclick="openQuickView(${p.id})" class="absolute bottom-3 left-1/2 transform -translate-x-1/2 bg-white text-glitz-dark text-xs px-4 py-2 rounded-full font-bold opacity-0 group-hover:opacity-100 transition-opacity shadow-md flex items-center gap-1.5">
+                            <button onclick="openQuickView(${p.id})" class="absolute ${getProductImages(p).length > 1 ? 'bottom-7' : 'bottom-3'} left-1/2 transform -translate-x-1/2 z-10 bg-white text-glitz-dark text-xs px-4 py-2 rounded-full font-bold opacity-0 group-hover:opacity-100 transition-opacity shadow-md flex items-center gap-1.5">
                                 <i data-lucide="eye" class="w-3.5 h-3.5"></i> Quick View
                             </button>
                         </div>
@@ -1680,7 +1714,7 @@
                     </div>
                     <div class="px-5 pb-5 pt-0 flex items-center justify-between border-t border-gray-100/60 mt-2">
                         <span class="flex flex-wrap items-baseline gap-2"><span class="text-xl font-bold font-serif text-glitz-magenta">${formatGHC(p.price)}</span>${hasPreviousPrice ? `<span class="text-xs font-semibold text-gray-400 line-through">${formatGHC(previousPrice)}</span>` : ''}</span>
-                        <button onclick="addToCart(${p.id})" class="p-3 bg-glitz-softblush text-glitz-magenta hover:bg-glitz-magenta hover:text-white rounded-2xl transition-all shadow-sm" title="Add to Bag">
+                        <button onclick="addToCart(${p.id})" ${isInStock(p) ? '' : 'disabled aria-disabled="true"'} class="p-3 bg-glitz-softblush text-glitz-magenta hover:bg-glitz-magenta hover:text-white rounded-2xl transition-all shadow-sm disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-glitz-softblush disabled:hover:text-glitz-magenta" title="${isInStock(p) ? 'Add to Bag' : 'Out of stock'}">
                             <i data-lucide="plus" class="w-4 h-4"></i>
                         </button>
                     </div>
@@ -1733,10 +1767,77 @@
             }
         }
 
+        function isInStock(p) { return !p || p.inStock !== false; }
+
+        // Swipeable image carousel. Fills its (relatively positioned) parent.
+        function renderProductCarousel(p, options = {}) {
+            const imgs = getProductImages(p);
+            const dim = isInStock(p) ? '' : 'grayscale opacity-60';
+            const alt = escapeAdminText(p.name || 'Product');
+            if (imgs.length <= 1) {
+                return `<img src="${imgs[0] || p.image || ''}" alt="${alt}" class="w-full h-full object-cover ${options.zoom ? 'group-hover:scale-105 transition-transform duration-500' : ''} ${dim}">`;
+            }
+            const dotsBottom = options.dotsBottom || 'bottom-2';
+            return `<div class="product-carousel group/carousel absolute inset-0">
+                <div class="carousel-track flex w-full h-full overflow-x-auto snap-x snap-mandatory" style="scrollbar-width:none;-ms-overflow-style:none;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;">
+                    ${imgs.map((url, i) => `<img src="${url}" alt="${alt} – image ${i + 1} of ${imgs.length}" loading="${i === 0 ? 'eager' : 'lazy'}" draggable="false" class="w-full h-full shrink-0 snap-center object-cover ${dim}" style="min-width:100%">`).join('')}
+                </div>
+                <button type="button" data-carousel-dir="-1" aria-label="Previous image" class="carousel-arrow absolute left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/85 text-glitz-dark shadow-md flex items-center justify-center hover:bg-white transition-colors"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                <button type="button" data-carousel-dir="1" aria-label="Next image" class="carousel-arrow absolute right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white/85 text-glitz-dark shadow-md flex items-center justify-center hover:bg-white transition-colors"><svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+                <div class="carousel-dots absolute ${dotsBottom} inset-x-0 z-10 flex justify-center gap-1.5 pointer-events-none">
+                    ${imgs.map((_, i) => `<span class="carousel-dot w-1.5 h-1.5 rounded-full transition-all ${i === 0 ? 'bg-white w-3' : 'bg-white/60'} shadow-sm"></span>`).join('')}
+                </div>
+            </div>`;
+        }
+
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('[data-carousel-dir]');
+            if (!btn) return;
+            e.preventDefault();
+            e.stopPropagation();
+            const track = btn.closest('.product-carousel')?.querySelector('.carousel-track');
+            if (!track) return;
+            const count = track.children.length;
+            const index = Math.round(track.scrollLeft / track.clientWidth);
+            const next = (index + Number(btn.dataset.carouselDir) + count) % count;
+            track.scrollTo({ left: next * track.clientWidth, behavior: 'smooth' });
+        });
+
+        document.addEventListener('scroll', (e) => {
+            const track = e.target;
+            if (!track || !track.classList || !track.classList.contains('carousel-track')) return;
+            const index = Math.round(track.scrollLeft / track.clientWidth);
+            track.parentElement.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+                dot.classList.toggle('bg-white', i === index);
+                dot.classList.toggle('w-3', i === index);
+                dot.classList.toggle('bg-white/60', i !== index);
+            });
+        }, true);
+
+        async function toggleProductStock(productId) {
+            if (!isAdmin()) { showToast('Admin sign-in required.'); return; }
+            const idx = products.findIndex(p => p.id === Number(productId));
+            if (idx < 0) return;
+            const previous = products[idx].inStock;
+            products[idx] = { ...products[idx], inStock: !isInStock(products[idx]) };
+            renderAdminProducts();
+            renderProducts();
+            try {
+                await persistProducts(products[idx]);
+                showToast(isInStock(products[idx]) ? 'Marked as in stock.' : 'Marked as out of stock.');
+            } catch (err) {
+                products[idx] = { ...products[idx], inStock: previous };
+                renderAdminProducts();
+                renderProducts();
+                showToast('Could not update stock status.');
+            }
+        }
+
         async function clearAllProducts() {
             if (!isAdmin()) { showToast('Admin sign-in required.'); return; }
             if (!products.length) { showToast('Catalog is already empty.'); return; }
             if (!confirm(`Delete all ${products.length} product(s) from the live catalog? This cannot be undone.`)) return;
+            if (!confirm(`FINAL CONFIRMATION: you are about to permanently delete ALL ${products.length} product(s). Are you absolutely sure?`)) return;
             try {
                 const batch = db.batch();
                 products.forEach(p => batch.delete(db.collection(PRODUCTS_COLLECTION).doc(p._docId || String(p.id))));
@@ -1775,6 +1876,47 @@
             return getRealSales().reduce((total, order) => total + (order.items || []).reduce((sum, item) => sum + (item.id === productId ? Number(item.quantity) : 0), 0), 0);
         }
 
+        let adminActiveTab = 'products';
+        function switchAdminTab(tab) {
+            adminActiveTab = tab;
+            ['products', 'orders', 'analytics', 'reviews'].forEach(key => {
+                const panel = document.getElementById('adminPanel-' + key);
+                const btn = document.getElementById('adminTab-' + key);
+                const active = key === tab;
+                if (panel) panel.classList.toggle('hidden', !active);
+                if (btn) {
+                    btn.setAttribute('aria-selected', active ? 'true' : 'false');
+                    btn.classList.toggle('bg-glitz-magenta', active);
+                    btn.classList.toggle('text-white', active);
+                    btn.classList.toggle('shadow-glow-pink', active);
+                    btn.classList.toggle('text-gray-500', !active);
+                    btn.classList.toggle('hover:bg-glitz-blush', !active);
+                }
+            });
+            lucide.createIcons();
+        }
+
+        function renderAdminReviews() {
+            const list = document.getElementById('adminReviewsList');
+            if (!list) return;
+            const reviews = [...(window._glitzReviews || [])].sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+            const summary = document.getElementById('adminReviewsSummary');
+            if (summary) {
+                const avg = reviews.length ? reviews.reduce((t, r) => t + (Math.min(5, Math.max(1, Number(r.rating) || 5))), 0) / reviews.length : 0;
+                summary.textContent = reviews.length ? `${avg.toFixed(1)} ★ average · ${reviews.length} review${reviews.length === 1 ? '' : 's'}` : '';
+            }
+            if (!reviews.length) {
+                list.innerHTML = `<div class="text-center py-10"><i data-lucide="star" class="w-10 h-10 mx-auto text-glitz-softblush"></i><p class="text-sm font-semibold text-gray-500 mt-3">No customer reviews yet.</p></div>`;
+            } else {
+                list.innerHTML = reviews.map(item => {
+                    const rating = Math.min(5, Math.max(1, Number(item.rating) || 5));
+                    const when = item.date ? new Date(item.date).toLocaleDateString() : '';
+                    return `<article class="bg-glitz-blush/60 rounded-2xl border border-glitz-softblush p-4 min-w-0"><div class="flex flex-wrap items-center justify-between gap-2"><p class="text-sm font-bold text-glitz-dark break-words">${escapeAdminText(item.name || 'Anonymous')}</p><div class="flex items-center gap-2 text-xs"><span class="text-glitz-gold tracking-wide">${'★'.repeat(rating)}${'☆'.repeat(5 - rating)}</span><span class="text-gray-400">${when}</span></div></div><p class="text-sm text-gray-700 leading-relaxed mt-2 break-words">${escapeAdminText(item.review || item.text || '')}</p></article>`;
+                }).join('');
+            }
+            lucide.createIcons();
+        }
+
         function renderAdminDashboard() {
             if (!document.getElementById('adminStats')) return;
             const realSales = getRealSales();
@@ -1790,6 +1932,8 @@
             renderAdminProducts();
             renderAdminSales();
             renderAdminOrders();
+            renderAdminReviews();
+            switchAdminTab(adminActiveTab);
             lucide.createIcons();
         }
 
@@ -1798,7 +1942,7 @@
             if (!table) return;
             const query = (document.getElementById('adminProductSearch')?.value || '').toLowerCase().trim();
             const visible = products.filter(product => `${product.name || ''} ${product.category || ''}`.toLowerCase().includes(query));
-            table.innerHTML = visible.length ? visible.map(product => `<tr class="hover:bg-glitz-blush/50 transition-colors"><td class="px-5 py-4"><div class="flex items-center gap-3"><img src="${escapeAdminText(product.image)}" alt="" class="w-11 h-11 rounded-xl object-cover bg-glitz-softblush"><div><p class="text-xs font-bold text-glitz-dark">${escapeAdminText(product.name || 'Untitled product')}</p><p class="text-[10px] text-glitz-gold">${product.rating ? `${'★'.repeat(Number(product.rating))}${'☆'.repeat(5 - Number(product.rating))}` : 'No rating'}${product.piecesLeft !== undefined && product.piecesLeft !== null && product.piecesLeft !== '' ? ` • ${escapeAdminText(product.piecesLeft)} pcs left` : ''}</p></div></div></td><td class="px-4 py-4 text-xs font-semibold text-gray-500 capitalize">${escapeAdminText(product.category)}</td><td class="px-4 py-4 text-sm font-bold text-glitz-magenta">${formatGHC(product.price)}</td><td class="px-4 py-4 text-xs font-bold text-gray-600">${getUnitsSold(product.id)}</td><td class="px-5 py-4"><div class="flex justify-end gap-2"><button type="button" onclick="openProductEditor(${product.id})" class="p-2 rounded-lg bg-glitz-blush text-glitz-magenta hover:bg-glitz-softblush" aria-label="Edit ${escapeAdminText(product.name || 'product')}"><i data-lucide="pencil" class="w-4 h-4"></i></button><button type="button" onclick="deleteProduct(${product.id})" class="p-2 rounded-lg bg-red-50 text-red-500 hover:bg-red-100" aria-label="Remove ${escapeAdminText(product.name || 'product')}"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div></td></tr>`).join('') : `<tr><td colspan="5" class="px-5 py-12 text-center text-xs text-gray-400">No products match that search.</td></tr>`;
+            table.innerHTML = visible.length ? visible.map(product => `<tr class="hover:bg-glitz-blush/50 transition-colors"><td class="px-5 py-4"><div class="flex items-center gap-3"><img src="${escapeAdminText(product.image)}" alt="" class="w-11 h-11 rounded-xl object-cover bg-glitz-softblush"><div><p class="text-xs font-bold text-glitz-dark">${escapeAdminText(product.name || 'Untitled product')}</p><p class="text-[10px] text-glitz-gold">${product.rating ? `${'★'.repeat(Number(product.rating))}${'☆'.repeat(5 - Number(product.rating))}` : 'No rating'}${product.piecesLeft !== undefined && product.piecesLeft !== null && product.piecesLeft !== '' ? ` • ${escapeAdminText(product.piecesLeft)} pcs left` : ''}</p></div></div></td><td data-label="Category" class="px-4 py-4 text-xs font-semibold text-gray-500 capitalize">${escapeAdminText(product.category)}</td><td data-label="Price" class="px-4 py-4 text-sm font-bold text-glitz-magenta">${formatGHC(product.price)}</td><td data-label="Units sold" class="px-4 py-4 text-xs font-bold text-gray-600">${getUnitsSold(product.id)}</td><td data-label="Stock" class="px-4 py-4"><label class="inline-flex items-center gap-2 cursor-pointer"><input type="checkbox" class="sr-only peer" ${isInStock(product) ? 'checked' : ''} onchange="toggleProductStock(${product.id})" aria-label="In stock: ${escapeAdminText(product.name || 'product')}"><span class="relative w-10 h-5 shrink-0 rounded-full bg-gray-300 peer-focus:ring-2 peer-focus:ring-glitz-pink/40 peer-checked:bg-green-500 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-4 after:h-4 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:after:translate-x-5"></span><span class="text-[10px] font-bold ${isInStock(product) ? 'text-green-600' : 'text-red-500'}">${isInStock(product) ? 'In stock' : 'Out of stock'}</span></label></td><td class="px-5 py-4"><div class="flex justify-end gap-2"><button type="button" onclick="openProductEditor(${product.id})" class="p-2 rounded-lg bg-glitz-blush text-glitz-magenta hover:bg-glitz-softblush" aria-label="Edit ${escapeAdminText(product.name || 'product')}"><i data-lucide="pencil" class="w-4 h-4"></i></button><button type="button" onclick="deleteProduct(${product.id})" class="p-2 rounded-lg bg-red-50 text-red-500 hover:bg-red-100" aria-label="Remove ${escapeAdminText(product.name || 'product')}"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div></td></tr>`).join('') : `<tr><td colspan="6" class="px-5 py-12 text-center text-xs text-gray-400">No products match that search.</td></tr>`;
             lucide.createIcons();
         }
 
@@ -1837,7 +1981,7 @@
                 const date = new Date(order.date);
                 const itemCount = (order.items || []).reduce((sum, item) => sum + Number(item.quantity || 0), 0);
                 const processed = order.status === 'Completed';
-                return `<tr class="hover:bg-glitz-blush/50 transition-colors ${order.isTest ? 'opacity-60' : ''}"><td class="px-5 py-4 text-xs font-bold text-glitz-dark">#${escapeAdminText(order.id)}${order.isTest ? ' <span class="ml-1 px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-600 text-[9px] font-bold uppercase tracking-wide align-middle">Test</span>' : ''}</td><td class="px-4 py-4 text-xs text-gray-500">${date.toLocaleDateString()}<br><span class="text-[10px] text-gray-400">${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span></td><td class="px-4 py-4 text-xs text-gray-600">${itemCount} item${itemCount === 1 ? '' : 's'}<br><span class="text-[10px] text-gray-400">${order.items.map(item => `${escapeAdminText(item.name)} ×${item.quantity}`).join(', ')}</span></td><td class="px-4 py-4 text-sm font-bold text-glitz-magenta">${formatGHC(order.total)}</td><td class="px-5 py-4"><label class="inline-flex items-center gap-2 cursor-pointer"><input type="checkbox" class="sr-only peer" ${processed ? 'checked' : ''} onchange="setOrderProcessed('${escapeAdminText(order.id)}', this.checked)"><span class="relative w-10 h-5 rounded-full bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-glitz-pink/40 peer-checked:bg-green-500 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-4 after:h-4 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:after:translate-x-5"></span><span class="text-[10px] font-bold ${processed ? 'text-green-600' : 'text-gray-500'}">${processed ? 'Completed' : 'Processing'}</span></label></td></tr>`;
+                return `<tr class="hover:bg-glitz-blush/50 transition-colors ${order.isTest ? 'opacity-60' : ''}"><td class="px-5 py-4 text-xs font-bold text-glitz-dark">#${escapeAdminText(order.id)}${order.isTest ? ' <span class="ml-1 px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-600 text-[9px] font-bold uppercase tracking-wide align-middle">Test</span>' : ''}</td><td data-label="Date" class="px-4 py-4 text-xs text-gray-500">${date.toLocaleDateString()}<br><span class="text-[10px] text-gray-400">${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span></td><td data-label="Items" class="px-4 py-4 text-xs text-gray-600">${itemCount} item${itemCount === 1 ? '' : 's'}<br><span class="text-[10px] text-gray-400">${order.items.map(item => `${escapeAdminText(item.name)} ×${item.quantity}`).join(', ')}</span></td><td data-label="Total" class="px-4 py-4 text-sm font-bold text-glitz-magenta">${formatGHC(order.total)}</td><td data-label="Processed" class="px-5 py-4"><label class="inline-flex items-center gap-2 cursor-pointer"><input type="checkbox" class="sr-only peer" ${processed ? 'checked' : ''} onchange="setOrderProcessed('${escapeAdminText(order.id)}', this.checked)"><span class="relative w-10 h-5 rounded-full bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-glitz-pink/40 peer-checked:bg-green-500 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-4 after:h-4 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:after:translate-x-5"></span><span class="text-[10px] font-bold ${processed ? 'text-green-600' : 'text-gray-500'}">${processed ? 'Completed' : 'Processing'}</span></label></td></tr>`;
             }).join('') : `<tr><td colspan="5" class="px-5 py-14 text-center text-xs text-gray-400">No orders yet. Completed checkouts will appear here.</td></tr>`;
         }
 
@@ -1893,18 +2037,40 @@
         // ════════════════════════════════════════════════════════════════
         //  PRODUCT EDITOR — clean rebuild, no <form>/submit dependency
         // ════════════════════════════════════════════════════════════════
-        let peImageUrl = '';       // holds the Cloudinary URL for this editing session
-        let peLocalPreviewUrl = null; // holds a local blob: URL for instant preview
+        let peItems = [];          // [{ url, uploading, local }] images for this editing session
 
-        function peSetPreview(url) {
+        function getProductImages(p) {
+            if (!p) return [];
+            if (Array.isArray(p.images) && p.images.length) return p.images.filter(Boolean);
+            return p.image ? [p.image] : [];
+        }
+
+        function peRenderPreviews() {
             const box = document.getElementById('productImagePreviewContainer');
-            const img = document.getElementById('productImagePreview');
-            if (peLocalPreviewUrl && peLocalPreviewUrl !== url) {
-                URL.revokeObjectURL(peLocalPreviewUrl);
-                peLocalPreviewUrl = null;
-            }
-            if (url) { img.src = url; box.classList.remove('hidden'); }
-            else { img.removeAttribute('src'); box.classList.add('hidden'); }
+            if (!peItems.length) { box.classList.add('hidden'); box.innerHTML = ''; return; }
+            box.classList.remove('hidden');
+            box.innerHTML = peItems.map((item, i) => `
+                <div class="relative aspect-square rounded-xl overflow-hidden border border-glitz-softblush bg-white">
+                    <img src="${item.url}" alt="Product image ${i + 1}" class="w-full h-full object-cover ${item.uploading ? 'opacity-50' : ''}">
+                    ${item.uploading ? '<span class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-glitz-magenta">Uploading…</span>' : `
+                        ${i === 0 ? '<span class="absolute bottom-1 left-1 bg-glitz-magenta text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">Cover</span>' : `<button type="button" onclick="peMakeCover(${i})" class="absolute bottom-1 left-1 bg-white/90 text-glitz-magenta text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-sm">Make cover</button>`}
+                        <button type="button" onclick="peRemoveImage(${i})" aria-label="Remove image ${i + 1}" class="absolute top-1 right-1 w-6 h-6 rounded-full bg-white/90 text-gray-600 hover:text-red-500 shadow-sm flex items-center justify-center text-sm leading-none">&times;</button>`}
+                </div>`).join('');
+        }
+
+        function peRemoveImage(i) {
+            const item = peItems[i];
+            if (!item) return;
+            if (item.local) URL.revokeObjectURL(item.local);
+            peItems.splice(i, 1);
+            peRenderPreviews();
+        }
+
+        function peMakeCover(i) {
+            if (!peItems[i]) return;
+            const [item] = peItems.splice(i, 1);
+            peItems.unshift(item);
+            peRenderPreviews();
         }
 
         function peSetHint(msg, kind = 'info') {
@@ -1922,7 +2088,7 @@
         }
 
         function openProductEditor(productId = null) {
-            peImageUrl = '';
+            peItems = [];
             peSetBanner(null);
             const product = productId ? products.find(p => p.id === Number(productId)) : null;
 
@@ -1934,16 +2100,18 @@
             document.getElementById('pe_description').value = product?.description || '';
             document.getElementById('pe_rating').value = product?.rating ?? '';
             document.getElementById('pe_piecesLeft').value = product?.piecesLeft ?? '';
+            document.getElementById('pe_inStock').checked = isInStock(product);
+            document.getElementById('pe_inStockLabel').textContent = isInStock(product) ? 'In stock' : 'Out of stock';
             document.getElementById('pe_imageFile').value = '';
             document.getElementById('productEditorTitle').textContent = product ? 'Edit product' : 'Add product';
 
             if (product) {
-                peImageUrl = product.image || '';
-                peSetPreview(peImageUrl);
-                peSetHint('Choose a new image to replace the current one, or leave it unchanged.', 'info');
+                peItems = getProductImages(product).map(url => ({ url }));
+                peRenderPreviews();
+                peSetHint('Add more images, remove some, or tap "Make cover" to choose the main image.', 'info');
             } else {
-                peSetPreview('');
-                peSetHint('Choose an image from your device to upload.', 'info');
+                peRenderPreviews();
+                peSetHint('Choose one or more images. The first image is the cover; customers can swipe through the rest on the collection page.', 'info');
             }
 
             document.getElementById('productEditorModal').classList.remove('hidden');
@@ -1952,7 +2120,8 @@
 
         function closeProductEditor() {
             document.getElementById('productEditorModal').classList.add('hidden');
-            peImageUrl = '';
+            peItems.forEach(item => { if (item.local) URL.revokeObjectURL(item.local); });
+            peItems = [];
         }
 
         // ── Cloudinary upload ────────────────────────────────────────────
@@ -1969,28 +2138,39 @@
         }
 
         document.getElementById('pe_imageFile').addEventListener('change', async (e) => {
-            const file = e.target.files?.[0];
-            if (!file) return;
-            if (!file.type.startsWith('image/')) {
-                e.target.value = '';
-                peSetHint('Please choose a valid image file (jpg, png, webp…).', 'error');
-                return;
-            }
-            peLocalPreviewUrl = URL.createObjectURL(file);
-            peSetPreview(peLocalPreviewUrl);
-            peSetHint('Uploading image…', 'loading');
-            try {
-                peImageUrl = await cloudinaryUpload(file);
-                e.target.value = '';
-                peSetPreview(peImageUrl);
-                peSetHint('✓ Image uploaded. Click "Save product" to continue.', 'success');
-            } catch (err) {
-                e.target.value = '';
-                peImageUrl = '';
-                peSetPreview('');
-                peSetHint(`Upload failed: ${err.message}`, 'error');
-                console.error('[Glitz] Cloudinary upload failed:', err);
-            }
+            const files = Array.from(e.target.files || []);
+            e.target.value = '';
+            if (!files.length) return;
+            const valid = files.filter(f => f.type.startsWith('image/'));
+            if (valid.length !== files.length) peSetHint('Some files were skipped because they are not images.', 'error');
+            if (!valid.length) return;
+
+            const batch = valid.map(file => {
+                const local = URL.createObjectURL(file);
+                const item = { url: local, local, uploading: true };
+                peItems.push(item);
+                return { file, item };
+            });
+            peRenderPreviews();
+            peSetHint(`Uploading ${batch.length} image${batch.length === 1 ? '' : 's'}…`, 'loading');
+
+            let failed = 0;
+            await Promise.all(batch.map(async ({ file, item }) => {
+                try {
+                    const url = await cloudinaryUpload(file);
+                    URL.revokeObjectURL(item.local);
+                    item.url = url; item.local = null; item.uploading = false;
+                } catch (err) {
+                    failed++;
+                    console.error('[Glitz] Cloudinary upload failed:', err);
+                    URL.revokeObjectURL(item.local);
+                    const idx = peItems.indexOf(item);
+                    if (idx > -1) peItems.splice(idx, 1);
+                }
+                peRenderPreviews();
+            }));
+            if (failed) peSetHint(`${failed} image${failed === 1 ? '' : 's'} failed to upload. Please try again.`, 'error');
+            else peSetHint(`✓ ${batch.length} image${batch.length === 1 ? '' : 's'} uploaded. Click "Save product" to continue.`, 'success');
         });
 
         // ── Save (called directly from button click — no <form> involved) ──
@@ -2019,11 +2199,16 @@
                 return;
             }
 
-            const imageUrl = peImageUrl || existing?.image || '';
-            if (!imageUrl) {
-                peSetBanner('⚠️ Please choose a product image before saving.');
+            if (peItems.some(item => item.uploading)) {
+                peSetBanner('⏳ Please wait for the images to finish uploading.');
                 return;
             }
+            const imageList = peItems.map(item => item.url).filter(Boolean);
+            if (!imageList.length) {
+                peSetBanner('⚠️ Please choose at least one product image before saving.');
+                return;
+            }
+            const imageUrl = imageList[0];
 
             const prevPrice = prevPriceRaw !== '' ? parseFloat(prevPriceRaw) : null;
 
@@ -2038,10 +2223,12 @@
                     price,
                     previousPrice: (Number.isFinite(prevPrice) && prevPrice > price) ? prevPrice : null,
                     image: imageUrl,
+                    images: imageList,
                     description,
                     rating: ratingRaw ? Number(ratingRaw) : null,
                     reviewsCount: existing?.reviewsCount || 0,
                     piecesLeft: piecesRaw !== '' ? Number(piecesRaw) : null,
+                    inStock: document.getElementById('pe_inStock').checked,
                 };
 
                 let saved;
@@ -2104,6 +2291,7 @@
         // Cart Actions
         function addToCart(productId, titleOverride = null, priceOverride = null) {
             const product = products.find(p => p.id === productId);
+            if (product && !isInStock(product)) { showToast('Sorry, this item is currently out of stock.'); return; }
             const title = titleOverride || (product ? product.name : "Custom Item");
             const price = priceOverride || (product ? product.price : 20.00);
             const image = product ? product.image : "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80";
@@ -2261,17 +2449,17 @@
 
             const modalContent = document.getElementById('modalContent');
             modalContent.innerHTML = `
-                <div class="aspect-square bg-glitz-softblush rounded-2xl overflow-hidden">
-                    <img src="${p.image}" class="w-full h-full object-cover">
+                <div class="relative aspect-square bg-glitz-softblush rounded-2xl overflow-hidden">
+                    ${renderProductCarousel(p)}
                 </div>
                 <div class="space-y-4">
                     <span class="text-[10px] uppercase tracking-widest text-glitz-magenta font-bold">${p.category}</span>
                     <h3 class="text-2xl font-serif font-bold text-glitz-dark">${p.name || 'Untitled product'}</h3>
                     <p class="text-xl font-bold font-serif text-glitz-magenta">GHC ${p.price.toFixed(2)}</p>
                     ${p.description ? `<p class="text-xs text-gray-600 leading-relaxed font-normal">${p.description}</p>` : ''}
-                    <button onclick="addToCart(${p.id}); closeQuickView();" class="w-full py-3.5 bg-gradient-to-r from-glitz-magenta to-glitz-deepmagenta text-white rounded-2xl font-bold hover:shadow-glow-pink transition-all">
+                    ${isInStock(p) ? `<button onclick="addToCart(${p.id}); closeQuickView();" class="w-full py-3.5 bg-gradient-to-r from-glitz-magenta to-glitz-deepmagenta text-white rounded-2xl font-bold hover:shadow-glow-pink transition-all">
                         Add To Bag
-                    </button>
+                    </button>` : `<button disabled class="w-full py-3.5 bg-gray-200 text-gray-500 rounded-2xl font-bold cursor-not-allowed">Out of stock</button>`}
                 </div>
             `;
             document.getElementById('quickViewModal').classList.remove('hidden');
@@ -2347,6 +2535,7 @@
             if (!remainingReviews.length) expansion.dataset.expanded = '';
             const label = document.getElementById('reviewSeeMoreLabel');
             if (label) label.textContent = expansion.dataset.expanded ? 'Show fewer reviews' : 'See more reviews';
+            if (typeof renderAdminReviews === 'function') renderAdminReviews();
             lucide.createIcons();
         }
 
@@ -2819,6 +3008,7 @@
                         await firebaseAuth.setPersistence(form.elements.remember.checked ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION);
                         await firebaseAuth.signInWithEmailAndPassword(email, password);
                         form.reset();
+                        closeAuthModal();
                     } catch (firebaseError) {
                         error.textContent = firebaseErrorMessage(firebaseError);
                         error.classList.remove('hidden');
@@ -2847,8 +3037,9 @@
                     try {
                         await firebaseAuth.setPersistence(form.elements.remember.checked ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION);
                         const credential = await firebaseAuth.createUserWithEmailAndPassword(email, password);
-                        await credential.user.updateProfile({ displayName: fullName });
-                        authenticateAccount({ fullName, email }, form.elements.remember.checked);
+                        closeAuthModal();
+                        try { await credential.user.updateProfile({ displayName: fullName }); } catch (profileError) { console.warn('Could not save display name.', profileError); }
+                        authenticateAccount({ fullName, email, uid: credential.user.uid }, form.elements.remember.checked);
                         form.reset();
                     } catch (firebaseError) {
                         error.textContent = firebaseErrorMessage(firebaseError);
