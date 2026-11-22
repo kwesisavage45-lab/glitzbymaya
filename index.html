@@ -465,6 +465,10 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
+            image-rendering: auto;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
             opacity: 0;
             animation: heroImageDisappear 16s infinite;
         }
@@ -603,10 +607,10 @@
     <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-glitz-blush px-4 py-12 md:py-20">
         <!-- Full-bleed four-image disappearing hero background -->
         <div class="hero-reel hero-background" aria-label="Rotating Glitz by Maya beauty imagery">
-            <img src="https://res.cloudinary.com/drmxokidg/image/upload/v1795382465/ejgstnk9zkqbin2mb8r0.jpg" alt="Glossy pink lip glaze" loading="eager">
-            <img src="https://res.cloudinary.com/drmxokidg/image/upload/v1795381709/hjdzldstadelckaesef1.jpg" alt="Pink beauty balm" loading="lazy">
-            <img src="https://res.cloudinary.com/drmxokidg/image/upload/v1795381709/hutwpforpgpt2gtcsgqk.jpg" alt="Golden body shimmer" loading="lazy">
-            <img src="https://res.cloudinary.com/drmxokidg/image/upload/v1795381708/hkywlvihhnvarjskskx1.jpg" alt="Luxury beauty care product" loading="lazy">
+            <img src="https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_1920/v1795382465/ejgstnk9zkqbin2mb8r0.jpg" srcset="https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_640/v1795382465/ejgstnk9zkqbin2mb8r0.jpg 640w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_960/v1795382465/ejgstnk9zkqbin2mb8r0.jpg 960w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_1280/v1795382465/ejgstnk9zkqbin2mb8r0.jpg 1280w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_1600/v1795382465/ejgstnk9zkqbin2mb8r0.jpg 1600w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_1920/v1795382465/ejgstnk9zkqbin2mb8r0.jpg 1920w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_2560/v1795382465/ejgstnk9zkqbin2mb8r0.jpg 2560w" sizes="100vw" alt="Glossy pink lip glaze" loading="eager" fetchpriority="high" decoding="async" onerror="this.onerror=null;this.removeAttribute('srcset');this.src='https://res.cloudinary.com/drmxokidg/image/upload/v1795382465/ejgstnk9zkqbin2mb8r0.jpg'">
+            <img src="https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_1920/v1795381709/hjdzldstadelckaesef1.jpg" srcset="https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_640/v1795381709/hjdzldstadelckaesef1.jpg 640w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_960/v1795381709/hjdzldstadelckaesef1.jpg 960w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_1280/v1795381709/hjdzldstadelckaesef1.jpg 1280w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_1600/v1795381709/hjdzldstadelckaesef1.jpg 1600w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_1920/v1795381709/hjdzldstadelckaesef1.jpg 1920w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_2560/v1795381709/hjdzldstadelckaesef1.jpg 2560w" sizes="100vw" alt="Pink beauty balm" loading="lazy" decoding="async" onerror="this.onerror=null;this.removeAttribute('srcset');this.src='https://res.cloudinary.com/drmxokidg/image/upload/v1795381709/hjdzldstadelckaesef1.jpg'">
+            <img src="https://www.schemecolor.com/images/image-palette/purple-lipstick.jpg" alt="Golden body shimmer" loading="lazy" decoding="async">
+            <img src="https://cdn.shortpixel.ai/spai/q_lossless+ret_img+to_auto/whattowearhub.com/wp-content/uploads/2025/02/10_Red-Lipstick-for-a-Bold-Statement2.jpg" alt="Luxury beauty care product" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://cdn.shortpixel.ai/spai/q_glossy+ret_img+to_auto/whattowearhub.com/wp-content/uploads/2025/02/10_Red-Lipstick-for-a-Bold-Statement2.jpg'">
         </div>
         <!-- Floating Ambient Background Circles -->
         <div class="absolute top-12 left-10 w-72 h-72 bg-glitz-softblush rounded-full filter blur-3xl opacity-70 animate-pulse"></div>
@@ -627,7 +631,7 @@
                 </h1>
                 
                 <p class="text-gray-600 text-base sm:text-lg max-w-lg mx-auto lg:mx-0 font-normal leading-relaxed">
-                    Indulge in Maya’s signature non-sticky lip glazes, color-reviving pink lip balms, exfoliating organic sugar scrubs, and 24K body shimmer oils.
+                    Indulge in Maya’s signature non-sticky lip glazes, color-reviving pink lip balms, exfoliating organic sugar scrubs, and body shimmer oils.
                 </p>
 
                 <!-- Hero Call to Action Buttons -->
@@ -1543,7 +1547,7 @@
             ordersEl.innerHTML = accountOrders.length ? accountOrders.slice().reverse().map(order => `
                 <article class="p-4 rounded-2xl border border-glitz-softblush bg-glitz-blush">
                     <div class="flex flex-wrap items-start justify-between gap-3"><div><p class="text-xs uppercase tracking-widest text-gray-400 font-bold">Order #${order.id}</p><p class="text-xs text-gray-500 mt-1">${new Date(order.date).toLocaleDateString()}</p></div><span class="px-2.5 py-1 rounded-full ${order.status === 'Completed' ? 'bg-green-50 text-green-600' : 'bg-white text-glitz-magenta'} text-[10px] font-bold border border-glitz-pink/20">${order.status || 'Processing'}</span></div>
-                    <div class="flex flex-wrap gap-x-4 gap-y-1 mt-4 text-xs text-gray-600">${order.items.map(item => `<span>${item.name}${item.color ? ` (${escapeAdminText(item.color.name)})` : ''} × ${item.quantity}</span>`).join('')}</div>
+                    <div class="mt-3 divide-y divide-glitz-softblush/70">${orderItemsHtml(order)}</div>
                     <div class="flex items-center justify-between mt-4 pt-3 border-t border-glitz-softblush"><span class="text-xs font-bold text-gray-500">${order.status === 'Completed' ? 'Completed and ready' : 'Being prepared for dispatch'}</span><strong class="text-sm text-glitz-magenta">${formatGHC(order.total)}</strong></div>
                 </article>`).join('') : `<div class="text-center py-12 border border-dashed border-glitz-softblush rounded-2xl"><i data-lucide="package-search" class="w-8 h-8 mx-auto text-glitz-magenta"></i><p class="text-sm font-semibold text-gray-500 mt-3">No orders yet</p><p class="text-xs text-gray-400 mt-1">Your signed-in orders will appear here.</p></div>`;
             lucide.createIcons();
@@ -1995,6 +1999,34 @@
             showToast(processed ? `Order #${order.id} marked completed.` : `Order #${order.id} moved back to processing.`);
         }
 
+        // ── Order line items: image + details (shared by admin table & customer profile) ──
+        function orderItemImage(item) {
+            if (item && item.image) return item.image;
+            const p = products.find(x => x.id === item?.id);   // older orders: look the photo up from the catalogue
+            return p ? (getProductImages(p)[0] || p.image || '') : '';
+        }
+        function orderItemCategory(item) {
+            const c = item?.category || (products.find(x => x.id === item?.id) || {}).category || '';
+            return c && c !== 'all' ? c : '';
+        }
+        function orderItemsHtml(order) {
+            return (order.items || []).map(item => {
+                const img = orderItemImage(item);
+                const qty = Number(item.quantity || 0), price = Number(item.price || 0);
+                const category = orderItemCategory(item);
+                const color = item.color && normaliseHex(item.color.hex) ? item.color : null;
+                return `<div class="flex items-center gap-3 py-1.5 min-w-0">
+                    ${img ? `<img src="${escapeAdminText(img)}" alt="${escapeAdminText(item.name)}" loading="lazy" class="w-12 h-12 rounded-xl object-cover bg-glitz-softblush border border-glitz-softblush shrink-0">` : `<div class="w-12 h-12 rounded-xl bg-glitz-softblush shrink-0 flex items-center justify-center text-[9px] font-bold text-glitz-magenta">No img</div>`}
+                    <div class="min-w-0 flex-1 text-left">
+                        <p class="text-xs font-bold text-glitz-dark break-words">${escapeAdminText(item.name)}</p>
+                        ${category ? `<p class="text-[10px] uppercase tracking-wide text-gray-400 capitalize">${escapeAdminText(category)}</p>` : ''}
+                        ${color ? `<p class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-gray-500"><span class="w-3 h-3 rounded-full border border-gray-200" style="background:${color.hex}"></span>${escapeAdminText(color.name)}</p>` : ''}
+                        <p class="text-[11px] text-gray-500">${formatGHC(price)} × ${qty} = <span class="font-bold text-glitz-magenta">${formatGHC(price * qty)}</span></p>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
         function renderAdminOrders() {
             const table = document.getElementById('adminOrdersTable');
             if (!table) return;
@@ -2002,18 +2034,61 @@
                 const date = new Date(order.date);
                 const itemCount = (order.items || []).reduce((sum, item) => sum + Number(item.quantity || 0), 0);
                 const processed = order.status === 'Completed';
-                return `<tr class="hover:bg-glitz-blush/50 transition-colors ${order.isTest ? 'opacity-60' : ''}"><td class="px-5 py-4 text-xs font-bold text-glitz-dark">#${escapeAdminText(order.id)}${order.isTest ? ' <span class="ml-1 px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-600 text-[9px] font-bold uppercase tracking-wide align-middle">Test</span>' : ''}</td><td data-label="Date" class="px-4 py-4 text-xs text-gray-500">${date.toLocaleDateString()}<br><span class="text-[10px] text-gray-400">${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span></td><td data-label="Items" class="px-4 py-4 text-xs text-gray-600">${itemCount} item${itemCount === 1 ? '' : 's'}<br><span class="text-[10px] text-gray-400">${order.items.map(item => `${escapeAdminText(item.name)}${item.color ? ` (${escapeAdminText(item.color.name)})` : ''} ×${item.quantity}`).join(', ')}</span></td><td data-label="Total" class="px-4 py-4 text-sm font-bold text-glitz-magenta">${formatGHC(order.total)}</td><td data-label="Processed" class="px-5 py-4"><label class="inline-flex items-center gap-2 cursor-pointer"><input type="checkbox" class="sr-only peer" ${processed ? 'checked' : ''} onchange="setOrderProcessed('${escapeAdminText(order.id)}', this.checked)"><span class="relative w-10 h-5 rounded-full bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-glitz-pink/40 peer-checked:bg-green-500 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-4 after:h-4 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:after:translate-x-5"></span><span class="text-[10px] font-bold ${processed ? 'text-green-600' : 'text-gray-500'}">${processed ? 'Completed' : 'Processing'}</span></label></td></tr>`;
+                return `<tr class="hover:bg-glitz-blush/50 transition-colors ${order.isTest ? 'opacity-60' : ''}"><td class="px-5 py-4 text-xs font-bold text-glitz-dark">#${escapeAdminText(order.id)}${order.isTest ? ' <span class="ml-1 px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-600 text-[9px] font-bold uppercase tracking-wide align-middle">Test</span>' : ''}</td><td data-label="Date" class="px-4 py-4 text-xs text-gray-500">${date.toLocaleDateString()}<br><span class="text-[10px] text-gray-400">${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span></td><td data-label="Items" class="px-4 py-4 text-xs text-gray-600"><div class="min-w-0 flex-1">${orderItemsHtml(order)}</div></td><td data-label="Total" class="px-4 py-4 text-sm font-bold text-glitz-magenta">${formatGHC(order.total)}</td><td data-label="Processed" class="px-5 py-4"><label class="inline-flex items-center gap-2 cursor-pointer"><input type="checkbox" class="sr-only peer" ${processed ? 'checked' : ''} onchange="setOrderProcessed('${escapeAdminText(order.id)}', this.checked)"><span class="relative w-10 h-5 rounded-full bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-glitz-pink/40 peer-checked:bg-green-500 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-4 after:h-4 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:after:translate-x-5"></span><span class="text-[10px] font-bold ${processed ? 'text-green-600' : 'text-gray-500'}">${processed ? 'Completed' : 'Processing'}</span></label></td></tr>`;
             }).join('') : `<tr><td colspan="5" class="px-5 py-14 text-center text-xs text-gray-400">No orders yet. Completed checkouts will appear here.</td></tr>`;
         }
 
-        function downloadOrderHistoryPDF() {
+        // Loads an image, crops it square and returns a small JPEG data-URL for the PDF (null if it can't be loaded)
+        function loadImageAsJpeg(url, size = 220) {
+            return new Promise(resolve => {
+                if (!url) return resolve(null);
+                const attempt = (src, fallback) => {
+                    const done = value => value ? resolve(value) : (fallback ? fallback() : resolve(null));
+                    const img = new Image();
+                    img.crossOrigin = 'anonymous';
+                    const timer = setTimeout(() => { img.onload = img.onerror = null; done(null); }, 8000);
+                    img.onload = () => {
+                        clearTimeout(timer);
+                        try {
+                            const canvas = document.createElement('canvas');
+                            canvas.width = canvas.height = size;
+                            const ctx = canvas.getContext('2d');
+                            ctx.fillStyle = '#ffffff';
+                            ctx.fillRect(0, 0, size, size);
+                            const side = Math.min(img.naturalWidth, img.naturalHeight);
+                            ctx.drawImage(img, (img.naturalWidth - side) / 2, (img.naturalHeight - side) / 2, side, side, 0, 0, size, size);
+                            done(canvas.toDataURL('image/jpeg', 0.85));
+                        } catch (e) { done(null); }   // e.g. host does not allow cross-origin use
+                    };
+                    img.onerror = () => { clearTimeout(timer); done(null); };
+                    img.src = src;
+                };
+                // Cloudinary: ask for a small square thumbnail first, fall back to the original
+                const thumb = url.replace(/(res\.cloudinary\.com\/[^/]+\/image\/upload\/)(v\d+\/)/, '$1c_fill,w_240,h_240,f_jpg,q_80/$2');
+                thumb !== url ? attempt(thumb, () => attempt(url, null)) : attempt(url, null);
+            });
+        }
+
+        function hexToRgb(hex) {
+            const h = normaliseHex(hex);
+            return h ? [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)] : null;
+        }
+
+        async function downloadOrderHistoryPDF() {
             const realSales = getRealSales();
             if (!realSales.length) { showToast('There are no completed orders to download yet.'); return; }
             if (!window.jspdf || !window.jspdf.jsPDF) { showToast('PDF export is still loading. Please try again.'); return; }
+            showToast('Preparing your PDF…');
+            // Fetch every distinct product photo once
+            const imageCache = {};
+            const urls = [...new Set(realSales.flatMap(order => (order.items || []).map(orderItemImage)).filter(Boolean))];
+            await Promise.all(urls.map(async url => { imageCache[url] = await loadImageAsJpeg(url); }));
+
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            const margin = 16;
+            const margin = 16, right = 194, thumb = 14;
             let y = 18;
+            doc.setFont('helvetica', 'bold');
             doc.setTextColor(230, 0, 103);
             doc.setFontSize(20);
             doc.text('GLITZ by Maya', margin, y);
@@ -2022,32 +2097,89 @@
             doc.setFontSize(14);
             doc.text('Order History', margin, y);
             y += 7;
+            doc.setFont('helvetica', 'normal');
             doc.setFontSize(9);
             doc.setTextColor(110, 100, 105);
             doc.text(`Generated ${new Date().toLocaleString()} • Currency: GHC`, margin, y);
             y += 10;
             doc.setDrawColor(255, 105, 180);
-            doc.line(margin, y, 194, y);
+            doc.line(margin, y, right, y);
             y += 8;
+
             realSales.slice().reverse().forEach((order, index) => {
-                if (y > 270) { doc.addPage(); y = 18; }
+                if (y > 238) { doc.addPage(); y = 18; }
+                doc.setFont('helvetica', 'bold');
                 doc.setTextColor(28, 21, 23);
                 doc.setFontSize(10);
                 doc.text(`Order #${order.id} • ${new Date(order.date).toLocaleString()}`, margin, y);
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(8);
+                doc.setTextColor(110, 100, 105);
+                doc.text(order.status || 'Processing', right, y, { align: 'right' });
                 y += 5;
-                doc.setTextColor(85, 78, 82);
+
+                (order.items || []).forEach(item => {
+                    const qty = Number(item.quantity || 0), price = Number(item.price || 0);
+                    const nameLines = doc.splitTextToSize(String(item.name || 'Item'), 108).slice(0, 2);
+                    const category = orderItemCategory(item);
+                    const color = item.color && normaliseHex(item.color.hex) ? item.color : null;
+                    const rowHeight = Math.max(thumb + 4, nameLines.length * 4 + (category ? 4 : 0) + (color ? 4 : 0) + 8);
+                    if (y + rowHeight > 282) { doc.addPage(); y = 18; }
+
+                    // photo (or a placeholder box when it can't be loaded)
+                    const img = imageCache[orderItemImage(item)];
+                    if (img) {
+                        doc.addImage(img, 'JPEG', margin + 2, y, thumb, thumb);
+                    } else {
+                        doc.setDrawColor(240, 220, 228);
+                        doc.setFillColor(255, 240, 245);
+                        doc.roundedRect(margin + 2, y, thumb, thumb, 2, 2, 'FD');
+                    }
+
+                    // details
+                    const tx = margin + thumb + 6;
+                    let ty = y + 3.5;
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(9);
+                    doc.setTextColor(28, 21, 23);
+                    doc.text(nameLines, tx, ty);
+                    ty += nameLines.length * 4;
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(8);
+                    doc.setTextColor(110, 100, 105);
+                    if (category) { doc.text(category.charAt(0).toUpperCase() + category.slice(1), tx, ty); ty += 4; }
+                    if (color) {
+                        const rgb = hexToRgb(color.hex);
+                        if (rgb) { doc.setFillColor(...rgb); doc.setDrawColor(200, 200, 200); doc.circle(tx + 1.3, ty - 1, 1.3, 'FD'); }
+                        doc.text(String(color.name), tx + 4, ty);
+                        ty += 4;
+                    }
+                    doc.setTextColor(85, 78, 82);
+                    doc.text(`${formatGHC(price)} x ${qty}`, tx, ty);
+
+                    // line total
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(9);
+                    doc.setTextColor(230, 0, 103);
+                    doc.text(formatGHC(price * qty), right, y + 3.5, { align: 'right' });
+                    y += rowHeight;
+                });
+
+                if (y > 280) { doc.addPage(); y = 18; }
+                doc.setFont('helvetica', 'bold');
                 doc.setFontSize(9);
-                const items = (order.items || []).map(item => `${item.name}${item.color ? ` (${item.color.name})` : ''} x${item.quantity}`).join(', ');
-                const lines = doc.splitTextToSize(items, 132);
-                doc.text(lines, margin + 4, y);
+                doc.setTextColor(28, 21, 23);
+                doc.text('Order total', 140, y + 1, { align: 'right' });
                 doc.setTextColor(230, 0, 103);
-                doc.text(formatGHC(order.total), 158, y);
-                y += Math.max(8, lines.length * 4 + 4);
-                if (index < realSales.length - 1) { doc.setDrawColor(240, 220, 228); doc.line(margin, y, 194, y); y += 7; }
+                doc.text(formatGHC(order.total), right, y + 1, { align: 'right' });
+                y += 5;
+                if (index < realSales.length - 1) { doc.setDrawColor(240, 220, 228); doc.line(margin, y, right, y); y += 7; }
             });
+
             const revenue = realSales.reduce((sum, order) => sum + Number(order.total || 0), 0);
             if (y > 265) { doc.addPage(); y = 18; }
             y += 5;
+            doc.setFont('helvetica', 'bold');
             doc.setTextColor(28, 21, 23);
             doc.setFontSize(11);
             doc.text(`Total orders: ${realSales.length}`, margin, y);
@@ -2189,7 +2321,12 @@
             const fd = new FormData();
             fd.append('file', file);
             fd.append('upload_preset', 'glitzbymaya');
-            const res = await fetch('https://api.cloudinary.com/v1_1/dvrnxd8t3/image/upload', { method: 'POST', body: fd });
+            let res;
+            try {
+                res = await fetch('https://api.cloudinary.com/v1_1/dvrnxd8t3/image/upload', { method: 'POST', body: fd });
+            } catch (netErr) {
+                throw new Error('Could not reach Cloudinary (network problem, or an ad/privacy blocker is blocking api.cloudinary.com)');
+            }
             const json = await res.json().catch(() => ({}));
             if (!res.ok || (!json.secure_url && !json.url)) {
                 throw new Error(json.error?.message || `Cloudinary error ${res.status}`);
@@ -2215,6 +2352,7 @@
             peSetHint(`Uploading ${batch.length} image${batch.length === 1 ? '' : 's'}…`, 'loading');
 
             let failed = 0;
+            let firstReason = '';
             await Promise.all(batch.map(async ({ file, item }) => {
                 try {
                     const url = await cloudinaryUpload(file);
@@ -2222,6 +2360,7 @@
                     item.url = url; item.local = null; item.uploading = false;
                 } catch (err) {
                     failed++;
+                    if (!firstReason) firstReason = (err && err.message) || 'Unknown error';
                     console.error('[Glitz] Cloudinary upload failed:', err);
                     URL.revokeObjectURL(item.local);
                     const idx = peItems.indexOf(item);
@@ -2229,7 +2368,7 @@
                 }
                 peRenderPreviews();
             }));
-            if (failed) peSetHint(`${failed} image${failed === 1 ? '' : 's'} failed to upload. Please try again.`, 'error');
+            if (failed) peSetHint(`${failed} image${failed === 1 ? '' : 's'} failed to upload: ${firstReason}`, 'error');
             else peSetHint(`✓ ${batch.length} image${batch.length === 1 ? '' : 's'} uploaded. Click "Save product" to continue.`, 'success');
         });
 
@@ -2910,7 +3049,7 @@
             const draft = {
                 id: String(Date.now()).slice(-6),
                 total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
-                items: cart.map(item => ({ id: item.id, name: item.name, price: item.price, quantity: item.quantity, color: item.color ? { name: item.color.name, hex: item.color.hex } : null })),
+                items: cart.map(item => ({ id: item.id, name: item.name, price: item.price, quantity: item.quantity, image: item.image || null, category: (products.find(p => p.id === item.id) || {}).category || null, color: item.color ? { name: item.color.name, hex: item.color.hex } : null })),
                 accountUid: activeAccount?.uid || null,
                 accountEmail: activeAccount?.email || null,
                 accountName: activeAccount?.fullName || null,
