@@ -9,6 +9,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Fallback if the unpkg CDN is blocked/slow: load Lucide from jsDelivr, then stub so the page never crashes -->
+    <script>
+        if (!window.lucide) {
+            document.write('<script src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js"><\/script>');
+            document.write('<script>if(!window.lucide){window.lucide={createIcons:function(){}};console.warn("Lucide icons could not be loaded.");}<\/script>');
+        }
+    </script>
     <!-- PDF export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <!-- Paystack Inline Checkout -->
@@ -1259,6 +1266,19 @@
                 <label class="text-xs font-bold text-gray-600 sm:col-span-2">Description <span class="text-gray-400 font-normal">(optional)</span><textarea id="pe_description" rows="3" class="mt-2 w-full px-4 py-3 rounded-xl bg-glitz-blush border border-glitz-softblush focus:outline-none focus:border-glitz-magenta" placeholder="Describe the product..."></textarea></label>
                 <label class="text-xs font-bold text-gray-600">Rating <span class="text-gray-400 font-normal">(optional)</span><select id="pe_rating" class="mt-2 w-full px-4 py-3 rounded-xl bg-glitz-blush border border-glitz-softblush focus:outline-none focus:border-glitz-magenta"><option value="">No rating</option><option value="5">★★★★★ 5 stars</option><option value="4">★★★★☆ 4 stars</option><option value="3">★★★☆☆ 3 stars</option><option value="2">★★☆☆☆ 2 stars</option><option value="1">★☆☆☆☆ 1 star</option></select></label>
                 <label class="sm:col-span-2 flex items-center justify-between gap-4 rounded-xl bg-glitz-blush border border-glitz-softblush px-4 py-3 text-xs font-bold text-gray-600 cursor-pointer"><span>Availability<span class="block text-[11px] font-normal text-gray-400 mt-0.5">Switch off to show this product as out of stock.</span></span><span class="inline-flex items-center gap-2"><input id="pe_inStock" type="checkbox" checked class="sr-only peer" onchange="document.getElementById('pe_inStockLabel').textContent = this.checked ? 'In stock' : 'Out of stock'"><span class="relative w-10 h-5 shrink-0 rounded-full bg-gray-300 peer-focus:ring-2 peer-focus:ring-glitz-pink/40 peer-checked:bg-green-500 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-4 after:h-4 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:after:translate-x-5"></span><span id="pe_inStockLabel" class="w-20 text-[11px]">In stock</span></span></label>
+                <div class="sm:col-span-2">
+                    <span class="text-xs font-bold text-gray-600">Colours / shades <span class="text-gray-400 font-normal">(optional)</span></span>
+                    <div class="mt-2 rounded-2xl border border-glitz-softblush bg-glitz-blush p-3 space-y-3">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <input id="pe_colorPicker" type="color" value="#ff2e93" aria-label="Pick a colour" class="h-10 w-12 shrink-0 rounded-lg border border-glitz-softblush bg-white p-1 cursor-pointer">
+                            <input id="pe_colorName" type="text" maxlength="30" placeholder="Shade name (e.g. Rose Petal)" onkeydown="if(event.key==='Enter'){event.preventDefault();peAddColor();}" class="flex-1 min-w-[140px] px-3 py-2.5 rounded-xl bg-white border border-glitz-softblush text-sm focus:outline-none focus:border-glitz-magenta">
+                            <button type="button" onclick="peAddColor()" class="px-4 py-2.5 rounded-xl bg-glitz-magenta text-white text-xs font-bold hover:bg-glitz-deepmagenta">Add colour</button>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-1.5"><span class="text-[10px] font-bold uppercase tracking-wide text-gray-400 mr-1">Quick add</span><button type="button" onclick="peAddColor('#d9a58f', 'Nude')" title="Add Nude" aria-label="Add Nude" class="w-6 h-6 rounded-full border border-white shadow ring-1 ring-glitz-softblush hover:scale-110 transition-transform" style="background:#d9a58f"></button><button type="button" onclick="peAddColor('#ffb48a', 'Peach')" title="Add Peach" aria-label="Add Peach" class="w-6 h-6 rounded-full border border-white shadow ring-1 ring-glitz-softblush hover:scale-110 transition-transform" style="background:#ffb48a"></button><button type="button" onclick="peAddColor('#ff6f61', 'Coral')" title="Add Coral" aria-label="Add Coral" class="w-6 h-6 rounded-full border border-white shadow ring-1 ring-glitz-softblush hover:scale-110 transition-transform" style="background:#ff6f61"></button><button type="button" onclick="peAddColor('#ff69b4', 'Pink')" title="Add Pink" aria-label="Add Pink" class="w-6 h-6 rounded-full border border-white shadow ring-1 ring-glitz-softblush hover:scale-110 transition-transform" style="background:#ff69b4"></button><button type="button" onclick="peAddColor('#e8a3b8', 'Rose')" title="Add Rose" aria-label="Add Rose" class="w-6 h-6 rounded-full border border-white shadow ring-1 ring-glitz-softblush hover:scale-110 transition-transform" style="background:#e8a3b8"></button><button type="button" onclick="peAddColor('#8e2a5a', 'Berry')" title="Add Berry" aria-label="Add Berry" class="w-6 h-6 rounded-full border border-white shadow ring-1 ring-glitz-softblush hover:scale-110 transition-transform" style="background:#8e2a5a"></button><button type="button" onclick="peAddColor('#d0021b', 'Red')" title="Add Red" aria-label="Add Red" class="w-6 h-6 rounded-full border border-white shadow ring-1 ring-glitz-softblush hover:scale-110 transition-transform" style="background:#d0021b"></button><button type="button" onclick="peAddColor('#d4af37', 'Gold')" title="Add Gold" aria-label="Add Gold" class="w-6 h-6 rounded-full border border-white shadow ring-1 ring-glitz-softblush hover:scale-110 transition-transform" style="background:#d4af37"></button><button type="button" onclick="peAddColor('#f3f3f3', 'Clear')" title="Add Clear" aria-label="Add Clear" class="w-6 h-6 rounded-full border border-white shadow ring-1 ring-glitz-softblush hover:scale-110 transition-transform" style="background:#f3f3f3"></button><button type="button" onclick="peAddColor('#1c1c1c', 'Black')" title="Add Black" aria-label="Add Black" class="w-6 h-6 rounded-full border border-white shadow ring-1 ring-glitz-softblush hover:scale-110 transition-transform" style="background:#1c1c1c"></button></div>
+                        <div id="pe_colorList" class="flex flex-wrap gap-2"></div>
+                        <p id="pe_colorHint" class="text-[11px] text-gray-400">Add as many colours as the product comes in. When a product has colours, customers must choose at least one before they can check out.</p>
+                    </div>
+                </div>
                 <label class="text-xs font-bold text-gray-600">Pieces left <span class="text-gray-400 font-normal">(optional)</span><input id="pe_piecesLeft" type="number" min="0" step="1" class="mt-2 w-full px-4 py-3 rounded-xl bg-glitz-blush border border-glitz-softblush focus:outline-none focus:border-glitz-magenta" placeholder="e.g. 12"></label>
                 <div class="sm:col-span-2 flex justify-end gap-3 pt-2"><button type="button" onclick="closeProductEditor()" class="px-5 py-3 rounded-xl border border-glitz-softblush text-gray-600 font-bold text-sm">Cancel</button><button type="button" id="pe_saveBtn" onclick="saveProductNow()" class="px-5 py-3 rounded-xl bg-glitz-magenta text-white font-bold text-sm hover:bg-glitz-deepmagenta">Save product</button></div>
             </div>
@@ -1449,7 +1469,7 @@
         //  Live key:  pk_live_xxxxxxxxxxxxxxxxxxxxxxxx
         //  (Use the PUBLIC key only. Never put your sk_ secret key in this file.)
         // ============================================================
-        const PAYSTACK_PUBLIC_KEY = 'pk_live_4a27f57d4bff424001a948bc5c296882534c7ef6';
+        const PAYSTACK_PUBLIC_KEY = 'pk_live_35994de956710b8767454f7ea81ba8fd7ecacae7';
         const PAYSTACK_CURRENCY = 'GHS'; // Ghana Cedis. Must be enabled on your Paystack account.
         let checkoutInProgress = false;
 
@@ -1523,7 +1543,7 @@
             ordersEl.innerHTML = accountOrders.length ? accountOrders.slice().reverse().map(order => `
                 <article class="p-4 rounded-2xl border border-glitz-softblush bg-glitz-blush">
                     <div class="flex flex-wrap items-start justify-between gap-3"><div><p class="text-xs uppercase tracking-widest text-gray-400 font-bold">Order #${order.id}</p><p class="text-xs text-gray-500 mt-1">${new Date(order.date).toLocaleDateString()}</p></div><span class="px-2.5 py-1 rounded-full ${order.status === 'Completed' ? 'bg-green-50 text-green-600' : 'bg-white text-glitz-magenta'} text-[10px] font-bold border border-glitz-pink/20">${order.status || 'Processing'}</span></div>
-                    <div class="flex flex-wrap gap-x-4 gap-y-1 mt-4 text-xs text-gray-600">${order.items.map(item => `<span>${item.name} × ${item.quantity}</span>`).join('')}</div>
+                    <div class="flex flex-wrap gap-x-4 gap-y-1 mt-4 text-xs text-gray-600">${order.items.map(item => `<span>${item.name}${item.color ? ` (${escapeAdminText(item.color.name)})` : ''} × ${item.quantity}</span>`).join('')}</div>
                     <div class="flex items-center justify-between mt-4 pt-3 border-t border-glitz-softblush"><span class="text-xs font-bold text-gray-500">${order.status === 'Completed' ? 'Completed and ready' : 'Being prepared for dispatch'}</span><strong class="text-sm text-glitz-magenta">${formatGHC(order.total)}</strong></div>
                 </article>`).join('') : `<div class="text-center py-12 border border-dashed border-glitz-softblush rounded-2xl"><i data-lucide="package-search" class="w-8 h-8 mx-auto text-glitz-magenta"></i><p class="text-sm font-semibold text-gray-500 mt-3">No orders yet</p><p class="text-xs text-gray-400 mt-1">Your signed-in orders will appear here.</p></div>`;
             lucide.createIcons();
@@ -1710,11 +1730,12 @@
                             ${p.rating ? `<div class="flex items-center text-glitz-gold text-xs gap-1 mb-1"><i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i><span class="font-bold text-gray-700">${p.rating}</span><span class="text-gray-400">(${p.reviewsCount || 0})</span></div>` : ''}
                             <h3 class="font-serif font-bold text-base text-glitz-dark group-hover:text-glitz-magenta transition-colors">${p.name || 'Untitled product'}</h3>
                             ${p.description ? `<p class="text-xs text-gray-500 mt-1 line-clamp-2 font-normal">${p.description}</p>` : ''}
+                            ${getProductColors(p).length ? `<div class="flex flex-wrap items-center gap-1.5 mt-2.5" aria-label="Available colours">${getProductColors(p).slice(0, 8).map(c => `<span title="${escapeAdminText(c.name)}" class="w-4 h-4 rounded-full border border-gray-200 shadow-sm" style="background:${c.hex}"></span>`).join('')}${getProductColors(p).length > 8 ? `<span class="text-[10px] font-bold text-gray-400">+${getProductColors(p).length - 8}</span>` : ''}</div>` : ''}
                         </div>
                     </div>
                     <div class="px-5 pb-5 pt-0 flex items-center justify-between border-t border-gray-100/60 mt-2">
                         <span class="flex flex-wrap items-baseline gap-2"><span class="text-xl font-bold font-serif text-glitz-magenta">${formatGHC(p.price)}</span>${hasPreviousPrice ? `<span class="text-xs font-semibold text-gray-400 line-through">${formatGHC(previousPrice)}</span>` : ''}</span>
-                        <button onclick="addToCart(${p.id})" ${isInStock(p) ? '' : 'disabled aria-disabled="true"'} class="p-3 bg-glitz-softblush text-glitz-magenta hover:bg-glitz-magenta hover:text-white rounded-2xl transition-all shadow-sm disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-glitz-softblush disabled:hover:text-glitz-magenta" title="${isInStock(p) ? 'Add to Bag' : 'Out of stock'}">
+                        <button onclick="addToCart(${p.id})" ${isInStock(p) ? '' : 'disabled aria-disabled="true"'} class="p-3 bg-glitz-softblush text-glitz-magenta hover:bg-glitz-magenta hover:text-white rounded-2xl transition-all shadow-sm disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-glitz-softblush disabled:hover:text-glitz-magenta" title="${isInStock(p) ? (getProductColors(p).length ? 'Choose colour' : 'Add to Bag') : 'Out of stock'}">
                             <i data-lucide="plus" class="w-4 h-4"></i>
                         </button>
                     </div>
@@ -1942,7 +1963,7 @@
             if (!table) return;
             const query = (document.getElementById('adminProductSearch')?.value || '').toLowerCase().trim();
             const visible = products.filter(product => `${product.name || ''} ${product.category || ''}`.toLowerCase().includes(query));
-            table.innerHTML = visible.length ? visible.map(product => `<tr class="hover:bg-glitz-blush/50 transition-colors"><td class="px-5 py-4"><div class="flex items-center gap-3"><img src="${escapeAdminText(product.image)}" alt="" class="w-11 h-11 rounded-xl object-cover bg-glitz-softblush"><div><p class="text-xs font-bold text-glitz-dark">${escapeAdminText(product.name || 'Untitled product')}</p><p class="text-[10px] text-glitz-gold">${product.rating ? `${'★'.repeat(Number(product.rating))}${'☆'.repeat(5 - Number(product.rating))}` : 'No rating'}${product.piecesLeft !== undefined && product.piecesLeft !== null && product.piecesLeft !== '' ? ` • ${escapeAdminText(product.piecesLeft)} pcs left` : ''}</p></div></div></td><td data-label="Category" class="px-4 py-4 text-xs font-semibold text-gray-500 capitalize">${escapeAdminText(product.category)}</td><td data-label="Price" class="px-4 py-4 text-sm font-bold text-glitz-magenta">${formatGHC(product.price)}</td><td data-label="Units sold" class="px-4 py-4 text-xs font-bold text-gray-600">${getUnitsSold(product.id)}</td><td data-label="Stock" class="px-4 py-4"><label class="inline-flex items-center gap-2 cursor-pointer"><input type="checkbox" class="sr-only peer" ${isInStock(product) ? 'checked' : ''} onchange="toggleProductStock(${product.id})" aria-label="In stock: ${escapeAdminText(product.name || 'product')}"><span class="relative w-10 h-5 shrink-0 rounded-full bg-gray-300 peer-focus:ring-2 peer-focus:ring-glitz-pink/40 peer-checked:bg-green-500 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-4 after:h-4 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:after:translate-x-5"></span><span class="text-[10px] font-bold ${isInStock(product) ? 'text-green-600' : 'text-red-500'}">${isInStock(product) ? 'In stock' : 'Out of stock'}</span></label></td><td class="px-5 py-4"><div class="flex justify-end gap-2"><button type="button" onclick="openProductEditor(${product.id})" class="p-2 rounded-lg bg-glitz-blush text-glitz-magenta hover:bg-glitz-softblush" aria-label="Edit ${escapeAdminText(product.name || 'product')}"><i data-lucide="pencil" class="w-4 h-4"></i></button><button type="button" onclick="deleteProduct(${product.id})" class="p-2 rounded-lg bg-red-50 text-red-500 hover:bg-red-100" aria-label="Remove ${escapeAdminText(product.name || 'product')}"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div></td></tr>`).join('') : `<tr><td colspan="6" class="px-5 py-12 text-center text-xs text-gray-400">No products match that search.</td></tr>`;
+            table.innerHTML = visible.length ? visible.map(product => `<tr class="hover:bg-glitz-blush/50 transition-colors"><td class="px-5 py-4"><div class="flex items-center gap-3"><img src="${escapeAdminText(product.image)}" alt="" class="w-11 h-11 rounded-xl object-cover bg-glitz-softblush"><div><p class="text-xs font-bold text-glitz-dark">${escapeAdminText(product.name || 'Untitled product')}</p><p class="text-[10px] text-glitz-gold">${product.rating ? `${'★'.repeat(Number(product.rating))}${'☆'.repeat(5 - Number(product.rating))}` : 'No rating'}${product.piecesLeft !== undefined && product.piecesLeft !== null && product.piecesLeft !== '' ? ` • ${escapeAdminText(product.piecesLeft)} pcs left` : ''}</p>${getProductColors(product).length ? `<div class="flex flex-wrap gap-1 mt-1">${getProductColors(product).map(c => `<span title="${escapeAdminText(c.name)}" class="w-3.5 h-3.5 rounded-full border border-gray-200" style="background:${c.hex}"></span>`).join('')}</div>` : ''}</div></div></td><td data-label="Category" class="px-4 py-4 text-xs font-semibold text-gray-500 capitalize">${escapeAdminText(product.category)}</td><td data-label="Price" class="px-4 py-4 text-sm font-bold text-glitz-magenta">${formatGHC(product.price)}</td><td data-label="Units sold" class="px-4 py-4 text-xs font-bold text-gray-600">${getUnitsSold(product.id)}</td><td data-label="Stock" class="px-4 py-4"><label class="inline-flex items-center gap-2 cursor-pointer"><input type="checkbox" class="sr-only peer" ${isInStock(product) ? 'checked' : ''} onchange="toggleProductStock(${product.id})" aria-label="In stock: ${escapeAdminText(product.name || 'product')}"><span class="relative w-10 h-5 shrink-0 rounded-full bg-gray-300 peer-focus:ring-2 peer-focus:ring-glitz-pink/40 peer-checked:bg-green-500 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-4 after:h-4 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:after:translate-x-5"></span><span class="text-[10px] font-bold ${isInStock(product) ? 'text-green-600' : 'text-red-500'}">${isInStock(product) ? 'In stock' : 'Out of stock'}</span></label></td><td class="px-5 py-4"><div class="flex justify-end gap-2"><button type="button" onclick="openProductEditor(${product.id})" class="p-2 rounded-lg bg-glitz-blush text-glitz-magenta hover:bg-glitz-softblush" aria-label="Edit ${escapeAdminText(product.name || 'product')}"><i data-lucide="pencil" class="w-4 h-4"></i></button><button type="button" onclick="deleteProduct(${product.id})" class="p-2 rounded-lg bg-red-50 text-red-500 hover:bg-red-100" aria-label="Remove ${escapeAdminText(product.name || 'product')}"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div></td></tr>`).join('') : `<tr><td colspan="6" class="px-5 py-12 text-center text-xs text-gray-400">No products match that search.</td></tr>`;
             lucide.createIcons();
         }
 
@@ -1953,7 +1974,7 @@
             if (!realSales.length) {
                 list.innerHTML = `<div class="text-center py-8"><i data-lucide="bar-chart-3" class="w-10 h-10 mx-auto text-glitz-softblush"></i><p class="text-sm font-semibold text-gray-500 mt-3">No completed sales yet.</p><p class="text-xs text-gray-400 mt-1">Orders will appear here after checkout.</p></div>`;
             } else {
-                list.innerHTML = realSales.slice(-5).reverse().map(order => `<div class="flex items-center justify-between gap-3"><div class="flex items-center gap-3 min-w-0"><div class="w-9 h-9 shrink-0 rounded-xl bg-glitz-blush flex items-center justify-center text-glitz-magenta"><i data-lucide="receipt" class="w-4 h-4"></i></div><div class="min-w-0"><p class="text-xs font-bold text-glitz-dark">Order #${escapeAdminText(order.id)}</p><p class="text-[10px] text-gray-400 truncate">${order.items.map(item => `${escapeAdminText(item.name)} ×${item.quantity}`).join(', ')}</p></div></div><span class="text-xs font-bold text-glitz-magenta">${formatGHC(order.total)}</span></div>`).join('');
+                list.innerHTML = realSales.slice(-5).reverse().map(order => `<div class="flex items-center justify-between gap-3"><div class="flex items-center gap-3 min-w-0"><div class="w-9 h-9 shrink-0 rounded-xl bg-glitz-blush flex items-center justify-center text-glitz-magenta"><i data-lucide="receipt" class="w-4 h-4"></i></div><div class="min-w-0"><p class="text-xs font-bold text-glitz-dark">Order #${escapeAdminText(order.id)}</p><p class="text-[10px] text-gray-400 truncate">${order.items.map(item => `${escapeAdminText(item.name)}${item.color ? ` (${escapeAdminText(item.color.name)})` : ''} ×${item.quantity}`).join(', ')}</p></div></div><span class="text-xs font-bold text-glitz-magenta">${formatGHC(order.total)}</span></div>`).join('');
             }
             lucide.createIcons();
         }
@@ -1981,7 +2002,7 @@
                 const date = new Date(order.date);
                 const itemCount = (order.items || []).reduce((sum, item) => sum + Number(item.quantity || 0), 0);
                 const processed = order.status === 'Completed';
-                return `<tr class="hover:bg-glitz-blush/50 transition-colors ${order.isTest ? 'opacity-60' : ''}"><td class="px-5 py-4 text-xs font-bold text-glitz-dark">#${escapeAdminText(order.id)}${order.isTest ? ' <span class="ml-1 px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-600 text-[9px] font-bold uppercase tracking-wide align-middle">Test</span>' : ''}</td><td data-label="Date" class="px-4 py-4 text-xs text-gray-500">${date.toLocaleDateString()}<br><span class="text-[10px] text-gray-400">${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span></td><td data-label="Items" class="px-4 py-4 text-xs text-gray-600">${itemCount} item${itemCount === 1 ? '' : 's'}<br><span class="text-[10px] text-gray-400">${order.items.map(item => `${escapeAdminText(item.name)} ×${item.quantity}`).join(', ')}</span></td><td data-label="Total" class="px-4 py-4 text-sm font-bold text-glitz-magenta">${formatGHC(order.total)}</td><td data-label="Processed" class="px-5 py-4"><label class="inline-flex items-center gap-2 cursor-pointer"><input type="checkbox" class="sr-only peer" ${processed ? 'checked' : ''} onchange="setOrderProcessed('${escapeAdminText(order.id)}', this.checked)"><span class="relative w-10 h-5 rounded-full bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-glitz-pink/40 peer-checked:bg-green-500 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-4 after:h-4 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:after:translate-x-5"></span><span class="text-[10px] font-bold ${processed ? 'text-green-600' : 'text-gray-500'}">${processed ? 'Completed' : 'Processing'}</span></label></td></tr>`;
+                return `<tr class="hover:bg-glitz-blush/50 transition-colors ${order.isTest ? 'opacity-60' : ''}"><td class="px-5 py-4 text-xs font-bold text-glitz-dark">#${escapeAdminText(order.id)}${order.isTest ? ' <span class="ml-1 px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-600 text-[9px] font-bold uppercase tracking-wide align-middle">Test</span>' : ''}</td><td data-label="Date" class="px-4 py-4 text-xs text-gray-500">${date.toLocaleDateString()}<br><span class="text-[10px] text-gray-400">${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span></td><td data-label="Items" class="px-4 py-4 text-xs text-gray-600">${itemCount} item${itemCount === 1 ? '' : 's'}<br><span class="text-[10px] text-gray-400">${order.items.map(item => `${escapeAdminText(item.name)}${item.color ? ` (${escapeAdminText(item.color.name)})` : ''} ×${item.quantity}`).join(', ')}</span></td><td data-label="Total" class="px-4 py-4 text-sm font-bold text-glitz-magenta">${formatGHC(order.total)}</td><td data-label="Processed" class="px-5 py-4"><label class="inline-flex items-center gap-2 cursor-pointer"><input type="checkbox" class="sr-only peer" ${processed ? 'checked' : ''} onchange="setOrderProcessed('${escapeAdminText(order.id)}', this.checked)"><span class="relative w-10 h-5 rounded-full bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-glitz-pink/40 peer-checked:bg-green-500 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-4 after:h-4 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:after:translate-x-5"></span><span class="text-[10px] font-bold ${processed ? 'text-green-600' : 'text-gray-500'}">${processed ? 'Completed' : 'Processing'}</span></label></td></tr>`;
             }).join('') : `<tr><td colspan="5" class="px-5 py-14 text-center text-xs text-gray-400">No orders yet. Completed checkouts will appear here.</td></tr>`;
         }
 
@@ -2016,7 +2037,7 @@
                 y += 5;
                 doc.setTextColor(85, 78, 82);
                 doc.setFontSize(9);
-                const items = (order.items || []).map(item => `${item.name} x${item.quantity}`).join(', ');
+                const items = (order.items || []).map(item => `${item.name}${item.color ? ` (${item.color.name})` : ''} x${item.quantity}`).join(', ');
                 const lines = doc.splitTextToSize(items, 132);
                 doc.text(lines, margin + 4, y);
                 doc.setTextColor(230, 0, 103);
@@ -2037,6 +2058,42 @@
         // ════════════════════════════════════════════════════════════════
         //  PRODUCT EDITOR — clean rebuild, no <form>/submit dependency
         // ════════════════════════════════════════════════════════════════
+        // ── Product colours (admin) ───────────────────────────────────────
+        let peColors = [];         // [{ name, hex }] colours allocated to the product being edited
+        function normaliseHex(value) {
+            const v = String(value || '').trim().toLowerCase();
+            return /^#[0-9a-f]{6}$/.test(v) ? v : null;
+        }
+        function getProductColors(p) {
+            if (!p || !Array.isArray(p.colors)) return [];
+            return p.colors
+                .map(c => ({ name: String(c?.name || '').trim(), hex: normaliseHex(c?.hex) }))
+                .filter(c => c.hex)
+                .map(c => ({ name: c.name || c.hex.toUpperCase(), hex: c.hex }));
+        }
+        function peRenderColors() {
+            const box = document.getElementById('pe_colorList');
+            if (!box) return;
+            box.innerHTML = peColors.length ? peColors.map((c, i) => `
+                <span class="inline-flex items-center gap-2 pl-1.5 pr-1 py-1 rounded-full bg-white border border-glitz-softblush text-xs font-semibold text-glitz-dark">
+                    <span class="w-5 h-5 rounded-full border border-gray-200" style="background:${c.hex}"></span>${escapeAdminText(c.name)}
+                    <button type="button" onclick="peRemoveColor(${i})" aria-label="Remove ${escapeAdminText(c.name)}" class="w-5 h-5 rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 leading-none">&times;</button>
+                </span>`).join('') : '<span class="text-[11px] text-gray-400">No colours added yet.</span>';
+        }
+        function peAddColor(hex, name) {
+            const picker = document.getElementById('pe_colorPicker');
+            const nameInput = document.getElementById('pe_colorName');
+            const fromPreset = typeof hex === 'string';
+            const finalHex = normaliseHex(fromPreset ? hex : picker.value);
+            if (!finalHex) return;
+            if (peColors.some(c => c.hex === finalHex)) { showToast('That colour is already added.'); return; }
+            const typed = fromPreset ? '' : nameInput.value.trim();
+            peColors.push({ name: typed || name || finalHex.toUpperCase(), hex: finalHex });
+            if (!fromPreset) nameInput.value = '';
+            peRenderColors();
+        }
+        function peRemoveColor(i) { peColors.splice(i, 1); peRenderColors(); }
+
         let peItems = [];          // [{ url, uploading, local }] images for this editing session
 
         function getProductImages(p) {
@@ -2103,6 +2160,9 @@
             document.getElementById('pe_inStock').checked = isInStock(product);
             document.getElementById('pe_inStockLabel').textContent = isInStock(product) ? 'In stock' : 'Out of stock';
             document.getElementById('pe_imageFile').value = '';
+            peColors = getProductColors(product);
+            document.getElementById('pe_colorName').value = '';
+            peRenderColors();
             document.getElementById('productEditorTitle').textContent = product ? 'Edit product' : 'Add product';
 
             if (product) {
@@ -2229,6 +2289,7 @@
                     reviewsCount: existing?.reviewsCount || 0,
                     piecesLeft: piecesRaw !== '' ? Number(piecesRaw) : null,
                     inStock: document.getElementById('pe_inStock').checked,
+                    colors: peColors.map(c => ({ name: c.name, hex: c.hex })),
                 };
 
                 let saved;
@@ -2289,21 +2350,35 @@
         });
 
         // Cart Actions
-        function addToCart(productId, titleOverride = null, priceOverride = null) {
+        function addToCart(productId, titleOverride = null, priceOverride = null, color = null, silent = false) {
             const product = products.find(p => p.id === productId);
-            if (product && !isInStock(product)) { showToast('Sorry, this item is currently out of stock.'); return; }
+            if (product && !isInStock(product)) { showToast('Sorry, this item is currently out of stock.'); return false; }
+            const productColors = getProductColors(product);
+            if (productColors.length) {
+                // Products with colours can only be added once a valid colour is chosen
+                const chosen = color && productColors.find(c => c.hex === normaliseHex(color.hex));
+                if (!chosen) {
+                    showToast('Please choose a colour first.');
+                    openQuickView(productId, true);
+                    return false;
+                }
+                color = chosen;
+            } else {
+                color = null;
+            }
             const title = titleOverride || (product ? product.name : "Custom Item");
             const price = priceOverride || (product ? product.price : 20.00);
             const image = product ? product.image : "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80";
 
-            const existing = cart.find(item => item.name === title);
+            const existing = cart.find(item => item.name === title && (item.color?.hex || '') === (color?.hex || ''));
             if (existing) {
                 existing.quantity += 1;
             } else {
-                cart.push({ id: productId || Date.now(), name: title, price: price, image: image, quantity: 1 });
+                cart.push({ id: productId || Date.now(), name: title, price: price, image: image, quantity: 1, color: color ? { name: color.name, hex: color.hex } : null });
             }
             updateCartUI();
-            showToast(`Added "${title}" to your Bag!`);
+            if (!silent) showToast(`Added "${title}"${color ? ` (${color.name})` : ''} to your Bag!`);
+            return true;
         }
 
         function updateCartQuantity(index, change) {
@@ -2355,6 +2430,7 @@
                     <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-xl">
                     <div class="flex-1">
                         <h4 class="text-xs font-bold text-glitz-dark font-serif">${item.name}</h4>
+                        ${item.color ? `<span class="inline-flex items-center gap-1.5 text-[10px] font-semibold text-gray-500 mt-0.5"><span class="w-3 h-3 rounded-full border border-gray-200" style="background:${escapeAdminText(item.color.hex)}"></span>${escapeAdminText(item.color.name)}</span><br>` : ''}
                         <span class="text-xs text-glitz-magenta font-semibold">GHC ${item.price.toFixed(2)}</span>
                         <div class="flex items-center gap-2 mt-2">
                             <button type="button" onclick="event.stopPropagation(); updateCartQuantity(${index}, -1)" aria-label="Decrease ${item.name} quantity" class="w-5 h-5 bg-gray-100 rounded flex items-center justify-center text-xs font-bold text-gray-600">-</button>
@@ -2443,9 +2519,50 @@
         }
 
         // Quick View Modal Controls
-        function openQuickView(id) {
+        let qvSelectedColors = [];   // hex values chosen in the quick-view picker
+        function renderQvColors(p, showError = false) {
+            const box = document.getElementById('qvColorSection');
+            if (!box) return;
+            const colors = getProductColors(p);
+            box.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <p class="text-xs font-bold text-gray-600">Choose colour${colors.length > 1 ? '(s)' : ''} <span class="text-glitz-magenta">*</span></p>
+                    <span class="text-[10px] text-gray-400">${qvSelectedColors.length ? qvSelectedColors.length + ' selected' : 'Select at least one'}</span>
+                </div>
+                <div class="flex flex-wrap gap-2.5 mt-2">
+                    ${colors.map(c => {
+                        const on = qvSelectedColors.includes(c.hex);
+                        return `<button type="button" onclick="toggleQvColor(${p.id}, '${c.hex}')" aria-pressed="${on}" aria-label="${escapeAdminText(c.name)}" title="${escapeAdminText(c.name)}" class="flex items-center gap-2 pl-1.5 pr-3 py-1.5 rounded-full border-2 text-xs font-semibold transition-all ${on ? 'border-glitz-magenta bg-glitz-blush text-glitz-dark' : 'border-glitz-softblush bg-white text-gray-600 hover:border-glitz-pink'}"><span class="w-6 h-6 rounded-full border border-gray-200 flex items-center justify-center text-white text-[11px]" style="background:${c.hex}">${on ? '<span style="mix-blend-mode:difference">✓</span>' : ''}</span>${escapeAdminText(c.name)}</button>`;
+                    }).join('')}
+                </div>
+                <p class="${showError && !qvSelectedColors.length ? '' : 'hidden'} text-[11px] font-semibold text-red-500 mt-2">Please select at least one colour to continue.</p>`;
+        }
+        function toggleQvColor(productId, hex) {
+            const p = products.find(prod => prod.id === productId);
+            if (!p) return;
+            qvSelectedColors = qvSelectedColors.includes(hex) ? qvSelectedColors.filter(h => h !== hex) : [...qvSelectedColors, hex];
+            renderQvColors(p);
+        }
+        function addFromQuickView(productId) {
+            const p = products.find(prod => prod.id === productId);
+            if (!p) return;
+            const colors = getProductColors(p);
+            if (!colors.length) { addToCart(productId); closeQuickView(); return; }
+            if (!qvSelectedColors.length) { renderQvColors(p, true); return; }
+            const picked = colors.filter(c => qvSelectedColors.includes(c.hex));
+            let added = 0;
+            picked.forEach(c => { if (addToCart(productId, null, null, c, true)) added++; });
+            if (added) {
+                showToast(`Added "${p.name || 'item'}" in ${picked.map(c => c.name).join(', ')} to your Bag!`);
+                closeQuickView();
+            }
+        }
+
+        function openQuickView(id, needColor = false) {
             const p = products.find(prod => prod.id === id);
             if(!p) return;
+            qvSelectedColors = [];
+            const hasColors = getProductColors(p).length > 0;
 
             const modalContent = document.getElementById('modalContent');
             modalContent.innerHTML = `
@@ -2457,11 +2574,13 @@
                     <h3 class="text-2xl font-serif font-bold text-glitz-dark">${p.name || 'Untitled product'}</h3>
                     <p class="text-xl font-bold font-serif text-glitz-magenta">GHC ${p.price.toFixed(2)}</p>
                     ${p.description ? `<p class="text-xs text-gray-600 leading-relaxed font-normal">${p.description}</p>` : ''}
-                    ${isInStock(p) ? `<button onclick="addToCart(${p.id}); closeQuickView();" class="w-full py-3.5 bg-gradient-to-r from-glitz-magenta to-glitz-deepmagenta text-white rounded-2xl font-bold hover:shadow-glow-pink transition-all">
+                    ${hasColors ? '<div id="qvColorSection"></div>' : ''}
+                    ${isInStock(p) ? `<button onclick="addFromQuickView(${p.id})" class="w-full py-3.5 bg-gradient-to-r from-glitz-magenta to-glitz-deepmagenta text-white rounded-2xl font-bold hover:shadow-glow-pink transition-all">
                         Add To Bag
                     </button>` : `<button disabled class="w-full py-3.5 bg-gray-200 text-gray-500 rounded-2xl font-bold cursor-not-allowed">Out of stock</button>`}
                 </div>
             `;
+            if (hasColors) renderQvColors(p, needColor);
             document.getElementById('quickViewModal').classList.remove('hidden');
         }
 
@@ -2768,6 +2887,20 @@
                 showToast('Your bag is empty. Add an item before checkout.');
                 return;
             }
+            // Every coloured product in the bag must have a valid colour selected
+            const needsColor = cart.filter(item => {
+                const colors = getProductColors(products.find(p => p.id === item.id));
+                return colors.length && !(item.color && colors.some(c => c.hex === normaliseHex(item.color.hex)));
+            });
+            if (needsColor.length) {
+                const first = needsColor[0];
+                cart = cart.filter(item => !needsColor.includes(item));
+                updateCartUI();
+                showToast(`Please choose a colour for "${first.name}" before checkout.`);
+                closeCartDrawer();
+                openQuickView(first.id, true);
+                return;
+            }
             const form = document.getElementById('checkoutDetails');
             toggleDeliveryFields();
             if (!form || !form.reportValidity()) return;
@@ -2777,7 +2910,7 @@
             const draft = {
                 id: String(Date.now()).slice(-6),
                 total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
-                items: cart.map(item => ({ id: item.id, name: item.name, price: item.price, quantity: item.quantity })),
+                items: cart.map(item => ({ id: item.id, name: item.name, price: item.price, quantity: item.quantity, color: item.color ? { name: item.color.name, hex: item.color.hex } : null })),
                 accountUid: activeAccount?.uid || null,
                 accountEmail: activeAccount?.email || null,
                 accountName: activeAccount?.fullName || null,
