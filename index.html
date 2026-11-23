@@ -1326,6 +1326,19 @@
         </div>
     </div>
 
+    <!-- Full-screen image viewer -->
+    <div id="imageLightbox" class="fixed inset-0 z-[70] hidden bg-black/95 flex-col" role="dialog" aria-modal="true" aria-label="Full image viewer">
+        <div class="flex items-center justify-between px-4 py-3 text-white">
+            <span id="lightboxCounter" class="text-xs font-bold tracking-widest"></span>
+            <button type="button" onclick="closeImageLightbox()" aria-label="Close full image" class="w-10 h-10 rounded-full bg-white/15 hover:bg-white/30 flex items-center justify-center"><svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+        </div>
+        <div class="relative flex-1 min-h-0">
+            <div id="lightboxTrack" class="flex w-full h-full overflow-x-auto snap-x snap-mandatory" style="scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;touch-action:pan-x pinch-zoom;"></div>
+            <button id="lightboxPrev" type="button" data-lightbox-dir="-1" aria-label="Previous image" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center"><svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+            <button id="lightboxNext" type="button" data-lightbox-dir="1" aria-label="Next image" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center"><svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
     <!-- Quick View Product Modal -->
     <div id="quickViewModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm hidden">
         <div class="glass-card max-w-2xl w-full rounded-3xl p-6 relative bg-white shadow-2xl space-y-6">
@@ -2976,6 +2989,14 @@
             updateCartUI();
         }
 
+        function removeCartItem(index) {
+            const item = cart[Number(index)];
+            if (!item) return;
+            cart.splice(Number(index), 1);
+            updateCartUI();
+            showToast(`Removed "${item.name}" from your Bag.`);
+        }
+
         function updateCartUI() {
             const container = document.getElementById('cartItemsContainer');
             const cartCount = document.getElementById('cartCount');
@@ -3008,8 +3029,9 @@
                 subtotal += itemTotal;
 
                 const itemRow = document.createElement('div');
-                itemRow.className = "flex gap-4 p-3 bg-white rounded-2xl border border-gray-100 items-center shadow-sm";
+                itemRow.className = "relative flex gap-4 p-3 pr-8 bg-white rounded-2xl border border-gray-100 items-center shadow-sm";
                 itemRow.innerHTML = `
+                    <button type="button" onclick="event.stopPropagation(); removeCartItem(${index})" aria-label="Remove ${escapeAdminText(item.name)} from bag" title="Remove" class="absolute top-1.5 right-1.5 w-6 h-6 rounded-full text-gray-400 hover:text-white hover:bg-glitz-magenta flex items-center justify-center transition-colors"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
                     <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-xl">
                     <div class="flex-1">
                         <h4 class="text-xs font-bold text-glitz-dark font-serif">${item.name}</h4>
@@ -3149,8 +3171,9 @@
 
             const modalContent = document.getElementById('modalContent');
             modalContent.innerHTML = `
-                <div class="relative aspect-square bg-glitz-softblush rounded-2xl overflow-hidden">
+                <div class="relative aspect-square bg-glitz-softblush rounded-2xl overflow-hidden cursor-zoom-in" data-qv-image="${p.id}">
                     ${renderProductCarousel(p)}
+                    <button type="button" onclick="event.stopPropagation(); openImageLightbox(${p.id})" aria-label="View full image" class="absolute top-3 left-3 z-10 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 text-glitz-dark text-[11px] font-bold shadow-md hover:bg-white"><svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>View full image</button>
                 </div>
                 <div class="space-y-4">
                     <span class="text-[10px] uppercase tracking-widest text-glitz-magenta font-bold">${p.category}</span>
@@ -3166,6 +3189,69 @@
             if (hasColors) renderQvColors(p, needColor);
             document.getElementById('quickViewModal').classList.remove('hidden');
         }
+
+        // ── Full-screen image viewer ──
+        function openImageLightbox(productId, startIndex) {
+            const p = products.find(prod => prod.id === Number(productId));
+            if (!p) return;
+            const imgs = getProductImages(p);
+            if (!imgs.length) return;
+            if (startIndex === undefined) {
+                const qvTrack = document.querySelector('#modalContent .carousel-track');
+                startIndex = qvTrack && qvTrack.clientWidth ? Math.round(qvTrack.scrollLeft / qvTrack.clientWidth) : 0;
+            }
+            const alt = escapeAdminText(p.name || 'Product');
+            const track = document.getElementById('lightboxTrack');
+            track.innerHTML = imgs.map((url, i) => `<div class="w-full h-full shrink-0 snap-center flex items-center justify-center p-2" style="min-width:100%"><img src="${url}" alt="${alt} – image ${i + 1} of ${imgs.length}" draggable="false" class="max-w-full max-h-full object-contain select-none"></div>`).join('');
+            const box = document.getElementById('imageLightbox');
+            box.classList.remove('hidden');
+            box.classList.add('flex');
+            const multi = imgs.length > 1;
+            document.getElementById('lightboxPrev').style.display = multi ? '' : 'none';
+            document.getElementById('lightboxNext').style.display = multi ? '' : 'none';
+            track.style.scrollBehavior = 'auto';
+            track.scrollLeft = Math.max(0, startIndex) * track.clientWidth;
+            track.style.scrollBehavior = 'smooth';
+            updateLightboxCounter();
+        }
+
+        function closeImageLightbox() {
+            const box = document.getElementById('imageLightbox');
+            if (!box) return;
+            box.classList.add('hidden');
+            box.classList.remove('flex');
+            document.getElementById('lightboxTrack').innerHTML = '';
+        }
+
+        function updateLightboxCounter() {
+            const track = document.getElementById('lightboxTrack');
+            const count = track.children.length;
+            const index = track.clientWidth ? Math.round(track.scrollLeft / track.clientWidth) : 0;
+            document.getElementById('lightboxCounter').textContent = count > 1 ? `${index + 1} / ${count}` : '';
+        }
+
+        document.getElementById('lightboxTrack').addEventListener('scroll', updateLightboxCounter);
+        document.addEventListener('click', (e) => {
+            const dirBtn = e.target.closest('[data-lightbox-dir]');
+            if (dirBtn) {
+                const track = document.getElementById('lightboxTrack');
+                const count = track.children.length;
+                const index = Math.round(track.scrollLeft / track.clientWidth);
+                const next = (index + Number(dirBtn.dataset.lightboxDir) + count) % count;
+                track.scrollTo({ left: next * track.clientWidth, behavior: 'smooth' });
+                return;
+            }
+            // tapping the quick-view image opens it full screen (arrows/buttons keep their own behaviour)
+            const holder = e.target.closest('[data-qv-image]');
+            if (holder && !e.target.closest('button')) {
+                const img = e.target.closest('img');
+                const index = img && img.parentElement.classList.contains('carousel-track') ? Array.from(img.parentElement.children).indexOf(img) : 0;
+                openImageLightbox(holder.dataset.qvImage, index);
+                return;
+            }
+            // tapping the dark background (not the image) closes the viewer
+            if (e.target.id === 'lightboxTrack' || e.target.parentElement?.parentElement?.id === 'lightboxTrack' && e.target.tagName === 'DIV') closeImageLightbox();
+        });
 
         function closeQuickView() {
             document.getElementById('quickViewModal').classList.add('hidden');
@@ -3288,6 +3374,7 @@
 
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
+                closeImageLightbox();
                 closeCartDrawer();
                 closeWishlistDrawer();
                 document.getElementById('quickViewModal').classList.add('hidden');
