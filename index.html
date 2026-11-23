@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glitz by Maya | Luxury Lip Glaze, Pink Balms & Body Shimmer</title>
     <meta name="description" content="Glitz by Maya (Maya's Collection): non-sticky lip glazes, pink lip balms, lip scrubs and body shimmer. Pay securely with Paystack. Delivery across Ghana.">
+    <!-- Favicon: reuse the header logo image so the logo is defined only once -->
+    <link rel="icon" type="image/jpeg" id="siteFavicon" href="data:,">
+    <link rel="apple-touch-icon" id="siteAppleIcon" href="data:,">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var logo = document.querySelector('header img[alt="Glitz by Maya logo"]');
+            if (!logo || !logo.src) return;
+            ['siteFavicon', 'siteAppleIcon'].forEach(function (id) {
+                var el = document.getElementById(id);
+                if (el) el.href = logo.src;
+            });
+        });
+    </script>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -199,6 +212,10 @@
             color: #fff4f7;
             border-color: rgba(255, 105, 180, 0.32);
         }
+        .mobile-menu-divider {
+            width: 2.5rem;
+            border-top: 2px dashed rgba(255, 46, 147, 0.45);
+        }
         @media (max-width: 1023px) {
             header.glass-nav {
                 top: 0.5rem;
@@ -213,6 +230,16 @@
             #mobileMenu {
                 border-radius: 0 0 1.25rem 1.25rem;
             }
+            /* translucent frosted look while the hamburger menu is open */
+            header.glass-nav:has(#mobileMenu:not(.hidden)) {
+                background: rgba(255, 255, 255, 0.5) !important;
+                backdrop-filter: blur(24px) saturate(1.4) !important;
+                -webkit-backdrop-filter: blur(24px) saturate(1.4) !important;
+            }
+            body.dark-theme header.glass-nav:has(#mobileMenu:not(.hidden)) {
+                background: rgba(38, 24, 31, 0.55) !important;
+            }
+            #mobileMenu { background: transparent; box-shadow: none; }
             #cartDrawer > div:last-child,
             #wishlistDrawer > div:last-child {
                 padding-left: 0;
@@ -350,12 +377,12 @@
             position: absolute;
             inset: 0;
             z-index: 2;
-            background: linear-gradient(90deg, rgba(255, 247, 250, 0.96) 0%, rgba(255, 247, 250, 0.78) 35%, rgba(255, 247, 250, 0.16) 72%, rgba(28, 21, 23, 0.08) 100%);
+            background: linear-gradient(90deg, rgba(255, 247, 250, 0.50) 0%, rgba(255, 247, 250, 0.34) 35%, rgba(255, 247, 250, 0.05) 72%, rgba(28, 21, 23, 0.03) 100%);
         }
         .hero-copy {
             max-width: 42rem;
             padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.82);
+            background: rgba(255, 255, 255, 0.42);
             border-left: 4px solid #ff2e93;
             box-shadow: 0 10px 0 rgba(163, 72, 94, 0.10), 0 18px 28px rgba(28, 21, 23, 0.08);
         }
@@ -442,6 +469,39 @@
             #page-admin .admin-table-products tbody td:last-child { justify-content: flex-end; }
             #page-admin .admin-table td p, #page-admin .admin-table td span { overflow-wrap: anywhere; }
             #page-admin input[type="search"] { width: 100%; }
+        }
+
+        /* ── Mobile polish ───────────────────────────────────────────── */
+        html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; max-width: 100%; }
+        html, body { overscroll-behavior-x: none; }
+        body { width: 100%; max-width: 100vw; position: relative; }
+        @supports (overflow: clip) {
+            html, body { overflow-x: clip; }
+        }
+        #appMain, .page-view, .page-view > section { max-width: 100%; overflow-x: clip; }
+        #page-home > section:first-child { overflow: hidden; }
+        /* keep decorative blurred circles / canvas from widening the page on phones */
+        #page-home .blur-3xl { max-width: 100vw; }
+        #glitterCanvas { max-width: 100vw; }
+        button, a, [role="button"], input, select, textarea, label, summary { touch-action: manipulation; -webkit-tap-highlight-color: rgba(255, 46, 147, .12); }
+        /* Use the *visible* viewport height on phones (the browser address bar no longer hides the bottom of screens) */
+        @supports (height: 100dvh) {
+            body { min-height: 100dvh !important; }
+            .min-h-\[85vh\] { min-height: 85dvh !important; }
+            .min-h-\[80vh\] { min-height: 80dvh !important; }
+            .max-h-\[calc\(100vh-1\.5rem\)\] { max-height: calc(100dvh - 1.5rem) !important; }
+        }
+        @media (max-width: 767px) {
+            /* 16px text stops iPhones from zooming the page in when a field is tapped */
+            input:not([type="checkbox"]):not([type="radio"]):not([type="color"]):not([type="range"]):not([type="file"]):not([type="hidden"]),
+            select, textarea { font-size: 16px !important; }
+            /* comfortable thumb-sized targets */
+            input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; flex-shrink: 0; }
+            button[aria-label="Open favourites"], button[aria-label="Open shopping bag"], button[aria-label="Open search"] { min-width: 40px; min-height: 40px; }
+            button[aria-label^="Decrease"], button[aria-label^="Increase"] { min-width: 34px; min-height: 34px; }
+            footer a, footer button { display: inline-block; padding-top: 8px; padding-bottom: 8px; }
+            /* admin order items: label on top, items below, full width */
+            #page-admin .admin-table-orders tbody td[data-label="Items"] { flex-direction: column; align-items: stretch; text-align: left; }
         }
         @media (prefers-reduced-motion: reduce) {
             footer::before,
@@ -546,7 +606,7 @@
                 </button>
                 
                 <!-- Wishlist Button -->
-                <button aria-label="Open favourites" onclick="toggleWishlistDrawer()" class="relative p-1.5 sm:p-2.5 rounded-full hover:bg-glitz-blush text-gray-700 hover:text-glitz-magenta transition-colors">
+                <button aria-label="Open favourites" onclick="toggleWishlistDrawer()" class="hidden lg:inline-flex relative p-1.5 sm:p-2.5 rounded-full hover:bg-glitz-blush text-gray-700 hover:text-glitz-magenta transition-colors">
                     <i data-lucide="heart" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                     <span id="wishlistCount" class="absolute top-0.5 right-0.5 sm:top-1 sm:right-1 bg-glitz-magenta text-white text-[9px] sm:text-[10px] font-bold w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full flex items-center justify-center">0</span>
                 </button>
@@ -565,15 +625,16 @@
         </div>
 
         <!-- Mobile Drawer Navigation -->
-        <div id="mobileMenu" class="hidden lg:hidden bg-white/95 backdrop-blur-md border-b border-glitz-softblush px-6 py-5 space-y-4 shadow-lg" aria-label="Mobile navigation">
+        <div id="mobileMenu" class="hidden lg:hidden bg-transparent border-t border-white/40 px-6 py-5 space-y-4" aria-label="Mobile navigation">
             <a href="#home" data-route="home" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Home</a>
             <a href="#collection" data-route="collection" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Collection</a>
             <a href="#home" data-route="home" onclick="toggleMobileMenu(); setTimeout(() => document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' }), 120)" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Reviews</a>
             <a href="#about" data-route="about" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">About</a>
             <a href="#contact" data-route="contact" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Contact</a>
-            <a href="#profile" data-route="profile" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Profile</a>
             <a href="#admin" data-route="admin" onclick="toggleMobileMenu()" class="route-link block font-semibold text-gray-800 hover:text-glitz-magenta">Admin Dashboard</a>
+            <div class="mobile-menu-divider" role="separator" aria-hidden="true"></div>
             <button id="mobileAccountBtn" type="button" onclick="openAuthModal('login'); toggleMobileMenu()" class="flex items-center gap-2 font-semibold text-gray-800 hover:text-glitz-magenta"><i data-lucide="user-round" class="w-4 h-4"></i><span>Sign in / Sign up</span></button>
+            <button type="button" onclick="toggleWishlistDrawer(); toggleMobileMenu()" class="flex items-center gap-2 font-semibold text-gray-800 hover:text-glitz-magenta"><i data-lucide="heart" class="w-4 h-4"></i><span>Favourites</span><span id="mobileWishlistCount" class="bg-glitz-magenta text-white text-[10px] font-bold min-w-[1.1rem] h-[1.1rem] px-1 rounded-full flex items-center justify-center">0</span></button>
             <button type="button" onclick="toggleSearchModal(); toggleMobileMenu()" class="flex items-center gap-2 font-semibold text-gray-800 hover:text-glitz-magenta"><i data-lucide="search" class="w-4 h-4"></i><span>Search products</span></button>
             <div class="pt-3 border-t border-glitz-softblush flex items-center justify-between">
                 <span class="text-xs font-bold uppercase tracking-widest text-gray-500">Appearance</span>
@@ -604,13 +665,13 @@
     <main id="appMain">
     <div id="page-home" class="page-view active">
     <!-- Hero Banner Section -->
-    <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-glitz-blush px-4 py-12 md:py-20">
+    <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-glitz-blush px-4 pt-32 pb-8 md:py-20">
         <!-- Full-bleed four-image disappearing hero background -->
         <div class="hero-reel hero-background" aria-label="Rotating Glitz by Maya beauty imagery">
             <img src="https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_1920/v1795382465/ejgstnk9zkqbin2mb8r0.jpg" srcset="https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_640/v1795382465/ejgstnk9zkqbin2mb8r0.jpg 640w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_960/v1795382465/ejgstnk9zkqbin2mb8r0.jpg 960w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_1280/v1795382465/ejgstnk9zkqbin2mb8r0.jpg 1280w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_1600/v1795382465/ejgstnk9zkqbin2mb8r0.jpg 1600w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_1920/v1795382465/ejgstnk9zkqbin2mb8r0.jpg 1920w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_2560/v1795382465/ejgstnk9zkqbin2mb8r0.jpg 2560w" sizes="100vw" alt="Glossy pink lip glaze" loading="eager" fetchpriority="high" decoding="async" onerror="this.onerror=null;this.removeAttribute('srcset');this.src='https://res.cloudinary.com/drmxokidg/image/upload/v1795382465/ejgstnk9zkqbin2mb8r0.jpg'">
             <img src="https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_1920/v1795381709/hjdzldstadelckaesef1.jpg" srcset="https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_640/v1795381709/hjdzldstadelckaesef1.jpg 640w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_960/v1795381709/hjdzldstadelckaesef1.jpg 960w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_1280/v1795381709/hjdzldstadelckaesef1.jpg 1280w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_1600/v1795381709/hjdzldstadelckaesef1.jpg 1600w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_1920/v1795381709/hjdzldstadelckaesef1.jpg 1920w, https://res.cloudinary.com/drmxokidg/image/upload/f_auto,q_auto:best,c_limit,w_2560/v1795381709/hjdzldstadelckaesef1.jpg 2560w" sizes="100vw" alt="Pink beauty balm" loading="lazy" decoding="async" onerror="this.onerror=null;this.removeAttribute('srcset');this.src='https://res.cloudinary.com/drmxokidg/image/upload/v1795381709/hjdzldstadelckaesef1.jpg'">
-            <img src="https://www.schemecolor.com/images/image-palette/purple-lipstick.jpg" alt="Golden body shimmer" loading="lazy" decoding="async">
-            <img src="https://cdn.shortpixel.ai/spai/q_lossless+ret_img+to_auto/whattowearhub.com/wp-content/uploads/2025/02/10_Red-Lipstick-for-a-Bold-Statement2.jpg" alt="Luxury beauty care product" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://cdn.shortpixel.ai/spai/q_glossy+ret_img+to_auto/whattowearhub.com/wp-content/uploads/2025/02/10_Red-Lipstick-for-a-Bold-Statement2.jpg'">
+            <img src="https://res.cloudinary.com/drmxokidg/image/upload/v1795381708/hkywlvihhnvarjskskx1.jpg" alt="Golden body shimmer" loading="lazy" decoding="async">
+            <img src="https://res.cloudinary.com/drmxokidg/image/upload/v1795381709/j3nckk42ycxmnjjcpywx.jpg" alt="Luxury beauty care product" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://cdn.shortpixel.ai/spai/q_glossy+ret_img+to_auto/whattowearhub.com/wp-content/uploads/2025/02/10_Red-Lipstick-for-a-Bold-Statement2.jpg'">
         </div>
         <!-- Floating Ambient Background Circles -->
         <div class="absolute top-12 left-10 w-72 h-72 bg-glitz-softblush rounded-full filter blur-3xl opacity-70 animate-pulse"></div>
@@ -625,34 +686,34 @@
                 
                 </div>
                 
-                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-serif font-extrabold text-glitz-dark leading-[1.1]">
-                    Unleash Your <br/>
-                    <span class="shimmer-text italic font-serif font-normal">Inner Glow</span>
+                <h1 class="text-[1.65rem] sm:text-6xl lg:text-7xl font-serif font-extrabold text-glitz-dark leading-[1.1]">
+                    Lips that shine. <br/>
+                    <span class="shimmer-text italic font-serif font-normal">Skin that glows.</span>
                 </h1>
-                
-                <p class="text-gray-600 text-base sm:text-lg max-w-lg mx-auto lg:mx-0 font-normal leading-relaxed">
-                    Indulge in Maya’s signature non-sticky lip glazes, color-reviving pink lip balms, exfoliating organic sugar scrubs, and body shimmer oils.
+
+                <p class="text-gray-700 text-base sm:text-lg max-w-lg mx-auto lg:mx-0 font-normal leading-relaxed">
+                    Non-sticky lip glazes, pink lip balms, sugar scrubs and body shimmer for a natural glow.
                 </p>
 
                 <!-- Hero Call to Action Buttons -->
                 <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
-                    <a href="#collection" data-route="collection" class="w-full sm:w-auto px-4 py-2.5 text-xs bg-gradient-to-r from-glitz-magenta to-glitz-deepmagenta text-white font-semibold rounded-full hover:shadow-glow-pink transition-all duration-300 flex items-center justify-center group shadow-lg">
+                    <a href="#collection" data-route="collection" class="w-auto px-8 py-3.5 text-sm bg-gradient-to-r from-glitz-magenta to-glitz-deepmagenta text-white font-semibold rounded-full hover:shadow-glow-pink transition-all duration-300 flex items-center justify-center group shadow-lg">
                         <span>Shop Collection</span>
                     </a>
                 </div>
 
                 <!-- Hero Trust Badges -->
-                <div class="pt-8 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-gray-500 font-semibold border-t border-glitz-pink/20">
+                <div class="mt-10 sm:mt-0 pt-8 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-2 sm:gap-6 text-[10px] sm:text-xs text-gray-500 font-semibold border-t border-glitz-pink/20">
                     <div class="flex items-center gap-2">
-                        <i data-lucide="check-circle" class="w-4 h-4 text-glitz-magenta"></i>
+                        <i data-lucide="check-circle" class="w-3 h-3 sm:w-4 sm:h-4 text-glitz-magenta"></i>
                         <span>100% Cruelty-Free</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <i data-lucide="check-circle" class="w-4 h-4 text-glitz-magenta"></i>
+                        <i data-lucide="check-circle" class="w-3 h-3 sm:w-4 sm:h-4 text-glitz-magenta"></i>
                         <span>Hyaluronic Acid Hydration</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <i data-lucide="check-circle" class="w-4 h-4 text-glitz-magenta"></i>
+                        <i data-lucide="check-circle" class="w-3 h-3 sm:w-4 sm:h-4 text-glitz-magenta"></i>
                         <span>Non-Sticky 12hr Wear</span>
                     </div>
                 </div>
@@ -701,7 +762,7 @@
                         <i data-lucide="star" class="w-4 h-4 fill-current"></i>
                         <i data-lucide="star" class="w-4 h-4 fill-current"></i>
                     </div>
-                    <p class="text-gray-700 text-sm leading-relaxed italic">"The 24K Body Shimmer Oil gives you that high-end red carpet sheen. It smells like sweet vanilla rose and didn't stain my silk top!"</p>
+                    <p class="text-gray-700 text-sm leading-relaxed italic">"The Body Shimmer gives you that high-end red carpet sheen. It smells like sweet vanilla rose and didn't stain my silk top!"</p>
                     <div class="flex items-center gap-3 pt-2">
                         <div class="w-10 h-10 rounded-full bg-glitz-softblush font-bold text-glitz-magenta flex items-center justify-center text-sm border border-glitz-pink/30">
                             CL
@@ -761,25 +822,25 @@
                 <span class="text-xs uppercase tracking-widest text-gray-400 font-bold">Tag @GlitzByMaya To Be Featured</span>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
                     <div class="relative group rounded-2xl overflow-hidden aspect-square bg-gray-100 shadow-sm">
-                        <img src="https://ashleybrooke.com/wp-content/uploads/2021/04/Pink-Lipstick-1440x2117.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://res.cloudinary.com/drmxokidg/image/upload/v1795381709/vcsj54z6xnywpfgfgdta.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         <div class="absolute inset-0 bg-glitz-magenta/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
                             <i data-lucide="instagram" class="w-8 h-8"></i>
                         </div>
                     </div>
                     <div class="relative group rounded-2xl overflow-hidden aspect-square bg-gray-100 shadow-sm">
-                        <img src="https://res.cloudinary.com/fashionasalifestyle/image/upload/f_auto/v1526584821/lipstick%20with%20a%20red%20dress.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://res.cloudinary.com/drmxokidg/image/upload/v1795381710/ty49xrx0w57imtxcre7y.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         <div class="absolute inset-0 bg-glitz-magenta/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
                             <i data-lucide="instagram" class="w-8 h-8"></i>
                         </div>
                     </div>
                     <div class="relative group rounded-2xl overflow-hidden aspect-square bg-gray-100 shadow-sm">
-                        <img src="https://i.etsystatic.com/7172908/r/il/e30c7a/7379540777/il_1080xN.7379540777_plur.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://res.cloudinary.com/drmxokidg/image/upload/v1795381708/fpyserqi2ramyw1uk4l2.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         <div class="absolute inset-0 bg-glitz-magenta/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
                             <i data-lucide="instagram" class="w-8 h-8"></i>
                         </div>
                     </div>
                     <div class="relative group rounded-2xl overflow-hidden aspect-square bg-gray-100 shadow-sm">
-                        <img src="https://eadn-wc03-9258777.nxedge.io/wp-content/uploads/2023/02/Katrina-Kaif-Unveils-Kay-Beautys-First-Kiss-Proof-Matte-Liquid-Lipsticks.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <img src="https://res.cloudinary.com/drmxokidg/image/upload/v1795381711/dh54cngjedi5llwgb8bb.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         <div class="absolute inset-0 bg-glitz-magenta/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
                             <i data-lucide="instagram" class="w-8 h-8"></i>
                         </div>
@@ -839,9 +900,14 @@
                     <h2 class="text-4xl sm:text-6xl font-serif font-bold text-glitz-dark mt-2">Your Profile</h2>
                     <p id="profileGreeting" class="text-gray-600 mt-3">Keep your orders, favourites, and details in one place.</p>
                 </div>
-                <button type="button" onclick="navigateTo('home')" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-glitz-pink/30 text-glitz-magenta font-bold text-sm hover:bg-glitz-magenta hover:text-white transition-colors">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Home
-                </button>
+                <div class="flex flex-wrap items-center gap-4 sm:gap-6">
+                    <button type="button" onclick="navigateTo('home')" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-glitz-pink/30 text-glitz-magenta font-bold text-sm hover:bg-glitz-magenta hover:text-white transition-colors">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Home
+                    </button>
+                    <button type="button" onclick="openSignOutConfirm()" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-glitz-dark text-white font-bold text-xs hover:bg-glitz-magenta transition-colors">
+                        <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Sign out
+                    </button>
+                </div>
             </div>
 
             <div class="grid lg:grid-cols-[0.8fr_1.2fr] gap-6">
@@ -875,11 +941,6 @@
                     </div>
                     <p class="text-xs text-gray-500 mt-2">Track every order placed while signed in to this account.</p>
                     <div id="profileOrders" class="mt-6 space-y-4"></div>
-                    <div class="mt-6 pt-5 border-t border-glitz-softblush flex justify-end">
-                        <button type="button" onclick="logoutAccount()" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-glitz-dark text-white font-bold text-xs hover:bg-glitz-magenta transition-colors">
-                            <i data-lucide="log-out" class="w-4 h-4"></i> Sign out
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -899,11 +960,12 @@
             <div class="flex justify-end">
                 <button type="button" onclick="openProductEditor()" class="flex w-full sm:w-auto items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-glitz-magenta text-white font-bold hover:bg-glitz-deepmagenta transition-colors shadow-glow-pink"><i data-lucide="plus" class="w-4 h-4"></i> Add product</button>
             </div>
-            <div role="tablist" aria-label="Admin sections" class="grid grid-cols-4 gap-1 sm:gap-2 bg-white rounded-2xl border border-glitz-softblush shadow-card p-1.5 sm:p-2">
+            <div role="tablist" aria-label="Admin sections" class="grid grid-cols-5 gap-1 sm:gap-2 bg-white rounded-2xl border border-glitz-softblush shadow-card p-1.5 sm:p-2">
                 <button type="button" role="tab" id="adminTab-products" data-admin-tab="products" aria-selected="false" aria-controls="adminPanel-products" onclick="switchAdminTab('products')" class="admin-tab flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 sm:px-4 py-2.5 sm:py-3 rounded-xl text-[11px] sm:text-sm font-bold transition-colors min-w-0"><i data-lucide="package" class="w-4 h-4 shrink-0"></i><span class="truncate max-w-full">Products</span></button>
                 <button type="button" role="tab" id="adminTab-orders" data-admin-tab="orders" aria-selected="false" aria-controls="adminPanel-orders" onclick="switchAdminTab('orders')" class="admin-tab flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 sm:px-4 py-2.5 sm:py-3 rounded-xl text-[11px] sm:text-sm font-bold transition-colors min-w-0"><i data-lucide="receipt-text" class="w-4 h-4 shrink-0"></i><span class="truncate max-w-full">Orders</span></button>
                 <button type="button" role="tab" id="adminTab-analytics" data-admin-tab="analytics" aria-selected="false" aria-controls="adminPanel-analytics" onclick="switchAdminTab('analytics')" class="admin-tab flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 sm:px-4 py-2.5 sm:py-3 rounded-xl text-[11px] sm:text-sm font-bold transition-colors min-w-0"><i data-lucide="bar-chart-3" class="w-4 h-4 shrink-0"></i><span class="truncate max-w-full">Analytics</span></button>
                 <button type="button" role="tab" id="adminTab-reviews" data-admin-tab="reviews" aria-selected="false" aria-controls="adminPanel-reviews" onclick="switchAdminTab('reviews')" class="admin-tab flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 sm:px-4 py-2.5 sm:py-3 rounded-xl text-[11px] sm:text-sm font-bold transition-colors min-w-0"><i data-lucide="star" class="w-4 h-4 shrink-0"></i><span class="truncate max-w-full">Reviews</span></button>
+                <button type="button" role="tab" id="adminTab-messages" data-admin-tab="messages" aria-selected="false" aria-controls="adminPanel-messages" onclick="switchAdminTab('messages')" class="admin-tab relative flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-1 sm:px-4 py-2.5 sm:py-3 rounded-xl text-[11px] sm:text-sm font-bold transition-colors min-w-0"><i data-lucide="message-square-text" class="w-4 h-4 shrink-0"></i><span class="truncate max-w-full">Messages</span><span id="adminMsgBadge" class="hidden absolute top-1 right-1 sm:static min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[10px] font-bold items-center justify-center"></span></button>
             </div>
             <div id="adminPanel-products" role="tabpanel" aria-labelledby="adminTab-products" class="space-y-5 min-w-0">
                 <div class="bg-white rounded-[2rem] border border-glitz-softblush shadow-card overflow-hidden min-w-0">
@@ -931,6 +993,28 @@
                     <div id="adminReviewsList" class="p-4 sm:p-6 space-y-3"></div>
                 </div>
             </div>
+            <div id="adminPanel-messages" role="tabpanel" aria-labelledby="adminTab-messages" class="hidden space-y-5 min-w-0">
+                <div class="bg-white rounded-[2rem] border border-glitz-softblush shadow-card overflow-hidden min-w-0">
+                    <div class="p-5 sm:p-6 border-b border-glitz-softblush space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div><h3 class="font-serif font-bold text-2xl text-glitz-dark">Customer care inbox</h3><p class="text-xs text-gray-500 mt-1">Messages and complaints sent from the Contact page, plus your customer details.</p></div>
+                            <div class="grid grid-cols-2 gap-1 p-1 rounded-xl bg-glitz-blush shrink-0">
+                                <button type="button" id="inboxView-messages" onclick="setInboxView('messages')" class="px-4 py-2 rounded-lg text-xs font-bold">Messages</button>
+                                <button type="button" id="inboxView-customers" onclick="setInboxView('customers')" class="px-4 py-2 rounded-lg text-xs font-bold">Customers</button>
+                            </div>
+                        </div>
+                        <div id="inboxMessageTools" class="flex flex-col sm:flex-row gap-3">
+                            <label class="relative flex-1"><span class="sr-only">Search messages</span><input id="inboxSearch" oninput="renderAdminMessages()" type="search" placeholder="Search name, email or message" class="w-full px-4 py-2.5 pl-10 rounded-xl bg-glitz-blush border border-glitz-softblush text-xs focus:outline-none focus:border-glitz-magenta"><i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-gray-400"></i></label>
+                            <select id="inboxTopic" onchange="renderAdminMessages()" class="px-4 py-2.5 rounded-xl bg-glitz-blush border border-glitz-softblush text-xs font-semibold focus:outline-none focus:border-glitz-magenta"><option value="">All topics</option><option>Product recommendation</option><option>Order support</option><option>Delivery &amp; returns</option><option>Wholesale &amp; partnerships</option><option>Press &amp; collaborations</option></select>
+                            <select id="inboxStatus" onchange="renderAdminMessages()" class="px-4 py-2.5 rounded-xl bg-glitz-blush border border-glitz-softblush text-xs font-semibold focus:outline-none focus:border-glitz-magenta"><option value="">All statuses</option><option value="new">New</option><option value="read">Read</option><option value="resolved">Resolved</option></select>
+                        </div>
+                        <div id="inboxCustomerTools" class="hidden"><label class="relative block"><span class="sr-only">Search customers</span><input id="inboxCustomerSearch" oninput="renderAdminCustomers()" type="search" placeholder="Search customers by name, email, phone or location" class="w-full px-4 py-2.5 pl-10 rounded-xl bg-glitz-blush border border-glitz-softblush text-xs focus:outline-none focus:border-glitz-magenta"><i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-gray-400"></i></label></div>
+                    </div>
+                    <div id="adminMessagesSummary" class="px-5 sm:px-6 pt-4 text-xs font-bold text-glitz-magenta"></div>
+                    <div id="adminMessagesList" class="p-4 sm:p-6 space-y-3"></div>
+                    <div id="adminCustomersList" class="hidden p-4 sm:p-6 space-y-3"></div>
+                </div>
+            </div>
         </div>
     </section>
     </div>
@@ -939,22 +1023,32 @@
         <div class="max-w-6xl mx-auto">
             <div class="grid lg:grid-cols-[1.05fr_.95fr] gap-12 items-center">
                 <div class="space-y-6">
-                    <span class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] font-bold text-glitz-magenta"><i data-lucide="sparkles" class="w-4 h-4"></i> The Maya Standard</span>
-                    <h2 class="text-4xl sm:text-6xl font-serif font-bold text-glitz-dark leading-tight">Beauty that feels like a <span class="shimmer-text italic font-normal">celebration.</span></h2>
-                    <p class="text-gray-600 leading-relaxed">Glitz by Maya began with one simple idea: everyday beauty should feel joyful, comfortable, and unapologetically radiant. Every formula is made to layer beautifully, feel light on the skin, and leave you with a soft-glam finish that looks like you.</p>
-                    <p class="text-gray-600 leading-relaxed">From our signature non-sticky lip glazes to luminous body oils, we pair skin-loving ingredients with playful color and a generous dose of sparkle.</p>
+                    <span class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] font-bold text-glitz-magenta"><i data-lucide="sparkles" class="w-4 h-4"></i> Why Glitz by Maya</span>
+                    <h2 class="text-4xl sm:text-6xl font-serif font-bold text-glitz-dark leading-tight">Quality you can see, feel and <span class="shimmer-text italic font-normal">love wearing.</span></h2>
+                    <p class="text-gray-600 leading-relaxed">Every Glitz by Maya product is made to perform as beautifully as it looks. Our non-sticky lip glazes glide on smooth, deliver a mirror-like shine and rich, comfortable colour, and stay put for hours without ever feeling tacky or heavy.</p>
+                    <p class="text-gray-600 leading-relaxed">Our organic sugar lip scrubs gently buff away dryness and flakes, leaving lips soft, smooth and ready for colour. Our pink lip balms bring hyaluronic acid hydration and revive your lips' natural colour, and our body shimmer finishes the look with a luminous, glowing sheen.</p>
+                    <p class="text-gray-600 leading-relaxed"><strong class="text-glitz-dark">Why buy from us?</strong> Because you get premium, cruelty-free formulas, a flawless finish and products you will actually reach for every day. Shopping is simple and safe too, with secure Paystack checkout by card or mobile money and delivery across Ghana.</p>
                     <a href="#collection" data-route="collection" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-glitz-magenta text-white font-bold hover:bg-glitz-deepmagenta transition-colors">Explore the collection <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
                 </div>
-                <div class="glass-card rounded-[2.5rem] p-4 shadow-card rotate-1">
-                    <div class="rounded-[2rem] overflow-hidden aspect-[4/5] bg-gradient-to-br from-glitz-softblush via-white to-glitz-pink/20 flex items-center justify-center">
-                        <div class="text-center p-8"><i data-lucide="flower-2" class="w-20 h-20 mx-auto text-glitz-magenta stroke-1"></i><p class="font-serif text-4xl text-glitz-dark mt-6">Made to glow</p><p class="text-xs uppercase tracking-[0.25em] text-gray-500 mt-3">with you, not over you</p></div>
+                <div class="glass-card rounded-[2.5rem] p-3 sm:p-4 shadow-card">
+                    <div id="aboutSlider" class="relative rounded-[2rem] overflow-hidden aspect-[4/5] bg-glitz-softblush select-none" role="region" aria-roledescription="carousel" aria-label="Glitz by Maya product photos" tabindex="0" style="touch-action:pan-y">
+                        <div class="about-slide absolute inset-0 transition-opacity duration-700 ease-in-out" style="opacity:1;z-index:1" aria-hidden="false"><img src="https://res.cloudinary.com/drmxokidg/image/upload/v1795381708/c7vwpx1whhdyrm2yydzh.jpg" alt="Glossy pink lip glaze with a high-shine finish" loading="eager" fetchpriority="high" decoding="async" draggable="false" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://res.cloudinary.com/drmxokidg/image/upload/v1795382465/ejgstnk9zkqbin2mb8r0.jpg'"></div>
+                        <div class="about-slide absolute inset-0 transition-opacity duration-700 ease-in-out" style="opacity:0;z-index:0" aria-hidden="true"><img src="https://res.cloudinary.com/drmxokidg/image/upload/v1795381710/inxzxqsudxhvo46xbt5o.jpg" alt="Soft pink lip balm for hydrated, comfortable lips" loading="lazy" decoding="async" draggable="false" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://res.cloudinary.com/drmxokidg/image/upload/v1795381709/hjdzldstadelckaesef1.jpg'"></div>
+                        <div class="about-slide absolute inset-0 transition-opacity duration-700 ease-in-out" style="opacity:0;z-index:0" aria-hidden="true"><img src="https://res.cloudinary.com/drmxokidg/image/upload/v1795381711/qj60ch71cinpsvanxoad.jpg" alt="Pink lip colour with a smooth, even finish" loading="lazy" decoding="async" draggable="false" class="w-full h-full object-cover"></div>
+                        <div class="about-slide absolute inset-0 transition-opacity duration-700 ease-in-out" style="opacity:0;z-index:0" aria-hidden="true"><img src="https://res.cloudinary.com/drmxokidg/image/upload/v1795381709/gtnxxamtpp8cbtnqnxji.jpg" alt="Bold, rich red lip colour" loading="lazy" decoding="async" draggable="false" class="w-full h-full object-cover"></div>
+                        <div class="about-slide absolute inset-0 transition-opacity duration-700 ease-in-out" style="opacity:0;z-index:0" aria-hidden="true"><img src="https://res.cloudinary.com/drmxokidg/image/upload/v1795381746/kbxqrso04974xtghmaps.jpg" alt="Statement lip colour styled with a red dress" loading="lazy" decoding="async" draggable="false" class="w-full h-full object-cover"></div>
+                        <div class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" style="z-index:2"></div>
+                        <div class="absolute left-6 right-6 bottom-14 text-white pointer-events-none" style="z-index:3"><p class="font-serif text-2xl sm:text-3xl font-bold drop-shadow">Made to glow</p><p class="text-[10px] sm:text-xs uppercase tracking-[0.25em] mt-1 text-white/85">with you, not over you</p></div>
+                        <button type="button" data-about-dir="-1" aria-label="Previous photo" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/85 text-glitz-dark shadow flex items-center justify-center hover:bg-white" style="z-index:4"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+                        <button type="button" data-about-dir="1" aria-label="Next photo" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/85 text-glitz-dark shadow flex items-center justify-center hover:bg-white" style="z-index:4"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+                        <div class="absolute inset-x-0 bottom-2 flex justify-center" style="z-index:4"><button type="button" data-about-dot="0" aria-label="Show photo 1 of 5" class="p-2 flex items-center justify-center"><span class="block h-2 rounded-full bg-white transition-all duration-300" style="width:8px;opacity:.6"></span></button><button type="button" data-about-dot="1" aria-label="Show photo 2 of 5" class="p-2 flex items-center justify-center"><span class="block h-2 rounded-full bg-white transition-all duration-300" style="width:8px;opacity:.6"></span></button><button type="button" data-about-dot="2" aria-label="Show photo 3 of 5" class="p-2 flex items-center justify-center"><span class="block h-2 rounded-full bg-white transition-all duration-300" style="width:8px;opacity:.6"></span></button><button type="button" data-about-dot="3" aria-label="Show photo 4 of 5" class="p-2 flex items-center justify-center"><span class="block h-2 rounded-full bg-white transition-all duration-300" style="width:8px;opacity:.6"></span></button><button type="button" data-about-dot="4" aria-label="Show photo 5 of 5" class="p-2 flex items-center justify-center"><span class="block h-2 rounded-full bg-white transition-all duration-300" style="width:8px;opacity:.6"></span></button></div>
                     </div>
                 </div>
             </div>
             <div class="grid sm:grid-cols-3 gap-4 mt-16">
-                <div class="glass-card rounded-3xl p-6"><i data-lucide="heart-handshake" class="w-7 h-7 text-glitz-magenta"></i><h3 class="font-serif font-bold text-lg mt-4">Made with care</h3><p class="text-xs text-gray-500 leading-relaxed mt-2">Thoughtful, cruelty-free formulas designed for comfortable daily wear.</p></div>
-                <div class="glass-card rounded-3xl p-6"><i data-lucide="leaf" class="w-7 h-7 text-glitz-magenta"></i><h3 class="font-serif font-bold text-lg mt-4">Ingredient conscious</h3><p class="text-xs text-gray-500 leading-relaxed mt-2">Skin-loving hydration and clean-minded choices, without compromising shine.</p></div>
-                <div class="glass-card rounded-3xl p-6"><i data-lucide="star" class="w-7 h-7 text-glitz-magenta"></i><h3 class="font-serif font-bold text-lg mt-4">Always a little extra</h3><p class="text-xs text-gray-500 leading-relaxed mt-2">Because your routine deserves a little sparkle and a lot of personality.</p></div>
+                <div class="glass-card rounded-3xl p-6"><i data-lucide="droplets" class="w-7 h-7 text-glitz-magenta"></i><h3 class="font-serif font-bold text-lg mt-4">Skin-loving formulas</h3><p class="text-xs text-gray-500 leading-relaxed mt-2">Hydrating, cruelty-free formulas that keep lips soft and comfortable all day.</p></div>
+                <div class="glass-card rounded-3xl p-6"><i data-lucide="sparkles" class="w-7 h-7 text-glitz-magenta"></i><h3 class="font-serif font-bold text-lg mt-4">Shine that lasts</h3><p class="text-xs text-gray-500 leading-relaxed mt-2">Non-sticky, high-shine colour with long-lasting wear that never feels heavy.</p></div>
+                <div class="glass-card rounded-3xl p-6"><i data-lucide="shield-check" class="w-7 h-7 text-glitz-magenta"></i><h3 class="font-serif font-bold text-lg mt-4">Shop with confidence</h3><p class="text-xs text-gray-500 leading-relaxed mt-2">Secure Paystack checkout and delivery across Ghana, straight to your door.</p></div>
             </div>
         </div>
     </section>
@@ -1290,14 +1384,17 @@
     </div>
 
     <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm hidden" role="dialog" aria-modal="true" aria-labelledby="authTitle">
-        <div class="bg-white max-w-md w-full rounded-[2rem] p-6 sm:p-8 relative shadow-2xl">
+        <div class="bg-white max-w-md w-full rounded-[2rem] p-6 sm:p-8 relative shadow-2xl" style="max-height:92vh;max-height:92dvh;overflow-y:auto;-webkit-overflow-scrolling:touch">
             <button type="button" onclick="closeAuthModal()" class="absolute top-5 right-5 text-gray-400 hover:text-glitz-dark" aria-label="Close account dialog"><i data-lucide="x" class="w-6 h-6"></i></button>
             <div class="text-center mb-6"><div class="w-12 h-12 mx-auto rounded-2xl bg-glitz-softblush flex items-center justify-center text-glitz-magenta"><i data-lucide="sparkles" class="w-6 h-6"></i></div><p class="text-xs uppercase tracking-widest text-glitz-magenta font-bold mt-4">Welcome to Glitz by Maya</p><h2 id="authTitle" class="font-serif font-bold text-3xl text-glitz-dark mt-1">Sign in</h2><p id="authSubtitle" class="text-xs text-gray-500 mt-2">Save favourites, track orders, and glow with us.</p></div>
-            <div class="grid grid-cols-2 gap-2 p-1 rounded-xl bg-glitz-blush mb-6"><button id="loginTab" type="button" onclick="setAuthMode('login')" class="py-2.5 rounded-lg text-xs font-bold bg-white text-glitz-magenta shadow-sm">Sign in</button><button id="signupTab" type="button" onclick="setAuthMode('signup')" class="py-2.5 rounded-lg text-xs font-bold text-gray-500">Create account</button></div>
+            <div id="authTabs" class="grid grid-cols-2 gap-2 p-1 rounded-xl bg-glitz-blush mb-6"><button id="loginTab" type="button" onclick="setAuthMode('login')" class="py-2.5 rounded-lg text-xs font-bold bg-white text-glitz-magenta shadow-sm">Sign in</button><button id="signupTab" type="button" onclick="setAuthMode('signup')" class="py-2.5 rounded-lg text-xs font-bold text-gray-500">Create account</button></div>
             <form id="loginForm" class="space-y-4">
                 <label class="block text-xs font-bold text-gray-600">Email<input name="email" type="email" required autocomplete="email" class="mt-2 w-full px-4 py-3 rounded-xl bg-glitz-blush border border-glitz-softblush focus:outline-none focus:border-glitz-magenta" placeholder="you@example.com"></label>
                 <label class="block text-xs font-bold text-gray-600">Password<div class="relative mt-2"><input name="password" type="password" required autocomplete="current-password" class="w-full px-4 py-3 pr-12 rounded-xl bg-glitz-blush border border-glitz-softblush focus:outline-none focus:border-glitz-magenta" placeholder="Enter your password"><button type="button" onclick="togglePasswordVisibility(this)" class="absolute right-3 top-3 text-gray-400 hover:text-glitz-magenta" aria-label="Show password"><i data-lucide="eye" class="w-5 h-5"></i></button></div></label>
-                <label class="flex items-center gap-2 text-xs text-gray-600"><input name="remember" type="checkbox" class="rounded border-glitz-pink text-glitz-magenta focus:ring-glitz-magenta"> Remember me on this device</label>
+                <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+                    <label class="flex items-center gap-2 text-xs text-gray-600"><input name="remember" type="checkbox" class="rounded border-glitz-pink text-glitz-magenta focus:ring-glitz-magenta"> Remember me on this device</label>
+                    <button type="button" onclick="showResetForm()" class="text-xs font-bold text-glitz-magenta hover:text-glitz-deepmagenta hover:underline py-1">Forgot password?</button>
+                </div>
                 <p id="loginError" class="hidden text-xs text-red-500 font-semibold"></p>
                 <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-glitz-magenta to-glitz-deepmagenta text-white font-bold shadow-glow-pink">Sign in to your account</button>
             </form>
@@ -1309,12 +1406,39 @@
                 <p id="signupError" class="hidden text-xs text-red-500 font-semibold"></p>
                 <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-glitz-magenta to-glitz-deepmagenta text-white font-bold shadow-glow-pink">Create my account</button>
             </form>
-            <p class="text-[10px] text-gray-400 text-center mt-5">Demo accounts are stored locally in this browser.</p>
+            <form id="resetForm" class="space-y-4 hidden" novalidate>
+                <label class="block text-xs font-bold text-gray-600">Email<input name="email" type="email" required autocomplete="email" inputmode="email" class="mt-2 w-full px-4 py-3 rounded-xl bg-glitz-blush border border-glitz-softblush focus:outline-none focus:border-glitz-magenta" placeholder="you@example.com"></label>
+                <p id="resetError" class="hidden text-xs text-red-500 font-semibold"></p>
+                <p id="resetSuccess" class="hidden text-xs text-green-700 font-semibold bg-green-50 border border-green-100 rounded-xl px-4 py-3 leading-relaxed"></p>
+                <button type="submit" id="resetBtn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-glitz-magenta to-glitz-deepmagenta text-white font-bold shadow-glow-pink disabled:opacity-60 disabled:cursor-not-allowed">Send reset link</button>
+                <button type="button" onclick="setAuthMode('login')" class="w-full py-2 text-xs font-bold text-gray-500 hover:text-glitz-magenta">&larr; Back to sign in</button>
+            </form>
+            <div id="googleAuthBlock" class="mt-5">
+                <div class="flex items-center gap-3 mb-4"><span class="flex-1 h-px bg-glitz-softblush"></span><span class="text-[10px] uppercase tracking-widest font-bold text-gray-400">or continue with</span><span class="flex-1 h-px bg-glitz-softblush"></span></div>
+                <button type="button" id="googleSignInBtn" onclick="signInWithGoogle()" class="w-full flex items-center justify-center gap-3 min-h-[48px] px-4 py-3 rounded-xl bg-white border border-gray-200 text-sm font-bold text-gray-700 shadow-sm hover:bg-gray-50 hover:border-gray-300 active:scale-[.99] transition disabled:opacity-60 disabled:cursor-not-allowed">
+                    <svg class="w-5 h-5 shrink-0" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+                    <span id="googleSignInLabel">Continue with Google</span>
+                </button>
+                <p id="googleError" class="hidden text-xs text-red-500 font-semibold mt-3 text-center"></p>
+            </div>
         </div>
     </div>
 
     <!-- Toast Notification Box -->
     <div id="toastContainer" class="fixed bottom-6 right-6 z-50 pointer-events-none space-y-2"></div>
+
+    <!-- Sign-out confirmation popup -->
+    <div id="signOutConfirmModal" class="fixed inset-0 z-[70] hidden items-center justify-center p-4 bg-black/50" role="dialog" aria-modal="true" aria-labelledby="signOutConfirmTitle">
+        <div class="bg-white w-full max-w-xs rounded-3xl p-6 shadow-2xl border border-glitz-pink/20 text-center">
+            <div class="w-12 h-12 mx-auto rounded-full bg-glitz-softblush text-glitz-magenta flex items-center justify-center"><i data-lucide="log-out" class="w-5 h-5"></i></div>
+            <h3 id="signOutConfirmTitle" class="font-serif font-bold text-xl text-glitz-dark mt-4">Sign out?</h3>
+            <p class="text-xs text-gray-500 mt-1.5">Are you sure you want to sign out of your account?</p>
+            <div class="grid grid-cols-2 gap-3 mt-5">
+                <button type="button" onclick="closeSignOutConfirm()" class="py-2.5 rounded-xl border border-glitz-pink/30 text-glitz-magenta font-bold text-xs hover:bg-glitz-blush transition-colors">Cancel</button>
+                <button type="button" onclick="confirmSignOut()" class="py-2.5 rounded-xl bg-glitz-magenta text-white font-bold text-xs hover:bg-glitz-deepmagenta transition-colors">Yes, sign out</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Manual Order Success Popup -->
     <div id="orderSuccessModal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4 bg-black/50" role="dialog" aria-modal="true" aria-labelledby="orderSuccessTitle">
@@ -1553,25 +1677,40 @@
             lucide.createIcons();
         }
 
-        function getUsers() {
-            try { return JSON.parse(localStorage.getItem('glitzUsers') || '[]'); } catch (error) { return []; }
-        }
-
-        function saveUsers(users) {
-            localStorage.setItem('glitzUsers', JSON.stringify(users));
-        }
-
         function setAuthMode(mode) {
             authMode = mode;
-            const isLogin = mode === 'login';
+            const isLogin = mode === 'login', isReset = mode === 'reset';
             document.getElementById('loginForm').classList.toggle('hidden', !isLogin);
-            document.getElementById('signupForm').classList.toggle('hidden', isLogin);
-            document.getElementById('authTitle').textContent = isLogin ? 'Sign in' : 'Create your account';
-            document.getElementById('authSubtitle').textContent = isLogin ? 'Save favourites, track orders, and glow with us.' : 'Join the Glitz community and make every day sparkle.';
+            document.getElementById('signupForm').classList.toggle('hidden', mode !== 'signup');
+            document.getElementById('resetForm').classList.toggle('hidden', !isReset);
+            document.getElementById('authTabs').classList.toggle('hidden', isReset);
+            document.getElementById('googleAuthBlock').classList.toggle('hidden', isReset);
+            document.getElementById('authTitle').textContent = isReset ? 'Reset password' : (isLogin ? 'Sign in' : 'Create your account');
+            document.getElementById('authSubtitle').textContent = isReset ? 'Enter your email and we will send you a link to choose a new password.' : (isLogin ? 'Save favourites, track orders, and glow with us.' : 'Join the Glitz community and make every day sparkle.');
             document.getElementById('loginTab').className = `py-2.5 rounded-lg text-xs font-bold ${isLogin ? 'bg-white text-glitz-magenta shadow-sm' : 'text-gray-500'}`;
-            document.getElementById('signupTab').className = `py-2.5 rounded-lg text-xs font-bold ${!isLogin ? 'bg-white text-glitz-magenta shadow-sm' : 'text-gray-500'}`;
-            document.getElementById('loginError').classList.add('hidden');
-            document.getElementById('signupError').classList.add('hidden');
+            document.getElementById('signupTab').className = `py-2.5 rounded-lg text-xs font-bold ${mode === 'signup' ? 'bg-white text-glitz-magenta shadow-sm' : 'text-gray-500'}`;
+            ['loginError', 'signupError', 'resetError', 'resetSuccess', 'googleError'].forEach(id => document.getElementById(id).classList.add('hidden'));
+        }
+
+        function showResetForm() {
+            const typed = document.querySelector('#loginForm [name="email"]').value.trim();
+            setAuthMode('reset');
+            const input = document.querySelector('#resetForm [name="email"]');
+            if (typed) input.value = typed;
+            input.focus();
+        }
+
+        let resetCooldownTimer = null;
+        function startResetCooldown(btn, seconds = 30) {
+            clearInterval(resetCooldownTimer);
+            let left = seconds;
+            btn.disabled = true;
+            btn.textContent = `Resend in ${left}s`;
+            resetCooldownTimer = setInterval(() => {
+                left--;
+                if (left <= 0) { clearInterval(resetCooldownTimer); btn.disabled = false; btn.textContent = 'Send reset link again'; }
+                else btn.textContent = `Resend in ${left}s`;
+            }, 1000);
         }
 
         function openAuthModal(mode = 'login') {
@@ -1614,7 +1753,7 @@
                 label.textContent = firstName;
                 accountBtn.setAttribute('aria-label', 'Open profile');
                 accountBtn.onclick = () => navigateTo('profile');
-                if (mobileLabel) mobileLabel.textContent = `Profile: ${firstName}`;
+                if (mobileLabel) mobileLabel.textContent = `My profile : ${firstName}`;
                 const mobileBtn = document.getElementById('mobileAccountBtn');
                 if (mobileBtn) mobileBtn.onclick = () => { navigateTo('profile'); toggleMobileMenu(); };
             } else {
@@ -1639,6 +1778,22 @@
             showToast(`Welcome${account.fullName ? `, ${account.fullName.split(' ')[0]}` : ''}!`);
         }
 
+        function openSignOutConfirm() {
+            const modal = document.getElementById('signOutConfirmModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+        function closeSignOutConfirm() {
+            const modal = document.getElementById('signOutConfirmModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+        function confirmSignOut() {
+            closeSignOutConfirm();
+            logoutAccount();
+        }
+
         function logoutAccount() {
             if (typeof firebaseAuth !== 'undefined') firebaseAuth.signOut().catch(error => console.warn('Firebase sign-out failed.', error));
             const wasOnAdmin = location.hash === '#admin';
@@ -1653,6 +1808,101 @@
             showToast('You have been signed out.');
         }
 
+        // ── About page: 5-photo slider ────────────────────────────────
+        function initAboutSlider() {
+            const root = document.getElementById('aboutSlider');
+            if (!root || root.dataset.ready) return;
+            root.dataset.ready = '1';
+            const slides = [...root.querySelectorAll('.about-slide')];
+            const dots = [...root.querySelectorAll('[data-about-dot]')];
+            const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            let current = 0, timer = null, paused = false, touchX = null;
+
+            const show = index => {
+                current = (index + slides.length) % slides.length;
+                slides.forEach((slide, i) => {
+                    const on = i === current;
+                    slide.style.opacity = on ? '1' : '0';
+                    slide.style.zIndex = on ? '1' : '0';
+                    slide.setAttribute('aria-hidden', on ? 'false' : 'true');
+                });
+                dots.forEach((dot, i) => {
+                    const pill = dot.firstElementChild;
+                    pill.style.width = i === current ? '24px' : '8px';
+                    pill.style.opacity = i === current ? '1' : '.6';
+                    dot.setAttribute('aria-current', i === current ? 'true' : 'false');
+                });
+            };
+            const stop = () => { clearInterval(timer); timer = null; };
+            const start = () => {
+                stop();
+                if (reduceMotion) return;
+                timer = setInterval(() => {
+                    if (paused || document.hidden || root.offsetParent === null) return;   // only advance while visible
+                    show(current + 1);
+                }, 4500);
+            };
+            const go = index => { show(index); start(); };
+
+            root.querySelectorAll('[data-about-dir]').forEach(btn => btn.addEventListener('click', () => go(current + Number(btn.dataset.aboutDir))));
+            dots.forEach(dot => dot.addEventListener('click', () => go(Number(dot.dataset.aboutDot))));
+            root.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') paused = true; });
+            root.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') paused = false; });
+            root.addEventListener('focusin', () => { paused = true; });
+            root.addEventListener('focusout', () => { paused = false; });
+            root.addEventListener('keydown', e => {
+                if (e.key === 'ArrowLeft') { e.preventDefault(); go(current - 1); }
+                if (e.key === 'ArrowRight') { e.preventDefault(); go(current + 1); }
+            });
+            root.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+            root.addEventListener('touchend', e => {
+                if (touchX === null) return;
+                const dx = e.changedTouches[0].clientX - touchX;
+                touchX = null;
+                if (Math.abs(dx) > 40) go(current + (dx < 0 ? 1 : -1));
+            }, { passive: true });
+            show(0);
+            start();
+        }
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAboutSlider);
+        else initAboutSlider();
+
+        // ── Google sign-in (Firebase Auth) ────────────────────────────
+        let googleSignInBusy = false;
+        function setGoogleBusy(busy) {
+            googleSignInBusy = busy;
+            const btn = document.getElementById('googleSignInBtn');
+            if (btn) btn.disabled = busy;
+            const label = document.getElementById('googleSignInLabel');
+            if (label) label.textContent = busy ? 'Connecting to Google…' : 'Continue with Google';
+        }
+        async function signInWithGoogle() {
+            if (googleSignInBusy) return;
+            const errorEl = document.getElementById('googleError');
+            errorEl.classList.add('hidden');
+            setGoogleBusy(true);
+            const provider = new firebase.auth.GoogleAuthProvider();
+            provider.setCustomParameters({ prompt: 'select_account' });
+            try {
+                await firebaseAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+                await firebaseAuth.signInWithPopup(provider);
+                closeAuthModal();            // account details are picked up by onAuthStateChanged
+            } catch (error) {
+                const code = error && error.code;
+                // Popups are often blocked on phones / in-app browsers: fall back to a full-page redirect
+                if (['auth/popup-blocked', 'auth/operation-not-supported-in-this-environment', 'auth/web-storage-unsupported'].includes(code)) {
+                    try { await firebaseAuth.signInWithRedirect(provider); return; } catch (redirectError) { error = redirectError; }
+                }
+                if (!['auth/popup-closed-by-user', 'auth/cancelled-popup-request'].includes(error && error.code)) {
+                    console.error('[Glitz] Google sign-in failed:', error);
+                    errorEl.textContent = firebaseErrorMessage(error);
+                    errorEl.classList.remove('hidden');
+                }
+            } finally {
+                setGoogleBusy(false);
+            }
+        }
+
         function firebaseErrorMessage(error) {
             const messages = {
                 'auth/invalid-credential': 'That email or password is not correct.',
@@ -1660,7 +1910,14 @@
                 'auth/email-already-in-use': 'An account with that email already exists. Sign in instead.',
                 'auth/weak-password': 'Please use a stronger password with at least 6 characters.',
                 'auth/invalid-email': 'Please enter a valid email address.',
-                'auth/too-many-requests': 'Too many attempts. Please wait a moment and try again.'
+                'auth/too-many-requests': 'Too many attempts. Please wait a moment and try again.',
+                'auth/missing-email': 'Please enter your email address.',
+                'auth/network-request-failed': 'Network problem. Check your connection and try again.',
+                'auth/user-disabled': 'This account has been disabled. Please contact us for help.',
+                'auth/account-exists-with-different-credential': 'An account already exists for that email with a different sign-in method. Sign in with your email and password instead.',
+                'auth/unauthorized-domain': 'Google sign-in is not enabled for this website address yet. Please contact us.',
+                'auth/operation-not-allowed': 'Google sign-in is not turned on yet. Please use your email and password.',
+                'auth/popup-blocked': 'Your browser blocked the Google window. Please allow pop-ups and try again.'
             };
             return messages[error?.code] || 'Something went wrong. Please try again.';
         }
@@ -1904,7 +2161,7 @@
         let adminActiveTab = 'products';
         function switchAdminTab(tab) {
             adminActiveTab = tab;
-            ['products', 'orders', 'analytics', 'reviews'].forEach(key => {
+            ['products', 'orders', 'analytics', 'reviews', 'messages'].forEach(key => {
                 const panel = document.getElementById('adminPanel-' + key);
                 const btn = document.getElementById('adminTab-' + key);
                 const active = key === tab;
@@ -1942,6 +2199,190 @@
             lucide.createIcons();
         }
 
+
+        // ════════════════════════════════════════════════════════════════
+        //  ADMIN INBOX — contact-form messages / complaints + customer details
+        // ════════════════════════════════════════════════════════════════
+        let adminMessages = [];
+        let inboxView = 'messages';
+        let openMessageIds = new Set();
+
+        async function loadMessagesFromFirestore() {
+            try {
+                const snap = await db.collection('messages').get();
+                adminMessages = snap.docs.map(d => ({ ...d.data(), _docId: d.id }));
+            } catch (err) {
+                // Non-admin visitors are expected to be denied; only warn quietly.
+                adminMessages = [];
+                console.warn('[Glitz] Could not load messages (admin only).', err.code || err.message);
+            }
+        }
+
+        function setInboxView(view) {
+            inboxView = view;
+            const isMsg = view === 'messages';
+            document.getElementById('adminMessagesList').classList.toggle('hidden', !isMsg);
+            document.getElementById('inboxMessageTools').classList.toggle('hidden', !isMsg);
+            document.getElementById('adminMessagesSummary').classList.toggle('hidden', !isMsg);
+            document.getElementById('adminCustomersList').classList.toggle('hidden', isMsg);
+            document.getElementById('inboxCustomerTools').classList.toggle('hidden', isMsg);
+            ['messages', 'customers'].forEach(k => {
+                const b = document.getElementById('inboxView-' + k);
+                const on = k === view;
+                b.className = `px-4 py-2 rounded-lg text-xs font-bold ${on ? 'bg-white text-glitz-magenta shadow-sm' : 'text-gray-500'}`;
+            });
+            if (isMsg) renderAdminMessages(); else renderAdminCustomers();
+        }
+
+        function messageStatus(m) { return m.status === 'read' || m.status === 'resolved' ? m.status : 'new'; }
+
+        function renderAdminMessages() {
+            const list = document.getElementById('adminMessagesList');
+            if (!list) return;
+            const badge = document.getElementById('adminMsgBadge');
+            const newCount = adminMessages.filter(m => messageStatus(m) === 'new').length;
+            if (badge) { badge.textContent = newCount; badge.classList.toggle('hidden', !newCount); badge.classList.toggle('flex', !!newCount); }
+            const q = (document.getElementById('inboxSearch')?.value || '').toLowerCase().trim();
+            const topic = document.getElementById('inboxTopic')?.value || '';
+            const status = document.getElementById('inboxStatus')?.value || '';
+            const rows = adminMessages
+                .filter(m => (!topic || m.topic === topic) && (!status || messageStatus(m) === status) && (!q || `${m.name || ''} ${m.email || ''} ${m.message || ''} ${m.topic || ''}`.toLowerCase().includes(q)))
+                .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+            const summary = document.getElementById('adminMessagesSummary');
+            if (summary) summary.textContent = `${adminMessages.length} message${adminMessages.length === 1 ? '' : 's'} · ${newCount} new`;
+            if (!rows.length) {
+                list.innerHTML = `<div class="text-center py-12"><i data-lucide="inbox" class="w-10 h-10 mx-auto text-glitz-softblush"></i><p class="text-sm font-semibold text-gray-500 mt-3">${adminMessages.length ? 'No messages match your filters.' : 'No customer messages yet.'}</p><p class="text-xs text-gray-400 mt-1">Messages sent from the Contact page will appear here.</p></div>`;
+                lucide.createIcons();
+                return;
+            }
+            const styles = { new: 'bg-red-50 text-red-600 border-red-100', read: 'bg-amber-50 text-amber-600 border-amber-100', resolved: 'bg-green-50 text-green-600 border-green-100' };
+            const labels = { new: 'New', read: 'Read', resolved: 'Resolved' };
+            list.innerHTML = rows.map(m => {
+                const st = messageStatus(m), id = escapeAdminText(m._docId), open = openMessageIds.has(m._docId);
+                const when = m.date ? new Date(m.date) : null;
+                const subject = encodeURIComponent(`Re: [${m.topic || 'Your message'}] Glitz by Maya`);
+                const body = encodeURIComponent(`Hi ${m.name || ''},\n\nThank you for contacting Glitz by Maya.\n\n\n---\nYour message: ${m.message || ''}`);
+                return `<article class="rounded-2xl border ${st === 'new' ? 'border-glitz-pink/50 bg-glitz-blush' : 'border-glitz-softblush bg-white'} p-4 min-w-0">
+                    <div class="flex flex-wrap items-start justify-between gap-2">
+                        <div class="min-w-0"><p class="text-sm font-bold text-glitz-dark break-words">${escapeAdminText(m.name || 'Anonymous')}</p><a href="mailto:${escapeAdminText(m.email)}" class="text-xs text-glitz-magenta break-all hover:underline">${escapeAdminText(m.email || '')}</a></div>
+                        <div class="flex items-center gap-2"><span class="px-2.5 py-1 rounded-full bg-white border border-glitz-softblush text-[10px] font-bold text-gray-600">${escapeAdminText(m.topic || 'General')}</span><span class="px-2.5 py-1 rounded-full border text-[10px] font-bold ${styles[st]}">${labels[st]}</span></div>
+                    </div>
+                    <p class="text-[11px] text-gray-400 mt-1">${when ? when.toLocaleDateString() + ' · ' + when.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}${m.accountUid ? ' · Signed-in customer' : ''}</p>
+                    <p class="text-sm text-gray-700 leading-relaxed mt-3 break-words whitespace-pre-wrap ${open ? '' : 'line-clamp-3'}">${escapeAdminText(m.message || '')}</p>
+                    ${(m.message || '').length > 180 ? `<button type="button" onclick="toggleMessageOpen('${id}')" class="mt-1 text-[11px] font-bold text-glitz-magenta">${open ? 'Show less' : 'Read full message'}</button>` : ''}
+                    <div class="flex flex-wrap items-center gap-2 mt-4">
+                        <a href="mailto:${escapeAdminText(m.email)}?subject=${subject}&body=${body}" onclick="setMessageStatus('${id}','read',true)" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-glitz-magenta text-white text-[11px] font-bold hover:bg-glitz-deepmagenta"><i data-lucide="reply" class="w-3.5 h-3.5"></i> Reply</a>
+                        ${st !== 'read' ? `<button type="button" onclick="setMessageStatus('${id}','read')" class="px-3 py-2 rounded-xl bg-white border border-glitz-softblush text-[11px] font-bold text-gray-600 hover:bg-glitz-blush">Mark read</button>` : ''}
+                        ${st !== 'resolved' ? `<button type="button" onclick="setMessageStatus('${id}','resolved')" class="px-3 py-2 rounded-xl bg-green-50 border border-green-100 text-[11px] font-bold text-green-600 hover:bg-green-100">Mark resolved</button>` : `<button type="button" onclick="setMessageStatus('${id}','new')" class="px-3 py-2 rounded-xl bg-white border border-glitz-softblush text-[11px] font-bold text-gray-600 hover:bg-glitz-blush">Reopen</button>`}
+                        <button type="button" onclick="deleteMessage('${id}')" aria-label="Delete message" class="ml-auto p-2 rounded-lg bg-red-50 text-red-500 hover:bg-red-100"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                    </div>
+                </article>`;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        function toggleMessageOpen(id) {
+            openMessageIds.has(id) ? openMessageIds.delete(id) : openMessageIds.add(id);
+            renderAdminMessages();
+        }
+
+        async function setMessageStatus(id, status, quiet = false) {
+            if (!isAdmin()) { showToast('Admin sign-in required.'); return; }
+            const m = adminMessages.find(x => x._docId === id);
+            if (!m || (quiet && messageStatus(m) !== 'new')) return;
+            const previous = m.status;
+            m.status = status;
+            renderAdminMessages();
+            try {
+                await db.collection('messages').doc(id).update({ status });
+                if (!quiet) showToast(status === 'resolved' ? 'Marked as resolved.' : status === 'read' ? 'Marked as read.' : 'Message reopened.');
+            } catch (err) {
+                console.error('[Glitz] Message status update failed:', err);
+                m.status = previous;
+                renderAdminMessages();
+                showToast('Could not update message. Check Firestore rules.');
+            }
+        }
+
+        async function deleteMessage(id) {
+            if (!isAdmin()) { showToast('Admin sign-in required.'); return; }
+            if (!confirm('Delete this message permanently?')) return;
+            try {
+                await db.collection('messages').doc(id).delete();
+                adminMessages = adminMessages.filter(m => m._docId !== id);
+                renderAdminMessages();
+                renderAdminCustomers();
+                showToast('Message deleted.');
+            } catch (err) {
+                console.error('[Glitz] Message delete failed:', err);
+                showToast('Could not delete message. Check Firestore rules.');
+            }
+        }
+
+        // Build one record per customer (keyed by email) from orders + messages
+        function buildCustomerDirectory() {
+            const map = new Map();
+            const get = (email, name) => {
+                const key = (email || '').trim().toLowerCase();
+                if (!key) return null;
+                if (!map.has(key)) map.set(key, { email: key, name: name || '', phones: new Set(), locations: new Set(), orders: 0, spent: 0, lastDate: 0, messages: 0 });
+                const c = map.get(key);
+                if (name && !c.name) c.name = name;
+                return c;
+            };
+            sales.filter(o => !o.isTest).forEach(o => {
+                const c = get(o.accountEmail, o.customerName || o.accountName);
+                if (!c) return;
+                c.orders++; c.spent += Number(o.total || 0);
+                if (o.customerPhone) c.phones.add(o.customerPhone);
+                if (o.customerLocation) c.locations.add(o.customerLocation);
+                c.lastDate = Math.max(c.lastDate, new Date(o.date).getTime() || 0);
+            });
+            adminMessages.forEach(m => {
+                const c = get(m.email, m.name);
+                if (!c) return;
+                c.messages++;
+                c.lastDate = Math.max(c.lastDate, new Date(m.date).getTime() || 0);
+            });
+            return [...map.values()].sort((a, b) => b.lastDate - a.lastDate);
+        }
+
+        function renderAdminCustomers() {
+            const list = document.getElementById('adminCustomersList');
+            if (!list) return;
+            const q = (document.getElementById('inboxCustomerSearch')?.value || '').toLowerCase().trim();
+            const rows = buildCustomerDirectory().filter(c => !q || `${c.name} ${c.email} ${[...c.phones].join(' ')} ${[...c.locations].join(' ')}`.toLowerCase().includes(q));
+            if (!rows.length) {
+                list.innerHTML = `<div class="text-center py-12"><i data-lucide="users" class="w-10 h-10 mx-auto text-glitz-softblush"></i><p class="text-sm font-semibold text-gray-500 mt-3">No customers found.</p><p class="text-xs text-gray-400 mt-1">Customers appear here after they place an order or send a message.</p></div>`;
+                lucide.createIcons();
+                return;
+            }
+            list.innerHTML = rows.map(c => {
+                const initials = (c.name || c.email).split(/[\s@]+/).slice(0, 2).map(p => p[0] || '').join('').toUpperCase();
+                const phones = [...c.phones], locs = [...c.locations];
+                return `<article class="rounded-2xl border border-glitz-softblush bg-white p-4 min-w-0">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 shrink-0 rounded-xl bg-glitz-magenta text-white flex items-center justify-center font-serif font-bold text-sm">${escapeAdminText(initials)}</div>
+                        <div class="min-w-0 flex-1">
+                            <p class="text-sm font-bold text-glitz-dark break-words">${escapeAdminText(c.name || 'Unnamed customer')}</p>
+                            <a href="mailto:${escapeAdminText(c.email)}" class="text-xs text-glitz-magenta break-all hover:underline">${escapeAdminText(c.email)}</a>
+                            <div class="mt-2 space-y-1 text-xs text-gray-600">
+                                ${phones.length ? `<p class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-glitz-magenta shrink-0"></i>${phones.map(p => `<a href="tel:${escapeAdminText(p)}" class="hover:underline">${escapeAdminText(p)}</a>`).join(', ')}</p>` : ''}
+                                ${locs.length ? `<p class="flex items-start gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-glitz-magenta shrink-0 mt-0.5"></i><span class="break-words">${locs.map(escapeAdminText).join(' · ')}</span></p>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 mt-3">
+                        <div class="rounded-xl bg-glitz-blush p-2 text-center"><p class="text-[9px] uppercase tracking-wider font-bold text-gray-500">Orders</p><p class="text-sm font-bold text-glitz-dark">${c.orders}</p></div>
+                        <div class="rounded-xl bg-glitz-blush p-2 text-center"><p class="text-[9px] uppercase tracking-wider font-bold text-gray-500">Spent</p><p class="text-sm font-bold text-glitz-magenta">${formatGHC(c.spent)}</p></div>
+                        <div class="rounded-xl bg-glitz-blush p-2 text-center"><p class="text-[9px] uppercase tracking-wider font-bold text-gray-500">Messages</p><p class="text-sm font-bold text-glitz-dark">${c.messages}</p></div>
+                    </div>
+                    ${c.messages ? `<button type="button" onclick="document.getElementById('inboxSearch').value='${escapeAdminText(c.email)}'; setInboxView('messages')" class="mt-3 text-[11px] font-bold text-glitz-magenta hover:underline">View their messages →</button>` : ''}
+                </article>`;
+            }).join('');
+            lucide.createIcons();
+        }
+
         function renderAdminDashboard() {
             if (!document.getElementById('adminStats')) return;
             const realSales = getRealSales();
@@ -1958,7 +2399,10 @@
             renderAdminSales();
             renderAdminOrders();
             renderAdminReviews();
+            renderAdminMessages();
+            renderAdminCustomers();
             switchAdminTab(adminActiveTab);
+            setInboxView(inboxView);
             lucide.createIcons();
         }
 
@@ -2848,6 +3292,7 @@
                 closeWishlistDrawer();
                 document.getElementById('quickViewModal').classList.add('hidden');
                 document.getElementById('searchModal').classList.add('hidden');
+                closeSignOutConfirm();
             }
         });
 
@@ -2870,6 +3315,15 @@
             wishlistDrawer.setAttribute('aria-hidden', 'true');
             if (cartDrawer.classList.contains('pointer-events-none')) document.body.classList.remove('drawer-open');
         }
+
+        (function syncMobileWishlistCount() {
+            const source = document.getElementById('wishlistCount');
+            const mirror = document.getElementById('mobileWishlistCount');
+            if (!source || !mirror) return;
+            const sync = () => { mirror.textContent = source.textContent; };
+            new MutationObserver(sync).observe(source, { childList: true, characterData: true, subtree: true });
+            sync();
+        })();
 
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
@@ -3268,6 +3722,38 @@
         window.addEventListener('hashchange', () => navigateTo(location.hash.slice(1), false));
 
         document.addEventListener('submit', async (event) => {
+            if (event.target.id === 'resetForm') {
+                event.preventDefault();
+                const form = event.target;
+                const email = form.elements.email.value.trim().toLowerCase();
+                const error = document.getElementById('resetError');
+                const success = document.getElementById('resetSuccess');
+                const btn = document.getElementById('resetBtn');
+                error.classList.add('hidden');
+                success.classList.add('hidden');
+                if (btn.disabled) return;
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    error.textContent = 'Please enter a valid email address.';
+                    error.classList.remove('hidden');
+                    return;
+                }
+                btn.disabled = true;
+                btn.textContent = 'Sending…';
+                try {
+                    await firebaseAuth.sendPasswordResetEmail(email);
+                    success.textContent = `If an account exists for ${email}, a password reset link is on its way. Check your inbox and your spam folder.`;
+                    success.classList.remove('hidden');
+                    startResetCooldown(btn);
+                } catch (resetError) {
+                    console.error('[Glitz] Password reset failed:', resetError);
+                    error.textContent = firebaseErrorMessage(resetError);
+                    error.classList.remove('hidden');
+                    clearInterval(resetCooldownTimer);
+                    btn.disabled = false;
+                    btn.textContent = 'Send reset link';
+                }
+                return;
+            }
             if (event.target.id === 'loginForm') {
                 event.preventDefault();
                 const form = event.target;
@@ -3287,15 +3773,6 @@
                     }
                     return;
                 }
-                const account = getUsers().find(user => user.email === email && user.password === password);
-                if (!account) {
-                    error.textContent = 'We could not match that email and password. Try again or create an account.';
-                    error.classList.remove('hidden');
-                    return;
-                }
-                authenticateAccount(account, form.elements.remember.checked);
-                form.reset();
-                return;
             }
             if (event.target.id === 'signupForm') {
                 event.preventDefault();
@@ -3319,18 +3796,6 @@
                     }
                     return;
                 }
-                const users = getUsers();
-                if (users.some(user => user.email === email)) {
-                    error.textContent = 'An account with that email already exists. Sign in instead.';
-                    error.classList.remove('hidden');
-                    return;
-                }
-                const account = { id: Date.now(), fullName, email, password };
-                users.push(account);
-                saveUsers(users);
-                authenticateAccount(account, form.elements.remember.checked);
-                form.reset();
-                return;
             }
             if (event.target.id === 'contactForm') {
                 event.preventDefault();
@@ -3413,6 +3878,7 @@
             await Promise.all([
                 loadProductsFromFirestore(),
                 loadSalesFromFirestore(),
+                loadMessagesFromFirestore(),
                 (async () => {
                     try {
                         const snap = await db.collection('reviews').orderBy('date').get();
